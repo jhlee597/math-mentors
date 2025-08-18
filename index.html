@@ -31,6 +31,9 @@
     .card h3 { margin:0; font-size:18px; }
     .badge { font-size:12px; color: var(--muted); }
     .small { color: var(--muted); font-size: 14px; }
+    .controls { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0; }
+    .input, .select { padding:10px; border:1px solid var(--edge); background:#0f1117; color:var(--text); border-radius:10px; }
+    .input { flex:1; min-width:220px; }
     footer { border-top:1px solid var(--edge); padding:20px 0 40px; color:var(--muted); }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12px; color:#9fb2d0; }
     .code { background:#0f1117; padding:10px; border-radius:10px; border:1px solid var(--edge); overflow:auto; }
@@ -66,6 +69,14 @@
     <section id="resources" class="section">
       <h2>Resources</h2>
       <p class="small">PDF problem sets and study guides made by our members. Everything here is free to use.</p>
+      <div class="controls" role="search">
+        <input id="search" class="input" type="search" placeholder="Search resources… (title)" aria-label="Search resources" />
+        <select id="filter" class="select" aria-label="Search filter">
+          <option value="title" selected>Title</option>
+          <option value="level">Difficulty</option>
+          <option value="tag">Topic (hashtag)</option>
+        </select>
+      </div>
       <div id="resource-grid" class="grid" aria-live="polite"></div>
     </section>
 
@@ -136,20 +147,59 @@
     ];
 
     const grid = document.getElementById('resource-grid');
+    const searchInput = document.getElementById('search');
+    const filterSelect = document.getElementById('filter');
+
     function card(r){
       const div = document.createElement('article');
       div.className = 'card';
       div.innerHTML = `
         <h3>${r.title}</h3>
-        <div class="badge">${r.level}</div>
-        <p class="small">${r.summary}</p>
+        <div class="badge">${r.level || ''}</div>
+        <p class="small">${r.summary || ''}</p>
         <div class="small">${(r.tags||[]).map(t=>`#${t}`).join(' ')}</div>
         <div>
           <a class="btn" href="${r.file}" target="_blank" rel="noopener">Open PDF</a>
         </div>`;
       return div;
     }
-    resources.forEach(r => grid.appendChild(card(r)));
+
+    function matches(r, q, type){
+      if(!q) return true;
+      q = q.toLowerCase();
+      if(type === 'title') return (r.title||'').toLowerCase().includes(q);
+      if(type === 'level') return (r.level||'').toLowerCase().includes(q);
+      if(type === 'tag') return (r.tags||[]).some(t => (t||'').toLowerCase().includes(q));
+      return true;
+    }
+
+    function render(){
+      grid.innerHTML = '';
+      const q = (searchInput?.value || '').trim();
+      const type = filterSelect?.value || 'title';
+      const list = resources.filter(r => matches(r, q, type));
+      if(list.length === 0){
+        const empty = document.createElement('p');
+        empty.className = 'small';
+        empty.textContent = 'No resources match your search yet. Try a different keyword or filter.';
+        grid.parentElement.appendChild(empty);
+        // Remove any previous empty notices before grid
+        setTimeout(()=>empty.remove(),0);
+      }
+      list.forEach(r => grid.appendChild(card(r)));
+    }
+
+    // Default: search by title
+    filterSelect?.addEventListener('change', ()=>{
+      const map = { title:'Search resources… (title)', level:'Search… (difficulty)', tag:'Search… (topic)' };
+      if(searchInput) searchInput.placeholder = map[filterSelect.value] || 'Search resources…';
+      render();
+    });
+    searchInput?.addEventListener('input', render);
+
+    // Initial render
+    render();
+
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
