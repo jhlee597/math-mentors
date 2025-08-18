@@ -31,14 +31,22 @@
     .card h3 { margin:0; font-size:18px; }
     .badge { font-size:12px; color: var(--muted); }
     .small { color: var(--muted); font-size: 14px; }
-    .controls { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0; }
-    .input, .select { padding:10px; border:1px solid var(--edge); background:#0f1117; color:var(--text); border-radius:10px; }
-    .input { flex:1; min-width:220px; }
     footer { border-top:1px solid var(--edge); padding:20px 0 40px; color:var(--muted); }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12px; color:#9fb2d0; }
     .code { background:#0f1117; padding:10px; border-radius:10px; border:1px solid var(--edge); overflow:auto; }
+    .controls { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0; position:relative; }
+    .input, .select { padding:10px; border:1px solid var(--edge); background:#0f1117; color:var(--text); border-radius:10px; }
+    .dropdown { display:none; margin-top:8px; border:1px solid var(--edge); background:#0f1117; border-radius:12px; }
+    .dropdown.open { display:block; }
+    .dropdown-inner { padding:8px; }
+    .dropdown-list { list-style:none; margin:0; padding:0; display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:6px; }
+    .dropdown-item { padding:8px 10px; border:1px solid transparent; border-radius:10px; background:transparent; color:var(--text); cursor:pointer; text-align:left; }
+    .dropdown-item:hover, .dropdown-item:focus { border-color:#2d3347; outline:none; }
+    .input { flex:1; min-width:220px; }
+    .suggestions { position:absolute; top:100%; left:0; right:0; background:var(--card); border:1px solid var(--edge); border-radius:10px; margin-top:4px; z-index:20; max-height:200px; overflow:auto; display:none; }
+    .suggestions div { padding:8px 10px; cursor:pointer; }
+    .suggestions div:hover { background:#1a1f2b; }
   </style>
-  <!-- MathJax for LaTeX rendering in pages/resources if needed -->
   <script>
     window.MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] }, svg: { fontCache: 'global' } };
   </script>
@@ -77,6 +85,8 @@
           <option value="tag">Topic (hashtag)</option>
         </select>
       </div>
+      <!-- Suggestion dropdown: appears below the controls and pushes content down (no overlap) -->
+      <div id="suggestions" class="dropdown" aria-label="Suggestions" role="listbox" aria-expanded="false"></div>
       <div id="resource-grid" class="grid" aria-live="polite"></div>
     </section>
 
@@ -104,12 +114,6 @@
           <li>Add an entry to the <span class="mono">resources</span> array in the script below (title, level, summary, file path).</li>
           <li>Commit & push — the grid above updates automatically.</li>
         </ol>
-        <div class="code mono">
-          {
-            title: "Fractions Basics Pack", level: "Middle School", file: "/resources/fractions-pack.pdf",
-            summary: "10 scaffolded problems with step-by-step solutions."
-          }
-        </div>
       </div>
     </section>
   </main>
@@ -121,34 +125,20 @@
   </footer>
 
   <script>
-    // ====== EDIT THIS ARRAY to publish new PDFs ======
     const resources = [
-      {
-        title: "Fractions Basics Pack",
-        level: "Middle School",
-        file: "/resources/fractions-pack.pdf",
-        summary: "10 scaffolded problems with step-by-step solutions.",
-        tags: ["arithmetic", "fractions"]
-      },
-      {
-        title: "Intro to Probability (with dice & coins)",
-        level: "Middle–High",
-        file: "/resources/intro-probability.pdf",
-        summary: "Short guide + 8 practice problems and full solutions.",
-        tags: ["probability"]
-      },
-      {
-        title: "Factoring Quadratics Quick Guide",
-        level: "High School",
-        file: "/resources/factoring-quadratics.pdf",
-        summary: "Examples, checks, and a one-page reference.",
-        tags: ["algebra"]
-      }
+      { title: "Fractions Basics Pack", level: "Middle School", file: "/resources/fractions-pack.pdf", summary: "10 scaffolded problems with step-by-step solutions.", tags: ["arithmetic", "fractions"] },
+      { title: "Intro to Probability (with dice & coins)", level: "Middle–High", file: "/resources/intro-probability.pdf", summary: "Short guide + 8 practice problems and full solutions.", tags: ["probability"] },
+      { title: "Factoring Quadratics Quick Guide", level: "High School", file: "/resources/factoring-quadratics.pdf", summary: "Examples, checks, and a one-page reference.", tags: ["algebra"] }
     ];
 
     const grid = document.getElementById('resource-grid');
     const searchInput = document.getElementById('search');
     const filterSelect = document.getElementById('filter');
+    const dropdown = document.getElementById('suggestions');
+
+    // Build unique lists for suggestions
+    const uniqueLevels = Array.from(new Set((resources.map(r => r.level || '').filter(Boolean)))).sort();
+    const uniqueTags = Array.from(new Set(resources.flatMap(r => r.tags || []).filter(Boolean))).sort();
 
     function card(r){
       const div = document.createElement('article');
@@ -182,20 +172,81 @@
         const empty = document.createElement('p');
         empty.className = 'small';
         empty.textContent = 'No resources match your search yet. Try a different keyword or filter.';
-        grid.parentElement.appendChild(empty);
-        // Remove any previous empty notices before grid
-        setTimeout(()=>empty.remove(),0);
+        grid.appendChild(empty);
       }
       list.forEach(r => grid.appendChild(card(r)));
     }
 
-    // Default: search by title
+    // ===== Dropdown (suggestions) =====
+    function suggestionTemplate(items){
+      const wrap = document.createElement('div');
+      wrap.className = 'dropdown-inner';
+      const ul = document.createElement('ul');
+      ul.className = 'dropdown-list';
+      items.forEach(v => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dropdown-item';
+        btn.setAttribute('role','option');
+        btn.textContent = v;
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          searchInput.value = v;
+          closeDropdown();
+          render();
+          searchInput.focus();
+        });
+        li.appendChild(btn);
+        ul.appendChild(li);
+      });
+      wrap.appendChild(ul);
+      return wrap;
+    }
+
+    function openDropdown(type, query=''){
+      if(type === 'title'){ closeDropdown(); return; }
+      const base = type === 'level' ? uniqueLevels : uniqueTags;
+      const q = (query || '').toLowerCase();
+      const items = base.filter(v => v.toLowerCase().includes(q));
+      dropdown.innerHTML = '';
+      dropdown.appendChild(suggestionTemplate(items));
+      dropdown.classList.add('open');
+      dropdown.setAttribute('aria-expanded','true');
+    }
+
+    function closeDropdown(){
+      dropdown.classList.remove('open');
+      dropdown.setAttribute('aria-expanded','false');
+      dropdown.innerHTML = '';
+    }
+
     filterSelect?.addEventListener('change', ()=>{
       const map = { title:'Search resources… (title)', level:'Search… (difficulty)', tag:'Search… (topic)' };
       if(searchInput) searchInput.placeholder = map[filterSelect.value] || 'Search resources…';
+      // Refresh dropdown for non-title filters
+      if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value);
+      else closeDropdown();
       render();
     });
-    searchInput?.addEventListener('input', render);
+
+    searchInput?.addEventListener('focus', ()=>{
+      if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value);
+    });
+    searchInput?.addEventListener('click', ()=>{
+      if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value);
+    });
+    searchInput?.addEventListener('input', ()=>{
+      if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value);
+      render();
+    });
+
+    // Click-outside to close
+    document.addEventListener('click', (e)=>{
+      const withinControls = e.target.closest('.controls');
+      const withinDropdown = e.target.closest('#suggestions');
+      if(!withinControls && !withinDropdown) closeDropdown();
+    });
 
     // Initial render
     render();
