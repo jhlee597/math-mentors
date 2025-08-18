@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Math Mentors Club</title>
+  <meta name="description" content="Student-made math resources and mentoring from the Math Mentors Club." />
+  <style>
+    :root {
+      --bg:#0b0c10; --card:#121318; --text:#e8e8f0; --muted:#a8adbd; --accent:#6ee7ff; --edge:#232636;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--text); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header { position:sticky; top:0; backdrop-filter:saturate(180%) blur(10px); background:rgba(11,12,16,0.75); border-bottom:1px solid var(--edge); z-index:10; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 16px; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .brand { font-weight: 800; letter-spacing:0.3px; }
+    .pill { display:inline-block; padding: 6px 12px; border:1px solid var(--edge); border-radius:999px; color:var(--text); }
+    .hero { padding: 48px 0 20px; text-align:left; }
+    .hero h1 { font-size: clamp(28px, 6vw, 40px); margin: 0 0 10px; }
+    .hero p { color: var(--muted); margin:0; font-size: 16px; }
+    .cta { margin-top: 18px; display:flex; gap:12px; flex-wrap:wrap; }
+    .btn { display:inline-block; padding:10px 14px; background:linear-gradient(180deg,#1a1f2b,#10131a); border:1px solid var(--edge); border-radius:12px; color:var(--text); font-weight:600; }
+    .btn:hover { border-color:#2d3347; }
+    .section { padding: 28px 0; }
+    h2 { font-size: 22px; margin: 0 0 12px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:14px; }
+    .card { background: var(--card); border:1px solid var(--edge); border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:8px; }
+    .card h3 { margin:0; font-size:18px; }
+    .badge { font-size:12px; color: var(--muted); }
+    .small { color: var(--muted); font-size: 14px; }
+    footer { border-top:1px solid var(--edge); padding:20px 0 40px; color:var(--muted); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12px; color:#9fb2d0; }
+    .code { background:#0f1117; padding:10px; border-radius:10px; border:1px solid var(--edge); overflow:auto; }
+  </style>
+  <!-- MathJax for LaTeX rendering in pages/resources if needed -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script async id="mathjax" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">Math Mentors Club</div>
+      <nav>
+        <a class="pill" href="#resources">Resources</a>
+        <a class="pill" href="#about">About</a>
+        <a class="pill" href="#join">Join</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Student-made math resources & mentoring</h1>
+      <p>We create clear, friendly materials for younger learners and mentor students locally and online.</p>
+      <div class="cta">
+        <a class="btn" href="#resources">Browse resources</a>
+        <a class="btn" href="#join">Get involved</a>
+      </div>
+    </section>
+
+    <section id="resources" class="section">
+      <h2>Resources</h2>
+      <p class="small">PDF problem sets and study guides made by our members. Everything here is free to use.</p>
+      <div id="resource-grid" class="grid" aria-live="polite"></div>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About</h2>
+      <p class="small">
+        The Math Mentors Club builds bite-sized math resources (problem sets with worked solutions, mini study guides, and challenge packets)
+        using LaTeX, then shares them with younger students at our school and online. Some members also volunteer as tutors.
+      </p>
+    </section>
+
+    <section id="join" class="section">
+      <h2>Join</h2>
+      <div class="card">
+        <p class="small"><strong>Members do one or more of the following:</strong> write problems, edit solutions, format LaTeX, or mentor students. Tutoring is optional.</p>
+        <p class="small">Email us at <a href="mailto:mathmentors@example.com">mathmentors@example.com</a> or talk to the officers at the next meeting.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How to add new resources</h2>
+      <div class="card">
+        <ol class="small">
+          <li>Place your PDF in the <span class="mono">/resources</span> folder of this site (e.g., <span class="mono">/resources/probability-pack.pdf</span>).</li>
+          <li>Add an entry to the <span class="mono">resources</span> array in the script below (title, level, summary, file path).</li>
+          <li>Commit & push — the grid above updates automatically.</li>
+        </ol>
+        <div class="code mono">
+          {
+            title: "Fractions Basics Pack", level: "Middle School", file: "/resources/fractions-pack.pdf",
+            summary: "10 scaffolded problems with step-by-step solutions."
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="small">© <span id="year"></span> Math Mentors Club · Made by students · LaTeX-friendly · CC BY 4.0</div>
+    </div>
+  </footer>
+
+  <script>
+    // ====== EDIT THIS ARRAY to publish new PDFs ======
+    const resources = [
+      {
+        title: "Fractions Basics Pack",
+        level: "Middle School",
+        file: "/resources/fractions-pack.pdf",
+        summary: "10 scaffolded problems with step-by-step solutions.",
+        tags: ["arithmetic", "fractions"]
+      },
+      {
+        title: "Intro to Probability (with dice & coins)",
+        level: "Middle–High",
+        file: "/resources/intro-probability.pdf",
+        summary: "Short guide + 8 practice problems and full solutions.",
+        tags: ["probability"]
+      },
+      {
+        title: "Factoring Quadratics Quick Guide",
+        level: "High School",
+        file: "/resources/factoring-quadratics.pdf",
+        summary: "Examples, checks, and a one-page reference.",
+        tags: ["algebra"]
+      }
+    ];
+
+    const grid = document.getElementById('resource-grid');
+    function card(r){
+      const div = document.createElement('article');
+      div.className = 'card';
+      div.innerHTML = `
+        <h3>${r.title}</h3>
+        <div class="badge">${r.level}</div>
+        <p class="small">${r.summary}</p>
+        <div class="small">${(r.tags||[]).map(t=>`#${t}`).join(' ')}</div>
+        <div>
+          <a class="btn" href="${r.file}" target="_blank" rel="noopener">Open PDF</a>
+        </div>`;
+      return div;
+    }
+    resources.forEach(r => grid.appendChild(card(r)));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
