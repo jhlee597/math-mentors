@@ -1,97 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Math Mentors Club</title>
-<meta name="description" content="Student-made math resources and mentoring from the Math Mentors Club."/>
-<style>
-  :root{--bg:#0b0c10;--card:#121318;--text:#e8e8f0;--muted:#a8adbd;--accent:#6ee7ff;--edge:#232636}
-  *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
-  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-  header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(11,12,16,.75);border-bottom:1px solid var(--edge);z-index:10}
-  .wrap{max-width:980px;margin:0 auto;padding:16px}
-  .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
-  .brand{font-weight:800}
-  .pill{display:inline-block;padding:6px 12px;border:1px solid var(--edge);border-radius:999px;color:var(--text);cursor:pointer}
-  .pill:hover{background:#1a1f2b}
-  .hero{padding:48px 0 20px} .hero h1{font-size:clamp(28px,6vw,40px);margin:0 0 10px}
-  .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600}
-  .small{color:var(--muted)}
-  .menu{display:none;position:absolute;right:0;top:100%;background:#0f1117;border:1px solid var(--edge);border-radius:12px;min-width:180px;z-index:50}
-  .menu a,.menu button{display:block;padding:10px 12px;color:var(--text);text-align:left;background:none;border:none;width:100%;cursor:pointer}
-  .menu a:hover,.menu button:hover{background:#1a1f2b}
-  .acct{position:relative}
-  .flash{background:#10131a;border:1px solid var(--edge);border-radius:12px;padding:10px;margin:12px 0;color:var(--muted)}
-  .hidden{display:none!important}
-  footer{border-top:1px solid var(--edge);padding:20px 0 40px;color:var(--muted)}
-</style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL="https://ialezvdeertnxkngsrif.supabase.co";
-  const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys";
-  const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-</script>
-</head>
-<body>
-<header>
-  <div class="wrap nav">
-    <div class="brand"><a href="index.html" style="color:inherit">Math Mentors Club</a></div>
-    <nav style="display:flex;gap:10px;align-items:center">
-      <a class="pill" href="resources.html">Resources</a>
-      <a class="pill" href="about.html">About</a>
-      <a class="pill" href="join.html">Join</a>
-      <a class="pill hidden" id="admin-link" href="admin.html">Admin</a>
-      <div class="acct">
-        <a class="pill" id="accountBtn">Account ▾</a>
-        <div id="accountMenu" class="menu"></div>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<main class="wrap">
-  <div id="flash" class="flash hidden"></div>
-  <section class="hero">
-    <h1>Student-made math resources & mentoring</h1>
-    <p class="small">We create clear, friendly materials and mentor students locally and online.</p>
-    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-      <a class="btn" href="resources.html">Browse resources</a>
-      <a class="btn" href="join.html">Get involved</a>
-    </div>
-  </section>
+<div class="card"><strong>Do I have to tutor?</strong><p class="small">No. You can write, edit, or design resources only.</p></div>
+<div class="card"><strong>What tools?</strong><p class="small">LaTeX for PDFs; GitHub Pages hosts the site.</p></div>
+<div class="card"><strong>Who uses this?</strong><p class="small">Our middle school first, plus interested learners online.</p></div>
+</div>
+</section>
 </main>
+
 
 <footer><div class="wrap small">© <span id="year"></span> Math Mentors Club · CC BY 4.0</div></footer>
 
+
 <script>
-  // flash message (from redirects)
-  const flash=document.getElementById('flash');
-  const params=new URLSearchParams(location.search);
-  const msg=params.get('msg'); if(msg){ flash.textContent=decodeURIComponent(msg); flash.classList.remove('hidden'); history.replaceState({},'',location.pathname); }
+// Flash message
+const flash=document.getElementById('flash');
+const p=new URLSearchParams(location.search); const m=p.get('msg');
+if(m){ flash.textContent=decodeURIComponent(m); flash.classList.remove('hidden'); history.replaceState({},'',location.pathname); }
 
-  const accountBtn=document.getElementById('accountBtn'), accountMenu=document.getElementById('accountMenu'), adminLink=document.getElementById('admin-link');
-  function closeMenu(){ accountMenu.style.display='none'; } function toggleMenu(){ accountMenu.style.display=(accountMenu.style.display==='block'?'none':'block'); }
-  document.addEventListener('click',e=>{ if(!e.target.closest('.acct')) closeMenu(); }); accountBtn.addEventListener('click',e=>{e.preventDefault();toggleMenu();});
 
-  async function usernameOf(user){ const {data}=await supabase.from('profiles').select('username').eq('id',user.id).maybeSingle(); return (data&&data.username)?data.username:(user.email||'Account'); }
-  function isAdmin(uid){ return supabase.from('admins').select('user_id').eq('user_id',uid).maybeSingle(); }
+// Account dropdown + Admin gating
+const accountBtn=document.getElementById('accountBtn');
+const accountMenu=document.getElementById('accountMenu');
+const adminLink=document.getElementById('admin-link');
+function closeMenu(){ accountMenu.style.display='none'; }
+function toggleMenu(){ accountMenu.style.display = (accountMenu.style.display==='block'?'none':'block'); }
+document.addEventListener('click',e=>{ if(!e.target.closest('.acct')) closeMenu(); });
+accountBtn.addEventListener('click',e=>{ e.preventDefault(); toggleMenu(); });
+async function usernameOf(user){ const {data}=await supabase.from('profiles').select('username').eq('id',user.id).maybeSingle(); return (data&&data.username)?data.username:(user.email||'Account'); }
+async function isAdmin(uid){ const {data}=await supabase.from('admins').select('user_id').eq('user_id',uid).maybeSingle(); return !!data; }
+async function setMenu(){
+const {data:{user}}=await supabase.auth.getUser();
+if(user){
+const uname=await usernameOf(user);
+accountBtn.textContent=uname+" ▾"; accountBtn.style.fontSize='14px';
+accountMenu.innerHTML=`<a href="settings.html">Settings</a><button id="logoutBtn" type="button">Log out</button>`;
+document.getElementById('logoutBtn').onclick=async()=>{ await supabase.auth.signOut(); location.href='index.html?msg='+encodeURIComponent('Logged out.'); };
+adminLink.classList.add('hidden');
+if(await isAdmin(user.id)) adminLink.classList.remove('hidden');
+}else{
+accountBtn.textContent='Account ▾';
+accountMenu.innerHTML=`<a href="login.html">Log in</a><a href="signup.html">Sign up</a>`;
+adminLink.classList.add('hidden');
+}
+}
+supabase.auth.onAuthStateChange(setMenu); setMenu();
 
-  async function setMenu(){
-    const {data:{user}}=await supabase.auth.getUser();
-    if(user){
-      const uname=await usernameOf(user);
-      accountBtn.textContent=uname+" ▾"; accountBtn.style.fontSize="14px";
-      accountMenu.innerHTML=`<a href="settings.html">Settings</a><button id="logoutBtn" type="button">Log out</button>`;
-      document.getElementById('logoutBtn').onclick=async()=>{ await supabase.auth.signOut(); location.href="index.html?msg="+encodeURIComponent("Logged out."); };
-      const {data:a}=await isAdmin(user.id); if(a) adminLink.classList.remove('hidden'); else adminLink.classList.add('hidden');
-    }else{
-      accountBtn.textContent="Account ▾";
-      accountMenu.innerHTML=`<a href="login.html">Log in</a><a href="signup.html">Sign up</a>`;
-      adminLink.classList.add('hidden');
-    }
-  }
-  supabase.auth.onAuthStateChange(setMenu); setMenu();
-  document.getElementById('year').textContent=new Date().getFullYear();
+
+// Featured resources (static sample)
+const sample=[
+{t:'Fractions Basics Pack', bl:'Middle School', d:'10 scaffolded problems with solutions.', href:'resources.html'},
+{t:'Intro to Probability', bl:'Middle–High', d:'8 practice problems with full solutions.', href:'resources.html'},
+{t:'Factoring Quadratics', bl:'High School', d:'Examples, checks, one-page reference.', href:'resources.html'}
+];
+const feat=document.getElementById('feat-grid');
+sample.forEach(x=>{ const c=document.createElement('article'); c.className='card'; c.innerHTML=`<div class="kicker">${x.bl}</div><h3 style="margin:6px 0 6px">${x.t}</h3><p class="small">${x.d}</p><a class="btn" href="${x.href}">Open</a>`; feat.appendChild(c); });
+
+
+document.getElementById('year').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
