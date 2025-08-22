@@ -3,174 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login · Math Mentors Club</title>
-  <meta name="description" content="Login or sign up to the Math Mentors Club." />
+  <title>Log In · Math Mentors Club</title>
   <style>
-    :root { --bg:#0b0c10; --card:#121318; --text:#e8e8f0; --muted:#a8adbd; --accent:#6ee7ff; --edge:#232636; }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:var(--bg); color:var(--text)}
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:720px;margin:0 auto;padding:20px}
-    .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px}
-    h1{margin:6px 0 12px}
-    .small{color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-    .input{padding:10px;border:1px solid var(--edge);background:#0f1117;color:var(--text);border-radius:10px}
-    .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600;cursor:pointer}
-    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .muted{color:var(--muted)}
-    .meter{height:8px;border-radius:8px;background:#0f1117;border:1px solid var(--edge);overflow:hidden}
-    .meter>div{height:100%;width:0}
+    body { font-family: system-ui, sans-serif; background:#0b0c10; color:#e8e8f0; margin:0; display:flex; justify-content:center; align-items:center; height:100vh; }
+    .card { background:#121318; border:1px solid #232636; border-radius:14px; padding:24px; max-width:340px; width:100%; }
+    h1 { font-size:20px; margin-bottom:16px; }
+    label { display:block; margin:8px 0 4px; font-size:14px; }
+    input { width:100%; padding:10px; border:1px solid #232636; border-radius:8px; background:#0f1117; color:#e8e8f0; }
+    button { margin-top:16px; width:100%; padding:10px; border:none; border-radius:10px; background:#6ee7ff; font-weight:600; cursor:pointer; }
+    button:hover { background:#4ccbe2; }
+    .msg { margin-top:10px; font-size:14px; color:#a8adbd; }
+    a { color:#6ee7ff; font-size:14px; }
   </style>
-  <!-- Supabase client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // Paste your real values (same as on index.html)
-    const SUPABASE_URL = "https://xftcwjrnbphzbetbcnsw.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmdGN3anJuYnBoemJldGJjbnN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4MzA4MTEsImV4cCI6MjA3MTQwNjgxMX0.PM4JJLgZ2aBs3QKSPS5rZshU01ZRavbbmVRjmSYSOPE";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const adminEmails = ["legorjuho@gmail.com"]; // optional; used only for client-side gating
-  </script>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Math Mentors Club — Login</h1>
-    <p class="small">Create an account or sign in. You can update your name/username any time after logging in.</p>
-
-    <div class="card" id="status-card" style="display:none; margin-bottom:12px;"><p id="status" class="small"></p></div>
-
-    <div class="card">
-      <div class="grid">
-        <input class="input" id="first" type="text" placeholder="First name" autocomplete="given-name">
-        <input class="input" id="last" type="text" placeholder="Last name" autocomplete="family-name">
-        <input class="input" id="username" type="text" placeholder="Username" autocomplete="nickname">
-        <input class="input" id="email" type="email" placeholder="Email" autocomplete="email" required>
-        <input class="input" id="pass" type="password" placeholder="Password" autocomplete="new-password" required>
-      </div>
-
-      <div class="row">
-        <button class="btn" id="btn-signup" type="button">Sign Up</button>
-        <button class="btn" id="btn-login" type="button">Log In</button>
-        <button class="btn" id="btn-logout" type="button">Log Out</button>
-        <button class="btn" id="btn-generate" type="button">Suggest Strong Password</button>
-      </div>
-
-      <div class="row" style="align-items:center">
-        <div class="meter" style="flex:1;min-width:180px"><div id="meterbar"></div></div>
-        <span id="metertext" class="muted small">Password strength: —</span>
-      </div>
-
-      <p id="msg" class="small" style="margin-top:10px"></p>
-    </div>
-
-    <p class="small" style="margin-top:12px">Return to <a href="index.html">home</a>.</p>
+  <div class="card">
+    <h1>Log In</h1>
+    <form id="login-form">
+      <label>Email</label>
+      <input type="email" id="email" required />
+      <label>Password</label>
+      <input type="password" id="password" required />
+      <button type="submit">Log In</button>
+    </form>
+    <div class="msg" id="msg"></div>
+    <p><a href="signup.html">Need an account? Sign Up</a></p>
   </div>
 
-  <script>
-    const el = (id)=>document.getElementById(id);
-    const msg = el('msg');
-    const statusCard = el('status-card');
-    const statusText = el('status');
+<script>
+  const supabase = window.supabase.createClient("YOUR_SUPABASE_URL","YOUR_SUPABASE_ANON_KEY");
+  const form = document.getElementById('login-form');
+  const msg = document.getElementById('msg');
 
-    function showMsg(text, ok=true){
-      msg.textContent = text;
-      msg.style.color = ok ? 'var(--muted)' : '#ff9b9b';
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if(error){
+      msg.textContent = error.message;
+    } else {
+      msg.textContent = "Logged in! Redirecting…";
+      setTimeout(()=>window.location.href="index.html", 1200);
     }
-    function showStatus(text){
-      statusCard.style.display = 'block';
-      statusText.textContent = text;
-    }
-
-    // Simple password strength meter
-    function strength(pw){
-      let s=0; if(pw.length>=8) s++; if(/[A-Z]/.test(pw)) s++; if(/[a-z]/.test(pw)) s++; if(/\d/.test(pw)) s++; if(/[^\w]/.test(pw)) s++;
-      return Math.min(s,5);
-    }
-    function updateMeter(){
-      const pw = el('pass').value;
-      const s = strength(pw);
-      const bar = el('meterbar');
-      const label = el('metertext');
-      const pct = (s/5)*100;
-      bar.style.width = pct+'%';
-      bar.style.background = s<2? '#7a2727' : s<4? '#b7891f' : '#2d8d57';
-      label.textContent = 'Password strength: ' + (s<2? 'Weak' : s<4? 'Okay' : 'Strong');
-    }
-    el('pass').addEventListener('input', updateMeter);
-
-    // Suggest a strong password
-    el('btn-generate').addEventListener('click', ()=>{
-      const rand = (len)=>Array(len).fill().map(()=>"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*_"[Math.floor(Math.random()*74)]).join('');
-      const pw = rand(12);
-      el('pass').value = pw;
-      updateMeter();
-      showMsg('Suggested a strong password. You can change it if you like.');
-    });
-
-    async function upsertProfile(values={}){
-      try{
-        const { data:{ user } } = await supabase.auth.getUser();
-        if(!user) return;
-        const payload = {
-          id: user.id,
-          email: user.email,
-          username: values.username || el('username').value || null,
-          first_name: values.first || el('first').value || null,
-          last_name: values.last || el('last').value || null
-        };
-        const { error } = await supabase.from('profiles').upsert(payload);
-        if(error) throw error;
-      }catch(e){ showMsg('Could not save your profile. Ask an admin.', false); }
-    }
-
-    // Sign up
-    el('btn-signup').addEventListener('click', async ()=>{
-      showMsg('');
-      const email = el('email').value.trim();
-      const password = el('pass').value;
-      const first = el('first').value.trim();
-      const last = el('last').value.trim();
-      const username = el('username').value.trim();
-      if(!email || !password || !first || !last || !username){ showMsg('Please fill all fields.', false); return; }
-      const { error } = await supabase.auth.signUp({ email, password });
-      if(error){ showMsg(error.message, false); return; }
-      await upsertProfile({ first, last, username });
-      showMsg('Sign up successful. If email confirmation is enabled, check your inbox.');
-      // Optionally redirect after a moment
-      setTimeout(()=>{
-        window.location.href = 'index.html?msg=' + encodeURIComponent('Signed up successfully. You are logged in.');
-      }, 600);
-    });
-
-    // Log in
-    el('btn-login').addEventListener('click', async ()=>{
-      showMsg('');
-      const email = el('email').value.trim();
-      const password = el('pass').value;
-      if(!email || !password){ showMsg('Enter email and password.', false); return; }
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if(error){ showMsg(error.message, false); return; }
-      await upsertProfile();
-      showMsg('Logged in. Redirecting…');
-      setTimeout(()=>{
-        window.location.href = 'index.html?msg=' + encodeURIComponent('Logged in as ' + email);
-      }, 500);
-    });
-
-    // Log out
-    el('btn-logout').addEventListener('click', async ()=>{
-      await supabase.auth.signOut();
-      showMsg('Logged out.');
-      showStatus('You are logged out.');
-    });
-
-    // On load, display status if already logged in
-    (async ()=>{
-      const { data:{ user } } = await supabase.auth.getUser();
-      if(user){ showStatus('You are currently logged in as ' + (user.email||'')); }
-    })();
-  </script>
+  });
+</script>
 </body>
 </html>
