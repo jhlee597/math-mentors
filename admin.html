@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin · Math Mentors Club</title>
+<style>
+  :root{--bg:#0b0c10;--card:#121318;--text:#e8e8f0;--muted:#a8adbd;--accent:#6ee7ff;--edge:#232636}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
+  .wrap{max-width:980px;margin:0 auto;padding:16px}
+  table{width:100%;border-collapse:collapse} th,td{border:1px solid var(--edge);padding:8px 10px;text-align:left} th{background:#0f1117;color:var(--muted)}
+  .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px;margin-top:12px}
+  .small{color:var(--muted)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL="https://ialezvdeertnxkngsrif.supabase.co";
+  const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys";
+  const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+</script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Admin · Users</h1>
+    <div class="card">
+      <p class="small" id="guard">Checking admin permissions…</p>
+      <div style="overflow:auto">
+        <table id="t" style="display:none">
+          <thead><tr><th>First</th><th>Last</th><th>Username</th><th>Email</th><th>Created</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="msg" class="small"></p>
+    </div>
+    <p class="small" style="margin-top:12px"><a href="index.html">Return to home</a></p>
+  </div>
+
+<script>
+  const guard=document.getElementById('guard'); const tbl=document.getElementById('t'); const tbody=tbl.querySelector('tbody'); const msg=document.getElementById('msg');
+
+  (async ()=>{
+    const {data:{user}}=await supabase.auth.getUser();
+    if(!user){ guard.textContent='Not logged in.'; return; }
+    const {data:a}=await supabase.from('admins').select('user_id').eq('user_id',user.id).maybeSingle();
+    if(!a){ guard.textContent='You are not an admin.'; return; }
+    guard.textContent='Loading users…';
+
+    const {data, error}=await supabase.from('profiles').select('*').order('created_at',{ascending:false});
+    if(error){ guard.textContent='Failed to load users.'; msg.textContent=error.message; return; }
+    guard.style.display='none'; tbl.style.display='table';
+    (data||[]).forEach(r=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${r.first_name||''}</td><td>${r.last_name||''}</td><td>${r.username||''}</td><td>${r.email||''}</td><td>${(r.created_at||'').slice(0,19).replace('T',' ')}</td>`; tbody.appendChild(tr); });
+  })();
+</script>
+</body>
+</html>
