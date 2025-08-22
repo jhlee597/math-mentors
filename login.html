@@ -23,17 +23,21 @@
     .meter{height:8px;border-radius:8px;background:#0f1117;border:1px solid var(--edge);overflow:hidden}
     .meter>div{height:100%;width:0}
   </style>
+  <!-- Supabase client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // Paste your real values (same as on index.html)
     const SUPABASE_URL = "https://xftcwjrnbphzbetbcnsw.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmdGN3anJuYnBoemJldGJjbnN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4MzA4MTEsImV4cCI6MjA3MTQwNjgxMX0.PM4JJLgZ2aBs3QKSPS5rZshU01ZRavbbmVRjmSYSOPE";
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const adminEmails = ["legorjuho@gmail.com"]; // optional; used only for client-side gating
   </script>
 </head>
 <body>
   <div class="wrap">
     <h1>Math Mentors Club — Login</h1>
-    <p class="small">Create an account or sign in. After logging in, use the Profile page to update your details.</p>
+    <p class="small">Create an account or sign in. You can update your name/username any time after logging in.</p>
 
     <div class="card" id="status-card" style="display:none; margin-bottom:12px;"><p id="status" class="small"></p></div>
 
@@ -70,14 +74,25 @@
     const statusCard = el('status-card');
     const statusText = el('status');
 
-    function showMsg(text, ok=true){ msg.textContent = text; msg.style.color = ok ? 'var(--muted)' : '#ff9b9b'; }
-    function showStatus(text){ statusCard.style.display = 'block'; statusText.textContent = text; }
+    function showMsg(text, ok=true){
+      msg.textContent = text;
+      msg.style.color = ok ? 'var(--muted)' : '#ff9b9b';
+    }
+    function showStatus(text){
+      statusCard.style.display = 'block';
+      statusText.textContent = text;
+    }
 
-    function strength(pw){ let s=0; if(pw.length>=8) s++; if(/[A-Z]/.test(pw)) s++; if(/[a-z]/.test(pw)) s++; if(/\d/.test(pw)) s++; if(/[^\w]/.test(pw)) s++; return Math.min(s,5); }
+    // Simple password strength meter
+    function strength(pw){
+      let s=0; if(pw.length>=8) s++; if(/[A-Z]/.test(pw)) s++; if(/[a-z]/.test(pw)) s++; if(/\d/.test(pw)) s++; if(/[^\w]/.test(pw)) s++;
+      return Math.min(s,5);
+    }
     function updateMeter(){
       const pw = el('pass').value;
       const s = strength(pw);
-      const bar = el('meterbar'); const label = el('metertext');
+      const bar = el('meterbar');
+      const label = el('metertext');
       const pct = (s/5)*100;
       bar.style.width = pct+'%';
       bar.style.background = s<2? '#7a2727' : s<4? '#b7891f' : '#2d8d57';
@@ -85,29 +100,28 @@
     }
     el('pass').addEventListener('input', updateMeter);
 
+    // Suggest a strong password
     el('btn-generate').addEventListener('click', ()=>{
-      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*_";
-      const rand = (len)=>Array(len).fill().map(()=>chars[Math.floor(Math.random()*chars.length)]).join('');
-      const pw = rand(14);
+      const rand = (len)=>Array(len).fill().map(()=>"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*_"[Math.floor(Math.random()*74)]).join('');
+      const pw = rand(12);
       el('pass').value = pw;
       updateMeter();
       showMsg('Suggested a strong password. You can change it if you like.');
     });
 
-    async function getUser(){ const { data:{ user } } = await supabase.auth.getUser(); return user; }
-
-    async function upsertProfileNonEmpty({first,last,username}){
+    async function upsertProfile(values={}){
       try{
-        const user = await getUser(); if(!user) return;
-        const payload = { id:user.id, email:user.email };
-        if(first && first.trim()) payload.first_name = first.trim();
-        if(last && last.trim()) payload.last_name = last.trim();
-        if(username && username.trim()) payload.username = username.trim();
-        // Only upsert if we have at least one non-empty field beyond email
-        if(Object.keys(payload).length > 2){
-          const { error } = await supabase.from('profiles').upsert(payload);
-          if(error) throw error;
-        }
+        const { data:{ user } } = await supabase.auth.getUser();
+        if(!user) return;
+        const payload = {
+          id: user.id,
+          email: user.email,
+          username: values.username || el('username').value || null,
+          first_name: values.first || el('first').value || null,
+          last_name: values.last || el('last').value || null
+        };
+        const { error } = await supabase.from('profiles').upsert(payload);
+        if(error) throw error;
       }catch(e){ showMsg('Could not save your profile. Ask an admin.', false); }
     }
 
@@ -122,12 +136,15 @@
       if(!email || !password || !first || !last || !username){ showMsg('Please fill all fields.', false); return; }
       const { error } = await supabase.auth.signUp({ email, password });
       if(error){ showMsg(error.message, false); return; }
-      await upsertProfileNonEmpty({first,last,username});
-      showMsg('Sign up successful. Redirecting…');
-      setTimeout(()=>{ window.location.href = 'index.html?msg=' + encodeURIComponent('Signed up successfully.'); }, 600);
+      await upsertProfile({ first, last, username });
+      showMsg('Sign up successful. If email confirmation is enabled, check your inbox.');
+      // Optionally redirect after a moment
+      setTimeout(()=>{
+        window.location.href = 'index.html?msg=' + encodeURIComponent('Signed up successfully. You are logged in.');
+      }, 600);
     });
 
-    // Log in (and fill missing profile fields if provided)
+    // Log in
     el('btn-login').addEventListener('click', async ()=>{
       showMsg('');
       const email = el('email').value.trim();
@@ -135,30 +152,25 @@
       if(!email || !password){ showMsg('Enter email and password.', false); return; }
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if(error){ showMsg(error.message, false); return; }
-
-      // If the user typed first/last/username now and DB has nulls, fill them:
-      const user = await getUser();
-      const { data: rows } = await supabase.from('profiles').select('first_name,last_name,username').eq('id', user.id).maybeSingle();
-      const needFirst = !rows || rows.first_name == null;
-      const needLast  = !rows || rows.last_name == null;
-      const needUser  = !rows || rows.username == null;
-      await upsertProfileNonEmpty({
-        first: needFirst ? el('first').value : undefined,
-        last:  needLast  ? el('last').value  : undefined,
-        username: needUser ? el('username').value : undefined
-      });
-
+      await upsertProfile();
       showMsg('Logged in. Redirecting…');
-      setTimeout(()=>{ window.location.href = 'index.html?msg=' + encodeURIComponent('Logged in as ' + email); }, 500);
+      setTimeout(()=>{
+        window.location.href = 'index.html?msg=' + encodeURIComponent('Logged in as ' + email);
+      }, 500);
     });
 
+    // Log out
     el('btn-logout').addEventListener('click', async ()=>{
       await supabase.auth.signOut();
       showMsg('Logged out.');
       showStatus('You are logged out.');
     });
 
-    (async ()=>{ const user = await getUser(); if(user){ showStatus('You are currently logged in as ' + (user.email||'')); }})();
+    // On load, display status if already logged in
+    (async ()=>{
+      const { data:{ user } } = await supabase.auth.getUser();
+      if(user){ showStatus('You are currently logged in as ' + (user.email||'')); }
+    })();
   </script>
 </body>
 </html>
