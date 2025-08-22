@@ -4,48 +4,38 @@
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Log In · Math Mentors Club</title>
 <style>
-  body{font-family:system-ui,sans-serif;background:#0b0c10;color:#e8e8f0;margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh}
-  .card{background:#121318;border:1px solid #232636;border-radius:14px;padding:24px;max-width:340px;width:100%}
-  h1{font-size:20px;margin-bottom:16px} label{display:block;margin:8px 0 4px;font-size:14px}
-  input{width:100%;padding:10px;border:1px solid #232636;border-radius:8px;background:#0f1117;color:#e8e8f0}
-  button{margin-top:16px;width:100%;padding:10px;border:none;border-radius:10px;background:#6ee7ff;font-weight:600;cursor:pointer}
-  button:hover{background:#4ccbe2} .msg{margin-top:10px;font-size:14px;color:#a8adbd}
-  a{color:#6ee7ff;font-size:14px}
+body{font-family:system-ui,sans-serif;background:#0b0c10;color:#e8e8f0;margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{background:#121318;border:1px solid #232636;border-radius:14px;padding:24px;max-width:340px;width:100%}
+h1{font-size:20px;margin-bottom:16px} label{display:block;margin:8px 0 4px;font-size:14px}
+input{width:100%;padding:10px;border:1px solid #232636;border-radius:8px;background:#0f1117;color:#e8e8f0}
+button{margin-top:16px;width:100%;padding:10px;border:none;border-radius:10px;background:#6ee7ff;font-weight:600;cursor:pointer} button:hover{background:#4ccbe2}
+.msg{margin-top:10px;font-size:14px;color:#a8adbd} a{color:#6ee7ff;font-size:14px}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL="https://ialezvdeertnxkngsrif.supabase.co";
-  const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys";
-  const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-</script>
+<script>const supabase=window.supabase.createClient("https://ialezvdeertnxkngsrif.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys");</script>
 </head>
 <body>
-  <div class="card">
-    <h1>Log In</h1>
-    <form id="login-form">
-      <label>Email</label><input type="email" id="email" required/>
-      <label>Password</label><input type="password" id="password" required/>
-      <button type="submit">Log In</button>
-    </form>
-    <div class="msg" id="msg"></div>
-    <p style="margin-top:10px"><a href="signup.html">Need an account? Sign up</a></p>
-    <p style="margin-top:4px"><a href="index.html">Return to home</a></p>
-  </div>
-
+<div class="card">
+<h1>Log In</h1>
+<form id="f">
+<label>Email</label><input type="email" id="email" required>
+<label>Password</label><input type="password" id="password" required>
+<button type="submit">Log In</button>
+</form>
+<div class="msg" id="msg"></div>
+<p style="margin-top:10px"><a href="signup.html">Need an account? Sign up</a></p>
+<p style="margin-top:4px"><a href="index.html">Return to home</a></p>
+</div>
 <script>
-  const form=document.getElementById('login-form'); const msg=document.getElementById('msg');
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault(); msg.textContent='';
-    const email=document.getElementById('email').value.trim();
-    const password=document.getElementById('password').value;
-
-    const { error }=await supabase.auth.signInWithPassword({ email, password });
-    if(error){ msg.textContent=error.message; return; }
-
-    // If you want to sync profile fields later, do it in settings.html
-    msg.textContent="Logged in! Redirecting…";
-    setTimeout(()=>{ location.href="index.html?msg="+encodeURIComponent("Logged in as "+email); }, 700);
-  });
+const form=document.getElementById('f'); const msg=document.getElementById('msg');
+form.addEventListener('submit', async (e)=>{
+e.preventDefault(); msg.textContent='';
+const email=document.getElementById('email').value.trim(); const password=document.getElementById('password').value;
+const { error }=await supabase.auth.signInWithPassword({ email, password });
+if(error){ msg.textContent=error.message; return; }
+msg.textContent='Logged in! Redirecting…';
+setTimeout(()=>{ location.href='index.html?msg='+encodeURIComponent('Logged in as '+email); }, 700);
+});
 </script>
 </body>
 </html>
