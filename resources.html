@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Resources · Math Mentors Club</title>
+<style>
+  :root{--bg:#0b0c10;--card:#121318;--text:#e8e8f0;--muted:#a8adbd;--accent:#6ee7ff;--edge:#232636}
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
+  a{color:var(--accent)} a:hover{text-decoration:underline}
+  header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(11,12,16,.75);border-bottom:1px solid var(--edge);z-index:10}
+  .wrap{max-width:980px;margin:0 auto;padding:16px} .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{font-weight:800} .pill{display:inline-block;padding:6px 12px;border:1px solid var(--edge);border-radius:999px;color:var(--text);cursor:pointer}
+  .pill:hover{background:#1a1f2b} .acct{position:relative}
+  .menu{display:none;position:absolute;right:0;top:100%;background:#0f1117;border:1px solid var(--edge);border-radius:12px;min-width:180px;z-index:50}
+  .menu a,.menu button{display:block;padding:10px 12px;color:var(--text);text-align:left;background:none;border:none;width:100%;cursor:pointer}
+  .menu a:hover,.menu button:hover{background:#1a1f2b}
+  .section{padding:28px 0} h2{font-size:22px;margin:0 0 12px} .small{color:var(--muted)}
+  .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;position:relative}
+  .input,.select{padding:10px;border:1px solid var(--edge);background:#0f1117;color:var(--text);border-radius:10px}
+  .input{flex:1;min-width:220px}
+  .dropdown{display:none;margin-top:8px;border:1px solid var(--edge);background:#0f1117;border-radius:12px}
+  .dropdown.open{display:block} .dropdown-inner{padding:8px}
+  .dropdown-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px}
+  .dropdown-item{padding:8px 10px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--text);cursor:pointer;text-align:left}
+  .dropdown-item:hover{border-color:#2d3347}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .badge{font-size:12px;color:var(--muted)}
+  footer{border-top:1px solid var(--edge);padding:20px 0 40px;color:var(--muted)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL="https://ialezvdeertnxkngsrif.supabase.co";
+  const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys";
+  const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><a href="index.html" style="color:inherit">Math Mentors Club</a></div>
+    <nav style="display:flex;gap:10px;align-items:center">
+      <a class="pill" href="resources.html">Resources</a>
+      <a class="pill" href="about.html">About</a>
+      <a class="pill" href="join.html">Join</a>
+      <div class="acct">
+        <a class="pill" id="accountBtn">Account ▾</a>
+        <div id="accountMenu" class="menu"></div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section">
+    <h2>Resources</h2>
+    <p class="small">PDF problem sets and study guides made by our members. Everything here is free to use.</p>
+
+    <div class="controls" role="search">
+      <input id="search" class="input" type="search" placeholder="Search resources… (title)" aria-label="Search resources"/>
+      <select id="filter" class="select" aria-label="Search filter">
+        <option value="title" selected>Title</option>
+        <option value="level">Difficulty</option>
+        <option value="tag">Topic (hashtag)</option>
+      </select>
+    </div>
+
+    <div id="suggestions" class="dropdown" aria-label="Suggestions" role="listbox" aria-expanded="false"></div>
+    <div id="resource-grid" class="grid" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer><div class="wrap small">© <span id="year"></span> Math Mentors Club · CC BY 4.0</div></footer>
+
+<script>
+  // shared account dropdown
+  const accountBtn=document.getElementById('accountBtn'), accountMenu=document.getElementById('accountMenu');
+  function closeMenu(){ accountMenu.style.display='none'; } function toggleMenu(){ accountMenu.style.display=(accountMenu.style.display==='block'?'none':'block'); }
+  document.addEventListener('click',e=>{ if(!e.target.closest('.acct')) closeMenu(); }); accountBtn.addEventListener('click',e=>{e.preventDefault();toggleMenu();});
+  async function usernameOf(user){ const {data}=await supabase.from('profiles').select('username').eq('id',user.id).maybeSingle(); return (data&&data.username)?data.username:(user.email||'Account'); }
+  async function setMenu(){ const {data:{user}}=await supabase.auth.getUser(); if(user){ const uname=await usernameOf(user); accountBtn.textContent=uname+" ▾"; accountBtn.style.fontSize="14px"; accountMenu.innerHTML=`<a href="settings.html">Settings</a><button id="logoutBtn" type="button">Log out</button>`; document.getElementById('logoutBtn').onclick=async()=>{ await supabase.auth.signOut(); location.href="index.html?msg="+encodeURIComponent("Logged out."); }; } else { accountBtn.textContent="Account ▾"; accountMenu.innerHTML=`<a href="login.html">Log in</a><a href="signup.html">Sign up</a>`; } }
+  supabase.auth.onAuthStateChange(setMenu); setMenu();
+
+  // resources + search
+  const resources=[
+    { title:"Fractions Basics Pack", level:"Middle School", file:"/resources/fractions-pack.pdf", summary:"10 scaffolded problems with step-by-step solutions.", tags:["arithmetic","fractions"] },
+    { title:"Intro to Probability (with dice & coins)", level:"Middle–High", file:"/resources/intro-probability.pdf", summary:"Short guide + 8 practice problems and full solutions.", tags:["probability"] },
+    { title:"Factoring Quadratics Quick Guide", level:"High School", file:"/resources/factoring-quadratics.pdf", summary:"Examples, checks, and a one-page reference.", tags:["algebra"] }
+  ];
+  const grid=document.getElementById('resource-grid'), searchInput=document.getElementById('search'), filterSelect=document.getElementById('filter'), dropdown=document.getElementById('suggestions');
+  const uniqueLevels=[...new Set(resources.map(r=>r.level||'').filter(Boolean))].sort();
+  const uniqueTags=[...new Set(resources.flatMap(r=>r.tags||[]).filter(Boolean))].sort();
+
+  function card(r){ const d=document.createElement('article'); d.className='card'; d.innerHTML=`<h3>${r.title}</h3><div class="badge">${r.level||''}</div><p class="small">${r.summary||''}</p><div class="small">${(r.tags||[]).map(t=>"#"+t).join(" ")}</div><div><a class="btn" href="${r.file}" target="_blank" rel="noopener">Open PDF</a></div>`; return d; }
+  function matches(r,q,t){ if(!q) return true; q=q.toLowerCase(); if(t==='title') return (r.title||'').toLowerCase().includes(q); if(t==='level') return (r.level||'').toLowerCase().includes(q); if(t==='tag') return (r.tags||[]).some(x=>(x||'').toLowerCase().includes(q)); return true; }
+  function render(){ grid.innerHTML=''; const q=(searchInput.value||'').trim(); const type=filterSelect.value||'title'; const list=resources.filter(r=>matches(r,q,type)); if(list.length===0){ const p=document.createElement('p'); p.className='small'; p.textContent='No resources match your search yet. Try a different keyword or filter.'; grid.appendChild(p);} list.forEach(r=>grid.appendChild(card(r))); }
+  function suggestionTemplate(items){ const wrap=document.createElement('div'); wrap.className='dropdown-inner'; const ul=document.createElement('ul'); ul.className='dropdown-list'; items.forEach(v=>{ const li=document.createElement('li'); const btn=document.createElement('button'); btn.type='button'; btn.className='dropdown-item'; btn.textContent=v; btn.onclick=(e)=>{ e.stopPropagation(); searchInput.value=v; closeDropdown(); render(); searchInput.focus(); }; li.appendChild(btn); ul.appendChild(li); }); wrap.appendChild(ul); return wrap; }
+  function openDropdown(type,query=''){ if(type==='title'){ closeDropdown(); return; } const base=type==='level'?uniqueLevels:uniqueTags; const q=(query||'').toLowerCase(); const items=base.filter(v=>v.toLowerCase().includes(q)); dropdown.innerHTML=''; dropdown.appendChild(suggestionTemplate(items)); dropdown.classList.add('open'); dropdown.setAttribute('aria-expanded','true'); }
+  function closeDropdown(){ dropdown.classList.remove('open'); dropdown.setAttribute('aria-expanded','false'); dropdown.innerHTML=''; }
+  filterSelect.onchange=()=>{ const map={title:'Search resources… (title)',level:'Search… (difficulty)',tag:'Search… (topic)'}; searchInput.placeholder=map[filterSelect.value]||'Search resources…'; if(filterSelect.value!=='title') openDropdown(filterSelect.value,searchInput.value); else closeDropdown(); render(); };
+  searchInput.onfocus=()=>{ if(filterSelect.value!=='title') openDropdown(filterSelect.value,searchInput.value); }; searchInput.onclick=searchInput.onfocus;
+  searchInput.oninput=()=>{ if(filterSelect.value!=='title') openDropdown(filterSelect.value,searchInput.value); render(); };
+  document.addEventListener('click',e=>{ if(!e.target.closest('.controls') && !e.target.closest('#suggestions')) closeDropdown(); });
+  render(); document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
