@@ -124,6 +124,14 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://xftcwjrnbphzbetbcnsw.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmdGN3anJuYnBoemJldGJjbnN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4MzA4MTEsImV4cCI6MjA3MTQwNjgxMX0.PM4JJLgZ2aBs3QKSPS5rZshU01ZRavbbmVRjmSYSOPE";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const adminEmails = ["legorjuho@gmail.com"];
+  </script>
+
   <script>
     const resources = [
       { title: "Fractions Basics Pack", level: "Middle School", file: "/resources/fractions-pack.pdf", summary: "10 scaffolded problems with step-by-step solutions.", tags: ["arithmetic", "fractions"] },
@@ -255,4 +263,5 @@
   </script>
 </body>
 </html>
+
 
