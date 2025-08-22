@@ -17,7 +17,7 @@
     .wrap { max-width: 980px; margin: 0 auto; padding: 16px; }
     .nav { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .brand { font-weight: 800; letter-spacing:0.3px; }
-    .pill { display:inline-block; padding: 6px 12px; border:1px solid var(--edge); border-radius:999px; color:var(--text); }
+    .pill { display:inline-block; padding: 6px 12px; border:1px solid var(--edge); border-radius:999px; color:var(--text); position:relative; }
     .hero { padding: 48px 0 20px; text-align:left; }
     .hero h1 { font-size: clamp(28px, 6vw, 40px); margin: 0 0 10px; }
     .hero p { color: var(--muted); margin:0; font-size: 16px; }
@@ -33,7 +33,6 @@
     .small { color: var(--muted); font-size: 14px; }
     footer { border-top:1px solid var(--edge); padding:20px 0 40px; color:var(--muted); }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12px; color:#9fb2d0; }
-    .code { background:#0f1117; padding:10px; border-radius:10px; border:1px solid var(--edge); overflow:auto; }
     .controls { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0; position:relative; }
     .input, .select { padding:10px; border:1px solid var(--edge); background:#0f1117; color:var(--text); border-radius:10px; }
     .dropdown { display:none; margin-top:8px; border:1px solid var(--edge); background:#0f1117; border-radius:12px; }
@@ -43,10 +42,12 @@
     .dropdown-item { padding:8px 10px; border:1px solid transparent; border-radius:10px; background:transparent; color:var(--text); cursor:pointer; text-align:left; }
     .dropdown-item:hover, .dropdown-item:focus { border-color:#2d3347; outline:none; }
     .input { flex:1; min-width:220px; }
-    .suggestions { position:absolute; top:100%; left:0; right:0; background:var(--card); border:1px solid var(--edge); border-radius:10px; margin-top:4px; z-index:20; max-height:200px; overflow:auto; display:none; }
-    .suggestions div { padding:8px 10px; cursor:pointer; }
-    .suggestions div:hover { background:#1a1f2b; }
-    /* Simple table for admin list */
+    .acct { position:relative; }
+    .menu { display:none; position:absolute; right:0; top:calc(100% + 8px); background:#0f1117; border:1px solid var(--edge); border-radius:12px; min-width:180px; z-index:20; }
+    .menu.open { display:block; }
+    .menu a, .menu button { display:block; padding:10px 12px; color:var(--text); text-align:left; background:none; border:none; width:100%; cursor:pointer; }
+    .menu a:hover, .menu button:hover { background:#1a1f2b; }
+    /* Admin table */
     table { width:100%; border-collapse: collapse; }
     th, td { border:1px solid var(--edge); padding:8px 10px; text-align:left; }
     th { background:#0f1117; color:var(--muted); }
@@ -60,12 +61,18 @@
 <body>
   <header>
     <div class="wrap nav">
-      <div class="brand">Math Mentors Club</div>
-      <nav>
+      <div class="brand"><a href="index.html" style="color:inherit;text-decoration:none">Math Mentors Club</a></div>
+      <nav style="display:flex;gap:10px;align-items:center">
         <a class="pill" href="#resources">Resources</a>
-        <a class="pill" href="#about">About</a>
-        <a class="pill" href="#join">Join</a>
-      <a class="pill" href="login.html">Account</a>
+        <a class="pill" href="about.html">About</a>
+        <a class="pill" href="join.html">Join</a>
+        <div class="acct">
+          <a class="pill" id="accountLink" href="login.html">Account</a>
+          <div id="accountMenu" class="menu" aria-label="Account menu">
+            <a href="profile.html">Profile</a>
+            <button id="logoutBtn" type="button">Log out</button>
+          </div>
+        </div>
         <a class="pill hidden" id="admin-link" href="#admin">Admin</a>
       </nav>
     </div>
@@ -77,7 +84,7 @@
       <p>We create clear, friendly materials for younger learners and mentor students locally and online.</p>
       <div class="cta">
         <a class="btn" href="#resources">Browse resources</a>
-        <a class="btn" href="#join">Get involved</a>
+        <a class="btn" href="join.html">Get involved</a>
       </div>
     </section>
 
@@ -92,31 +99,8 @@
           <option value="tag">Topic (hashtag)</option>
         </select>
       </div>
-      <!-- Suggestion dropdown: appears below the controls and pushes content down (no overlap) -->
       <div id="suggestions" class="dropdown" aria-label="Suggestions" role="listbox" aria-expanded="false"></div>
       <div id="resource-grid" class="grid" aria-live="polite"></div>
-    </section>
-
-    <section id="about" class="section">
-      <h2>About</h2>
-      <p class="small">
-        The Math Mentors Club builds bite-sized math resources (problem sets with worked solutions, mini study guides, and challenge packets)
-        using LaTeX, then shares them with younger students at our school and online. Some members also volunteer as tutors.
-      </p>
-    </section>
-
-    <section id="join" class="section">
-      <h2>Join</h2>
-      <div class="card">
-        <p class="small"><strong>Members do one or more of the following:</strong> write problems, edit solutions, format LaTeX, or mentor students. Tutoring is optional.</p>
-        <p class="small">Email us at <a href="mailto:mathmentors@example.com">mathmentors@example.com</a> or talk to the officers at the next meeting.</p>
-      </div></section>
-
-    <!-- Account / Auth -->
-    <!-- Account page moved to login.html. -->
-    <section id="account-note" class="section">
-      <h2>Account</h2>
-      <div class="card"><p class="small">Account signup and login have moved to a separate page. <a href="login.html">Open the login page »</a></p></div>
     </section>
 
     <!-- Admin Panel -->
@@ -134,6 +118,7 @@
             <tbody></tbody>
           </table>
         </div>
+        <p id="admin-msg" class="small"></p>
       </div>
     </section>
 
@@ -155,26 +140,24 @@
     </div>
   </footer>
 
-  <!-- Supabase setup (required for Admin panel and session status) -->
+  <!-- Supabase setup -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // IMPORTANT: These are your live project values. You can rotate the anon key from Supabase if needed.
     const SUPABASE_URL = "https://xftcwjrnbphzbetbcnsw.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmdGN3anJuYnBoemJldGJjbnN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4MzA4MTEsImV4cCI6MjA3MTQwNjgxMX0.PM4JJLgZ2aBs3QKSPS5rZshU01ZRavbbmVRjmSYSOPE";
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const adminEmails = ["legorjuho@gmail.com"]; // add more if needed
+    const adminEmails = ["legorjuho@gmail.com"];
 
-    // Flash message from login.html redirect (?msg=...)
+    // Flash banner from login/profile redirects (?msg=...)
     const params = new URLSearchParams(window.location.search);
     const flash = params.get('msg');
-    if(flash){
-      const wrap = document.querySelector('.wrap');
+    if (flash) {
+      const wrap = document.querySelector('main .wrap') || document.querySelector('.wrap');
       const note = document.createElement('div');
       note.className = 'card';
       note.style.marginTop = '12px';
       note.innerHTML = `<p class="small">${decodeURIComponent(flash)}</p>`;
       wrap?.prepend(note);
-      // clean URL
       const url = new URL(window.location.href);
       url.search = '';
       history.replaceState({}, '', url);
@@ -182,6 +165,7 @@
   </script>
 
   <script>
+    // ---------- Resources (search + suggestions) ----------
     const resources = [
       { title: "Fractions Basics Pack", level: "Middle School", file: "/resources/fractions-pack.pdf", summary: "10 scaffolded problems with step-by-step solutions.", tags: ["arithmetic", "fractions"] },
       { title: "Intro to Probability (with dice & coins)", level: "Middle–High", file: "/resources/intro-probability.pdf", summary: "Short guide + 8 practice problems and full solutions.", tags: ["probability"] },
@@ -193,7 +177,6 @@
     const filterSelect = document.getElementById('filter');
     const dropdown = document.getElementById('suggestions');
 
-    // Build unique lists for suggestions
     const uniqueLevels = Array.from(new Set((resources.map(r => r.level || '').filter(Boolean)))).sort();
     const uniqueTags = Array.from(new Set(resources.flatMap(r => r.tags || []).filter(Boolean))).sort();
 
@@ -230,11 +213,11 @@
         empty.className = 'small';
         empty.textContent = 'No resources match your search yet. Try a different keyword or filter.';
         grid.appendChild(empty);
+      } else {
+        list.forEach(r => grid.appendChild(card(r)));
       }
-      list.forEach(r => grid.appendChild(card(r)));
     }
 
-    // ===== Dropdown (suggestions) =====
     function suggestionTemplate(items){
       const wrap = document.createElement('div');
       wrap.className = 'dropdown-inner';
@@ -271,7 +254,6 @@
       dropdown.classList.add('open');
       dropdown.setAttribute('aria-expanded','true');
     }
-
     function closeDropdown(){
       dropdown.classList.remove('open');
       dropdown.setAttribute('aria-expanded','false');
@@ -281,141 +263,85 @@
     filterSelect?.addEventListener('change', ()=>{
       const map = { title:'Search resources… (title)', level:'Search… (difficulty)', tag:'Search… (topic)' };
       if(searchInput) searchInput.placeholder = map[filterSelect.value] || 'Search resources…';
-      // Refresh dropdown for non-title filters
       if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value);
       else closeDropdown();
       render();
     });
+    searchInput?.addEventListener('focus', ()=>{ if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value); });
+    searchInput?.addEventListener('click', ()=>{ if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value); });
+    searchInput?.addEventListener('input', ()=>{ if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value); render(); });
 
-    searchInput?.addEventListener('focus', ()=>{
-      if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value);
-    });
-    searchInput?.addEventListener('click', ()=>{
-      if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value);
-    });
-    searchInput?.addEventListener('input', ()=>{
-      if(filterSelect.value !== 'title') openDropdown(filterSelect.value, searchInput.value);
-      render();
-    });
-
-    // Click-outside to close
     document.addEventListener('click', (e)=>{
       const withinControls = e.target.closest('.controls');
       const withinDropdown = e.target.closest('#suggestions');
       if(!withinControls && !withinDropdown) closeDropdown();
     });
 
-    // Initial render
     render();
 
-    // ===== Auth / Admin (Supabase) =====
-    const authStatus = document.getElementById('auth-status');
-    const authMsg = document.getElementById('auth-msg');
-    const btnSignup = document.getElementById('btn-signup');
-    const btnLogin = document.getElementById('btn-login');
-    const btnLogout = document.getElementById('btn-logout');
-    const accFirst = document.getElementById('acc-first');
-    const accLast = document.getElementById('acc-last');
-    const accUser = document.getElementById('acc-username');
-    const accEmail = document.getElementById('acc-email');
-    const accPass = document.getElementById('acc-pass');
-
-    const adminSection = document.getElementById('admin');
+    // ---------- Auth: navbar Account dropdown + Admin table ----------
+    const accountLink = document.getElementById('accountLink');
+    const accountMenu = document.getElementById('accountMenu');
+    const logoutBtn = document.getElementById('logoutBtn');
     const adminLink = document.getElementById('admin-link');
+    const adminSection = document.getElementById('admin');
+    const adminMsg = document.getElementById('admin-msg');
     const adminTableBody = document.querySelector('#admin-table tbody');
 
-    function setMsg(text, ok=true){
-      authMsg.textContent = text || '';
-      authMsg.style.color = ok ? 'var(--muted)' : '#ff9b9b';
-    }
-
-    function isAdminEmail(email){
-      return (adminEmails || []).map(e=>e.toLowerCase()).includes((email||'').toLowerCase());
-    }
-
-    async function upsertOwnProfile(values={}){
-      try{
-        const { data: { user } } = await supabase.auth.getUser();
-        if(!user) return;
-        const payload = {
-          id: user.id,
-          email: user.email,
-          username: values.username || accUser.value || null,
-          first_name: values.first_name || accFirst.value || null,
-          last_name: values.last_name || accLast.value || null
-        };
-        await supabase.from('profiles').upsert(payload);
-      }catch(err){ setMsg('Profile save failed.', false); }
-    }
+    function setAdminMsg(t, ok=true){ adminMsg.textContent = t || ''; adminMsg.style.color = ok ? 'var(--muted)' : '#ff9b9b'; }
+    function isAdminEmail(email){ return (["legorjuho@gmail.com"]).includes((email||'').toLowerCase()); }
 
     async function refreshAdminList(){
       adminTableBody.innerHTML = '';
-      const { data, error } = await supabase.from('profiles').select('*').order('created_at', { ascending:false });
-      if(error){ setMsg('Admin load failed. Check policies.', false); return; }
+      const { data, error } = await supabase.from('profiles').select('first_name,last_name,username,email,created_at').order('created_at', { ascending:false });
+      if(error){ setAdminMsg('Could not load users. Check policy for admin read.', false); return; }
       (data||[]).forEach(row => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${row.first_name||''}</td><td>${row.last_name||''}</td><td>${row.username||''}</td><td>${row.email||''}</td><td>${(row.created_at||'').toString().slice(0,19).replace('T',' ')}</td>`;
+        tr.innerHTML = `<td>${row.first_name??''}</td><td>${row.last_name??''}</td><td>${row.username??''}</td><td>${row.email??''}</td><td>${(row.created_at??'').toString().slice(0,19).replace('T',' ')}</td>`;
         adminTableBody.appendChild(tr);
       });
+      setAdminMsg(`Loaded ${data?.length||0} users.`);
     }
 
-    async function updateAuthUI(){
-      const { data: { user } } = await supabase.auth.getUser();
+    function openAcctMenu(){ accountMenu.classList.add('open'); }
+    function closeAcctMenu(){ accountMenu.classList.remove('open'); }
+
+    document.addEventListener('click', (e)=>{
+      if(!e.target.closest('.acct')) closeAcctMenu();
+    });
+
+    logoutBtn.addEventListener('click', async ()=>{
+      await supabase.auth.signOut();
+      closeAcctMenu();
+      window.location.href = 'index.html?msg=' + encodeURIComponent('Logged out.');
+    });
+
+    async function setupNavbar(){
+      const { data:{ user } } = await supabase.auth.getUser();
       if(user){
-        authStatus.textContent = `Logged in as ${user.email}`;
-        // show logout button, hide nothing (we keep form for updates)
-        btnLogout.style.display = 'inline-block';
+        // Turn Account link into a button that toggles the dropdown
+        accountLink.href = 'javascript:void(0)';
+        accountLink.addEventListener('click', (e)=>{ e.preventDefault(); accountMenu.classList.toggle('open'); });
+        accountLink.textContent = user.email || 'Account';
         if(isAdminEmail(user.email)){
-          adminSection.classList.remove('hidden');
           adminLink.classList.remove('hidden');
+          adminSection.classList.remove('hidden');
           refreshAdminList();
         } else {
-          adminSection.classList.add('hidden');
           adminLink.classList.add('hidden');
+          adminSection.classList.add('hidden');
         }
-      } else {
-        authStatus.textContent = 'You are not logged in.';
-        btnLogout.style.display = 'inline-block';
-        adminSection.classList.add('hidden');
+      }else{
+        // Logged out: keep it as a link to login page
+        accountLink.href = 'login.html';
+        accountLink.textContent = 'Account';
         adminLink.classList.add('hidden');
+        adminSection.classList.add('hidden');
       }
     }
 
-    btnSignup?.addEventListener('click', async ()=>{
-      setMsg('');
-      const email = accEmail.value.trim();
-      const password = accPass.value;
-      const first = accFirst.value.trim();
-      const last = accLast.value.trim();
-      const username = accUser.value.trim();
-      if(!email || !password || !first || !last || !username){ setMsg('Please fill all fields.', false); return; }
-      const { data, error } = await supabase.auth.signUp({ email, password });
-      if(error){ setMsg(error.message, false); return; }
-      await upsertOwnProfile({ first_name:first, last_name:last, username });
-      setMsg('Sign up successful. Check your email if verification is required.');
-      updateAuthUI();
-    });
-
-    btnLogin?.addEventListener('click', async ()=>{
-      setMsg('');
-      const email = accEmail.value.trim();
-      const password = accPass.value;
-      if(!email || !password){ setMsg('Enter email and password.', false); return; }
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if(error){ setMsg(error.message, false); return; }
-      await upsertOwnProfile(); // optional: sync names/username if provided
-      setMsg('Logged in.');
-      updateAuthUI();
-    });
-
-    btnLogout?.addEventListener('click', async ()=>{
-      await supabase.auth.signOut();
-      setMsg('Logged out.');
-      updateAuthUI();
-    });
-
-    supabase.auth.onAuthStateChange((_event, _session)=>{ updateAuthUI(); });
-    updateAuthUI();
+    supabase.auth.onAuthStateChange((_evt,_sess)=> setupNavbar());
+    setupNavbar();
 
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
