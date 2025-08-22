@@ -4,22 +4,44 @@
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>About · Math Mentors Club</title>
 <style>
-  :root{--bg:#0b0c10;--card:#121318;--text:#e8e8f0;--muted:#a8adbd;--accent:#6ee7ff;--edge:#232636}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
-  .wrap{max-width:800px;margin:0 auto;padding:20px}
-  .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px}
-  a{color:var(--accent)}
-  .small{color:var(--muted)} .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600}
+:root{--bg:#0b0c10;--card:#121318;--text:#e8e8f0;--muted:#a8adbd;--accent:#6ee7ff;--edge:#232636}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
+.wrap{max-width:800px;margin:0 auto;padding:20px}
+.card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px}
+a{color:var(--accent)} .small{color:var(--muted)} .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600}
+header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(11,12,16,.75);border-bottom:1px solid var(--edge);z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pill{display:inline-block;padding:6px 12px;border:1px solid var(--edge);border-radius:999px;color:var(--text);cursor:pointer}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>const supabase=window.supabase.createClient("https://ialezvdeertnxkngsrif.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys");</script>
 </head>
 <body>
-  <div class="wrap">
-    <h1>About Math Mentors Club</h1>
-    <div class="card">
-      <p class="small">We create clear, friendly math resources and mentor younger students at our school (and optionally online). Members can write problems, edit solutions, format in LaTeX, and help teach—tutoring is optional.</p>
-      <p class="small">We publish free PDFs and mini-guides, and train mentors through peer review and practice sessions.</p>
-      <div style="margin-top:12px"><a class="btn" href="index.html">Return to home</a></div>
-    </div>
-  </div>
+<header>
+<div class="wrap nav">
+<div><a href="index.html" style="color:inherit;font-weight:800">Math Mentors Club</a></div>
+<nav style="display:flex;gap:10px;align-items:center">
+<a class="pill" href="resources.html">Resources</a>
+<a class="pill" href="about.html">About</a>
+<a class="pill" href="join.html">Join</a>
+<div class="acct"><a class="pill" id="accountBtn">Account ▾</a><div id="accountMenu" class="menu" style="display:none"></div></div>
+</nav>
+</div>
+</header>
+<div class="wrap">
+<h1>About Math Mentors Club</h1>
+<div class="card">
+<p class="small">We create clear, friendly math resources and mentor younger students at our school (and optionally online). Members can write problems, edit solutions, format in LaTeX, and help teach—tutoring is optional.</p>
+<p class="small">We publish free PDFs and mini-guides, and train mentors through peer review and practice sessions.</p>
+<div style="margin-top:12px"><a class="btn" href="index.html">Return to home</a></div>
+</div>
+</div>
+<script>
+const accountBtn=document.getElementById('accountBtn'); const accountMenu=document.getElementById('accountMenu');
+function closeMenu(){ accountMenu.style.display='none'; } function toggleMenu(){ accountMenu.style.display=(accountMenu.style.display==='block'?'none':'block'); }
+document.addEventListener('click',e=>{ if(!e.target.closest('.acct')) closeMenu(); }); accountBtn.addEventListener('click',e=>{e.preventDefault();toggleMenu();});
+async function usernameOf(user){ const {data}=await supabase.from('profiles').select('username').eq('id',user.id).maybeSingle(); return (data&&data.username)?data.username:(user.email||'Account'); }
+(async()=>{ const {data:{user}}=await supabase.auth.getUser(); if(user){ accountBtn.textContent=(await usernameOf(user))+" ▾"; accountMenu.innerHTML=`<a href="settings.html">Settings</a><button id=lo type=button>Log out</button>`; document.getElementById('lo').onclick=async()=>{ await supabase.auth.signOut(); location.href='index.html?msg='+encodeURIComponent('Logged out.'); }; } else { accountBtn.textContent='Account ▾'; accountMenu.innerHTML=`<a href="login.html">Log in</a><a href="signup.html">Sign up</a>`; } })();
+</script>
 </body>
 </html>
