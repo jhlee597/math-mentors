@@ -65,7 +65,7 @@
         <a class="pill" href="#resources">Resources</a>
         <a class="pill" href="#about">About</a>
         <a class="pill" href="#join">Join</a>
-      <a class="pill" href="#account">Account</a>
+      <a class="pill" href="login.html">Account</a>
         <a class="pill hidden" id="admin-link" href="#admin">Admin</a>
       </nav>
     </div>
@@ -113,26 +113,10 @@
       </div></section>
 
     <!-- Account / Auth -->
-    <section id="account" class="section">
+    <!-- Account page moved to login.html. -->
+    <section id="account-note" class="section">
       <h2>Account</h2>
-      <div class="card" id="auth-card">
-        <p class="small" id="auth-status">You are not logged in.</p>
-        <div id="auth-form">
-          <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-            <input class="input" id="acc-first" type="text" placeholder="First name" autocomplete="given-name">
-            <input class="input" id="acc-last" type="text" placeholder="Last name" autocomplete="family-name">
-            <input class="input" id="acc-username" type="text" placeholder="Username" autocomplete="nickname">
-            <input class="input" id="acc-email" type="email" placeholder="Email" autocomplete="email">
-            <input class="input" id="acc-pass" type="password" placeholder="Password" autocomplete="new-password">
-          </div>
-          <div class="cta" style="margin-top:12px;">
-            <button class="btn" id="btn-signup" type="button">Sign Up</button>
-            <button class="btn" id="btn-login" type="button">Log In</button>
-            <button class="btn" id="btn-logout" type="button">Log Out</button>
-          </div>
-          <p class="small" id="auth-msg"></p>
-        </div>
-      </div>
+      <div class="card"><p class="small">Account signup and login have moved to a separate page. <a href="login.html">Open the login page »</a></p></div>
     </section>
 
     <!-- Admin Panel -->
@@ -170,6 +154,32 @@
       <div class="small">© <span id="year"></span> Math Mentors Club · Made by students · LaTeX-friendly · CC BY 4.0</div>
     </div>
   </footer>
+
+  <!-- Supabase setup (required for Admin panel and session status) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // IMPORTANT: These are your live project values. You can rotate the anon key from Supabase if needed.
+    const SUPABASE_URL = "https://xftcwjrnbphzbetbcnsw.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmdGN3anJuYnBoemJldGJjbnN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4MzA4MTEsImV4cCI6MjA3MTQwNjgxMX0.PM4JJLgZ2aBs3QKSPS5rZshU01ZRavbbmVRjmSYSOPE";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const adminEmails = ["legorjuho@gmail.com"]; // add more if needed
+
+    // Flash message from login.html redirect (?msg=...)
+    const params = new URLSearchParams(window.location.search);
+    const flash = params.get('msg');
+    if(flash){
+      const wrap = document.querySelector('.wrap');
+      const note = document.createElement('div');
+      note.className = 'card';
+      note.style.marginTop = '12px';
+      note.innerHTML = `<p class="small">${decodeURIComponent(flash)}</p>`;
+      wrap?.prepend(note);
+      // clean URL
+      const url = new URL(window.location.href);
+      url.search = '';
+      history.replaceState({}, '', url);
+    }
+  </script>
 
   <script>
     const resources = [
