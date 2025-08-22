@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Verify Email · Math Mentors Club</title>
+<style>
+  body{font-family:system-ui,sans-serif;background:#0b0c10;color:#e8e8f0;margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh}
+  .card{background:#121318;border:1px solid #232636;border-radius:14px;padding:24px;max-width:420px;width:100%}
+  .small{color:#a8adbd} .btn{display:inline-block;margin-top:12px;padding:10px 14px;background:#6ee7ff;border:none;border-radius:10px;color:#000;font-weight:700;text-decoration:none}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL="https://ialezvdeertnxkngsrif.supabase.co";
+  const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys";
+  const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+</script>
+</head>
+<body>
+  <div class="card" id="box">
+    <h1>Email Verification</h1>
+    <p class="small" id="msg">Finalizing your confirmation…</p>
+    <a id="home" href="index.html" class="btn" style="display:none">Return to home</a>
+    <a id="login" href="login.html" class="btn" style="display:none">Go to login</a>
+  </div>
+
+<script>
+  function getHashParams(){
+    const h=(location.hash||'').substring(1); const p=new URLSearchParams(h);
+    return {
+      access_token:p.get('access_token'),
+      refresh_token:p.get('refresh_token'),
+      error:p.get('error'),
+      error_description:p.get('error_description')
+    };
+  }
+
+  (async ()=>{
+    const msg=document.getElementById('msg'); const home=document.getElementById('home'); const login=document.getElementById('login');
+    const {access_token,refresh_token,error,error_description}=getHashParams();
+
+    if(error){
+      msg.textContent = `Verification error: ${error_description||error}`;
+      home.style.display='inline-block';
+      return;
+    }
+
+    if(access_token && refresh_token){
+      // Set the session from the magic link tokens
+      const { error: setErr } = await supabase.auth.setSession({ access_token, refresh_token });
+      if(setErr){ msg.textContent="Could not set session: "+setErr.message; home.style.display='inline-block'; return; }
+      msg.textContent="Your email is verified. You can now log in.";
+      login.style.display='inline-block';
+      // Clean the URL (remove tokens)
+      history.replaceState({}, '', location.pathname);
+    } else {
+      msg.textContent="Link opened, but no tokens found. If this link was already used or expired, request a new confirmation email from Sign up.";
+      home.style.display='inline-block';
+    }
+  })();
+</script>
+</body>
+</html>
