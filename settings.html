@@ -4,66 +4,48 @@
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Settings · Math Mentors Club</title>
 <style>
-  :root{--bg:#0b0c10;--card:#121318;--text:#e8e8f0;--muted:#a8adbd;--accent:#6ee7ff;--edge:#232636}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
-  .wrap{max-width:720px;margin:0 auto;padding:20px}
-  .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px}
-  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-  .input{padding:10px;border:1px solid var(--edge);background:#0f1117;color:var(--text);border-radius:10px;width:100%}
-  .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600;cursor:pointer}
-  .small{color:var(--muted)}
+:root{--bg:#0b0c10;--card:#121318;--text:#e8e8f0;--muted:#a8adbd;--accent:#6ee7ff;--edge:#232636}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
+.wrap{max-width:720px;margin:0 auto;padding:20px}
+.card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.input{padding:10px;border:1px solid var(--edge);background:#0f1117;color:var(--text);border-radius:10px;width:100%}
+.btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600;cursor:pointer}
+.small{color:var(--muted)}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL="https://ialezvdeertnxkngsrif.supabase.co";
-  const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys";
-  const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-</script>
+<script>const supabase=window.supabase.createClient("https://ialezvdeertnxkngsrif.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlhbGV6dmRlZXJ0bnhrbmdzcmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODQ1MzksImV4cCI6MjA3MTQ2MDUzOX0.ZcgZud-7kcUi8CJMiAhGyLl6JBCZwOno5oFn9qHvsys");</script>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Settings</h1>
-    <p class="small">Update your name and username. Email is read-only.</p>
-
-    <div class="card" id="guard" style="display:none"><p class="small">You’re not logged in. <a href="login.html">Go to login »</a></p></div>
-
-    <div id="content" style="display:none">
-      <div class="card">
-        <div class="row">
-          <div><label class="small">Email</label><input class="input" id="email" type="email" readonly></div>
-          <div><label class="small">First name</label><input class="input" id="first" type="text" placeholder="First name"></div>
-          <div><label class="small">Last name</label><input class="input" id="last" type="text" placeholder="Last name"></div>
-          <div><label class="small">Username</label><input class="input" id="username" type="text" placeholder="Username"></div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn" id="saveBtn" type="button">Save Profile</button>
-          <a class="btn" href="index.html">Return to home</a>
-        </div>
-        <p id="msg" class="small" style="margin-top:10px"></p>
-      </div>
-    </div>
-  </div>
-
+<div class="wrap">
+<h1>Settings</h1>
+<p class="small">Update your name and username. Email is read-only.</p>
+<div class="card" id="guard" style="display:none"><p class="small">You’re not logged in. <a href="login.html">Go to login »</a></p></div>
+<div id="content" style="display:none">
+<div class="card">
+<div class="row">
+<div><label class="small">Email</label><input class="input" id="email" type="email" readonly></div>
+<div><label class="small">First name</label><input class="input" id="first" type="text"></div>
+<div><label class="small">Last name</label><input class="input" id="last" type="text"></div>
+<div><label class="small">Username</label><input class="input" id="username" type="text"></div>
+</div>
+<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn" id="saveBtn" type="button">Save Profile</button>
+<a class="btn" href="index.html">Return to home</a>
+</div>
+<p id="msg" class="small" style="margin-top:10px"></p>
+</div>
+</div>
+</div>
 <script>
-  const el=id=>document.getElementById(id);
-  function showMsg(t,ok=true){ const m=el('msg'); m.textContent=t; m.style.color=ok?'var(--muted)':'#ff9b9b'; }
-
-  (async ()=>{
-    const {data:{user}}=await supabase.auth.getUser();
-    if(!user){ document.getElementById('guard').style.display='block'; return; }
-    document.getElementById('content').style.display='block';
-    el('email').value=user.email||'';
-    const {data, error}=await supabase.from('profiles').select('first_name,last_name,username').eq('id',user.id).maybeSingle();
-    if(error){ showMsg('Could not load your profile.', false); return; }
-    el('first').value=data?.first_name||''; el('last').value=data?.last_name||''; el('username').value=data?.username||'';
-
-    el('saveBtn').onclick=async ()=>{
-      const payload={ id:user.id, email:user.email, first_name:el('first').value.trim()||null, last_name:el('last').value.trim()||null, username:el('username').value.trim()||null };
-      const {error:e2}=await supabase.from('profiles').upsert(payload);
-      if(e2){ showMsg('Save failed: '+e2.message,false); return; }
-      showMsg('Profile saved.'); setTimeout(()=>{ location.href='index.html?msg='+encodeURIComponent('Profile updated.'); }, 600);
-    };
-  })();
+const el=id=>document.getElementById(id); function showMsg(t,ok=true){ const m=el('msg'); m.textContent=t; m.style.color=ok?'var(--muted)':'#ff9b9b'; }
+(async()=>{
+const {data:{user}}=await supabase.auth.getUser(); if(!user){ document.getElementById('guard').style.display='block'; return; }
+document.getElementById('content').style.display='block'; el('email').value=user.email||'';
+const {data}=await supabase.from('profiles').select('first_name,last_name,username').eq('id',user.id).maybeSingle();
+el('first').value=data?.first_name||''; el('last').value=data?.last_name||''; el('username').value=data?.username||'';
+el('saveBtn').onclick=async()=>{ const payload={ id:user.id, email:user.email, first_name:el('first').value.trim()||null, last_name:el('last').value.trim()||null, username:el('username').value.trim()||null }; const {error}=await supabase.from('profiles').upsert(payload); if(error){ showMsg('Save failed: '+error.message,false); return; } showMsg('Profile saved.'); setTimeout(()=>{ location.href='index.html?msg='+encodeURIComponent('Profile updated.'); }, 600); };
+})();
 </script>
 </body>
 </html>
