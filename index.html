@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Math Mentors Club</title>
-  <meta name="description" content="Student-Made Math Resources and Mentoring from the Math Mentors Club." />
+  <meta name="description" content="Student-made math resources and mentoring from the Math Mentors Club." />
   <style>
     :root {
       --bg:#0b0c10; --card:#121318; --text:#e8e8f0; --muted:#a8adbd; --accent:#6ee7ff; --edge:#232636;
@@ -46,6 +46,11 @@
     .suggestions { position:absolute; top:100%; left:0; right:0; background:var(--card); border:1px solid var(--edge); border-radius:10px; margin-top:4px; z-index:20; max-height:200px; overflow:auto; display:none; }
     .suggestions div { padding:8px 10px; cursor:pointer; }
     .suggestions div:hover { background:#1a1f2b; }
+    /* Simple table for admin list */
+    table { width:100%; border-collapse: collapse; }
+    th, td { border:1px solid var(--edge); padding:8px 10px; text-align:left; }
+    th { background:#0f1117; color:var(--muted); }
+    .hidden { display:none !important; }
   </style>
   <script>
     window.MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] }, svg: { fontCache: 'global' } };
@@ -60,6 +65,8 @@
         <a class="pill" href="#resources">Resources</a>
         <a class="pill" href="#about">About</a>
         <a class="pill" href="#join">Join</a>
+      <a class="pill" href="#account">Account</a>
+        <a class="pill hidden" id="admin-link" href="#admin">Admin</a>
       </nav>
     </div>
   </header>
@@ -103,6 +110,46 @@
       <div class="card">
         <p class="small"><strong>Members do one or more of the following:</strong> write problems, edit solutions, format LaTeX, or mentor students. Tutoring is optional.</p>
         <p class="small">Email us at <a href="mailto:mathmentors@example.com">mathmentors@example.com</a> or talk to the officers at the next meeting.</p>
+      </div></section>
+
+    <!-- Account / Auth -->
+    <section id="account" class="section">
+      <h2>Account</h2>
+      <div class="card" id="auth-card">
+        <p class="small" id="auth-status">You are not logged in.</p>
+        <div id="auth-form">
+          <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <input class="input" id="acc-first" type="text" placeholder="First name" autocomplete="given-name">
+            <input class="input" id="acc-last" type="text" placeholder="Last name" autocomplete="family-name">
+            <input class="input" id="acc-username" type="text" placeholder="Username" autocomplete="nickname">
+            <input class="input" id="acc-email" type="email" placeholder="Email" autocomplete="email">
+            <input class="input" id="acc-pass" type="password" placeholder="Password" autocomplete="new-password">
+          </div>
+          <div class="cta" style="margin-top:12px;">
+            <button class="btn" id="btn-signup" type="button">Sign Up</button>
+            <button class="btn" id="btn-login" type="button">Log In</button>
+            <button class="btn" id="btn-logout" type="button">Log Out</button>
+          </div>
+          <p class="small" id="auth-msg"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section id="admin" class="section hidden">
+      <h2>Admin</h2>
+      <div class="card">
+        <p class="small">Registered users (from Supabase <code class="mono">profiles</code>):</p>
+        <div style="overflow:auto">
+          <table id="admin-table">
+            <thead>
+              <tr>
+                <th>First</th><th>Last</th><th>Username</th><th>Email</th><th>Created</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -123,14 +170,6 @@
       <div class="small">© <span id="year"></span> Math Mentors Club · Made by students · LaTeX-friendly · CC BY 4.0</div>
     </div>
   </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const SUPABASE_URL = "https://xftcwjrnbphzbetbcnsw.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmdGN3anJuYnBoemJldGJjbnN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4MzA4MTEsImV4cCI6MjA3MTQwNjgxMX0.PM4JJLgZ2aBs3QKSPS5rZshU01ZRavbbmVRjmSYSOPE";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const adminEmails = ["legorjuho@gmail.com"];
-  </script>
 
   <script>
     const resources = [
@@ -259,9 +298,116 @@
     // Initial render
     render();
 
+    // ===== Auth / Admin (Supabase) =====
+    const authStatus = document.getElementById('auth-status');
+    const authMsg = document.getElementById('auth-msg');
+    const btnSignup = document.getElementById('btn-signup');
+    const btnLogin = document.getElementById('btn-login');
+    const btnLogout = document.getElementById('btn-logout');
+    const accFirst = document.getElementById('acc-first');
+    const accLast = document.getElementById('acc-last');
+    const accUser = document.getElementById('acc-username');
+    const accEmail = document.getElementById('acc-email');
+    const accPass = document.getElementById('acc-pass');
+
+    const adminSection = document.getElementById('admin');
+    const adminLink = document.getElementById('admin-link');
+    const adminTableBody = document.querySelector('#admin-table tbody');
+
+    function setMsg(text, ok=true){
+      authMsg.textContent = text || '';
+      authMsg.style.color = ok ? 'var(--muted)' : '#ff9b9b';
+    }
+
+    function isAdminEmail(email){
+      return (adminEmails || []).map(e=>e.toLowerCase()).includes((email||'').toLowerCase());
+    }
+
+    async function upsertOwnProfile(values={}){
+      try{
+        const { data: { user } } = await supabase.auth.getUser();
+        if(!user) return;
+        const payload = {
+          id: user.id,
+          email: user.email,
+          username: values.username || accUser.value || null,
+          first_name: values.first_name || accFirst.value || null,
+          last_name: values.last_name || accLast.value || null
+        };
+        await supabase.from('profiles').upsert(payload);
+      }catch(err){ setMsg('Profile save failed.', false); }
+    }
+
+    async function refreshAdminList(){
+      adminTableBody.innerHTML = '';
+      const { data, error } = await supabase.from('profiles').select('*').order('created_at', { ascending:false });
+      if(error){ setMsg('Admin load failed. Check policies.', false); return; }
+      (data||[]).forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${row.first_name||''}</td><td>${row.last_name||''}</td><td>${row.username||''}</td><td>${row.email||''}</td><td>${(row.created_at||'').toString().slice(0,19).replace('T',' ')}</td>`;
+        adminTableBody.appendChild(tr);
+      });
+    }
+
+    async function updateAuthUI(){
+      const { data: { user } } = await supabase.auth.getUser();
+      if(user){
+        authStatus.textContent = `Logged in as ${user.email}`;
+        // show logout button, hide nothing (we keep form for updates)
+        btnLogout.style.display = 'inline-block';
+        if(isAdminEmail(user.email)){
+          adminSection.classList.remove('hidden');
+          adminLink.classList.remove('hidden');
+          refreshAdminList();
+        } else {
+          adminSection.classList.add('hidden');
+          adminLink.classList.add('hidden');
+        }
+      } else {
+        authStatus.textContent = 'You are not logged in.';
+        btnLogout.style.display = 'inline-block';
+        adminSection.classList.add('hidden');
+        adminLink.classList.add('hidden');
+      }
+    }
+
+    btnSignup?.addEventListener('click', async ()=>{
+      setMsg('');
+      const email = accEmail.value.trim();
+      const password = accPass.value;
+      const first = accFirst.value.trim();
+      const last = accLast.value.trim();
+      const username = accUser.value.trim();
+      if(!email || !password || !first || !last || !username){ setMsg('Please fill all fields.', false); return; }
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if(error){ setMsg(error.message, false); return; }
+      await upsertOwnProfile({ first_name:first, last_name:last, username });
+      setMsg('Sign up successful. Check your email if verification is required.');
+      updateAuthUI();
+    });
+
+    btnLogin?.addEventListener('click', async ()=>{
+      setMsg('');
+      const email = accEmail.value.trim();
+      const password = accPass.value;
+      if(!email || !password){ setMsg('Enter email and password.', false); return; }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if(error){ setMsg(error.message, false); return; }
+      await upsertOwnProfile(); // optional: sync names/username if provided
+      setMsg('Logged in.');
+      updateAuthUI();
+    });
+
+    btnLogout?.addEventListener('click', async ()=>{
+      await supabase.auth.signOut();
+      setMsg('Logged out.');
+      updateAuthUI();
+    });
+
+    supabase.auth.onAuthStateChange((_event, _session)=>{ updateAuthUI(); });
+    updateAuthUI();
+
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
-
