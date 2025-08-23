@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<div class="card"><strong>Do I have to tutor?</strong><p class="small">No. You can write, edit, or design resources only.</p></div>
-<div class="card"><strong>What tools?</strong><p class="small">LaTeX for PDFs; GitHub Pages hosts the site.</p></div>
-<div class="card"><strong>Who uses this?</strong><p class="small">Our middle school first, plus interested learners online.</p></div>
-</div>
-</section>
-</main>
-
-
-<footer><div class="wrap small">© <span id="year"></span> Math Mentors Club · CC BY 4.0</div></footer>
+<div class="wrap small">© <span id="year"></span> Math Mentors Club · CC BY 4.0</div>
+</footer>
 
 
 <script>
-// Flash message
+// Flash message (from redirects)
 const flash=document.getElementById('flash');
-const p=new URLSearchParams(location.search); const m=p.get('msg');
-if(m){ flash.textContent=decodeURIComponent(m); flash.classList.remove('hidden'); history.replaceState({},'',location.pathname); }
+const qs=new URLSearchParams(location.search); const msg=qs.get('msg');
+if(msg){ flash.textContent=decodeURIComponent(msg); flash.classList.remove('hidden'); history.replaceState({},'',location.pathname); }
 
 
 // Account dropdown + Admin gating
@@ -22,21 +15,22 @@ const accountBtn=document.getElementById('accountBtn');
 const accountMenu=document.getElementById('accountMenu');
 const adminLink=document.getElementById('admin-link');
 function closeMenu(){ accountMenu.style.display='none'; }
-function toggleMenu(){ accountMenu.style.display = (accountMenu.style.display==='block'?'none':'block'); }
+function toggleMenu(){ accountMenu.style.display=(accountMenu.style.display==='block'?'none':'block'); }
 document.addEventListener('click',e=>{ if(!e.target.closest('.acct')) closeMenu(); });
 accountBtn.addEventListener('click',e=>{ e.preventDefault(); toggleMenu(); });
 async function usernameOf(user){ const {data}=await supabase.from('profiles').select('username').eq('id',user.id).maybeSingle(); return (data&&data.username)?data.username:(user.email||'Account'); }
-async function isAdmin(uid){ const {data}=await supabase.from('admins').select('user_id').eq('user_id',uid).maybeSingle(); return !!data; }
+async function isAdmin(uid){ try{ const {data}=await supabase.from('admins').select('user_id').eq('user_id',uid).maybeSingle(); return !!data; }catch{ return false; } }
 async function setMenu(){
-const {data:{user}}=await supabase.auth.getUser();
+const { data:{ user } } = await supabase.auth.getUser();
 if(user){
 const uname=await usernameOf(user);
 accountBtn.textContent=uname+" ▾"; accountBtn.style.fontSize='14px';
-accountMenu.innerHTML=`<a href="settings.html">Settings</a><button id="logoutBtn" type="button">Log out</button>`;
+accountMenu.innerHTML=`<div class="head">Signed in as ${uname}</div>
+<a href="settings.html">Settings</a>
+<button id="logoutBtn" type="button">Log out</button>`;
 document.getElementById('logoutBtn').onclick=async()=>{ await supabase.auth.signOut(); location.href='index.html?msg='+encodeURIComponent('Logged out.'); };
-adminLink.classList.add('hidden');
-if(await isAdmin(user.id)) adminLink.classList.remove('hidden');
-}else{
+adminLink.classList.add('hidden'); if(await isAdmin(user.id)) adminLink.classList.remove('hidden');
+} else {
 accountBtn.textContent='Account ▾';
 accountMenu.innerHTML=`<a href="login.html">Log in</a><a href="signup.html">Sign up</a>`;
 adminLink.classList.add('hidden');
@@ -45,17 +39,17 @@ adminLink.classList.add('hidden');
 supabase.auth.onAuthStateChange(setMenu); setMenu();
 
 
-// Featured resources (static sample)
+// Featured resources (static samples → link to resources page)
 const sample=[
-{t:'Fractions Basics Pack', bl:'Middle School', d:'10 scaffolded problems with solutions.', href:'resources.html'},
-{t:'Intro to Probability', bl:'Middle–High', d:'8 practice problems with full solutions.', href:'resources.html'},
-{t:'Factoring Quadratics', bl:'High School', d:'Examples, checks, one-page reference.', href:'resources.html'}
+{t:'Fractions Basics Pack', b:'Middle School', d:'10 scaffolded problems with solutions.'},
+{t:'Intro to Probability', b:'Middle–High', d:'8 practice problems with full solutions.'},
+{t:'Factoring Quadratics', b:'High School', d:'Examples, checks, and a one‑page reference.'}
 ];
 const feat=document.getElementById('feat-grid');
-sample.forEach(x=>{ const c=document.createElement('article'); c.className='card'; c.innerHTML=`<div class="kicker">${x.bl}</div><h3 style="margin:6px 0 6px">${x.t}</h3><p class="small">${x.d}</p><a class="btn" href="${x.href}">Open</a>`; feat.appendChild(c); });
+sample.forEach(x=>{ const c=document.createElement('article'); c.className='card'; c.innerHTML=`<div class="kicker">${x.b}</div><h3 style="margin:6px 0 6px">${x.t}</h3><p class="small">${x.d}</p><a class="btn" href="resources.html">Open</a>`; feat.appendChild(c); });
 
 
-document.getElementById('year').textContent=new Date().getFullYear();
+document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
