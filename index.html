@@ -1,55 +1,270 @@
 <!DOCTYPE html>
-<div class="wrap small">© <span id="year"></span> Math Mentors Club · CC BY 4.0</div>
-</footer>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Math Mentors Club</title>
+  <meta name="description" content="Student-made math resources and mentoring." />
+  <style>
+    :root{
+      --bg:#0b0c10; --card:#121318; --muted:#a8adbd; --text:#e8e8f0; --edge:#232636; 
+      --accent:#6ee7ff; --blue:#4ea2ff; --orange:#ffa63e; --teal:#27d3b5; --pink:#ff5fa3;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    /* Nav */
+    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(11,12,16,.75);border-bottom:1px solid var(--edge);z-index:10}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .pill{display:inline-block;padding:6px 12px;border:1px solid var(--edge);border-radius:999px;color:var(--text)}
+    .pill:hover{background:#1a1f2b}
+    /* Layout */
+    .section{padding:28px 0}
+    .hero{padding:56px 0 28px}
+    .hero h1{font-size:clamp(28px,6vw,48px);margin:0 0 10px}
+    .hero p{margin:0;color:var(--muted)}
+    .cta{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600}
+    .btn:hover{border-color:#2d3347}
+    h2{margin:0 0 12px;font-size:22px}
+    .small{color:var(--muted)}
+    .grid{display:grid;gap:14px}
+    .two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .cards{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+    .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px}
+    .kicker{font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+    /* Feature tiles */
+    .feature{display:flex;gap:12px;align-items:flex-start}
+    .icon{width:42px;height:42px;border-radius:12px;display:inline-grid;place-items:center;border:1px solid var(--edge)}
+    .icon svg{width:22px;height:22px}
+    .i-green{background:#0f1514} .i-blue{background:#0f141a} .i-amber{background:#1a140f}
+    /* Stats */
+    .stats{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .stat{padding:18px;border-radius:16px;background:linear-gradient(180deg,#121318,#0f1117);border:1px solid var(--edge)}
+    .stat .num{font-size:32px;font-weight:800}
+    /* Testimonials */
+    .t-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .t-card{position:relative;padding-top:14px}
+    .t-top{height:4px;border-radius:10px 10px 0 0;background:var(--blue);margin:-16px -16px 12px}
+    .t-card.orange .t-top{background:var(--orange)}
+    .t-card.teal .t-top{background:var(--teal)}
+    .stars{color:#ffd166;letter-spacing:2px;font-size:16px}
+    .quote{opacity:.55;font-size:30px;line-height:0;margin:0 0 6px}
+    /* Featured resources preview */
+    .r-title{margin:6px 0 6px}
+    footer{border-top:1px solid var(--edge);padding:22px 0 40px;color:var(--muted)}
+  </style>
+  <script>
+    // MathJax if you need inline math in previews
+    window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'global'}};
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><a href="index.html" style="color:inherit">Math Mentors Club</a></div>
+    <nav style="display:flex;gap:12px">
+      <a class="pill" href="resources.html">Resources</a>
+      <a class="pill" href="join.html">Join</a>
+    </nav>
+  </div>
+</header>
 
+<main class="wrap">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="kicker">Welcome</div>
+    <h1>Student-made math resources & mentoring</h1>
+    <p>We turn tricky ideas into friendly, step-by-step materials and mentor younger learners—free for everyone.</p>
+    <div class="cta">
+      <a class="btn" href="resources.html">Browse resources</a>
+      <a class="btn" href="join.html">Get involved</a>
+    </div>
+  </section>
+
+  <!-- ABOUT (on homepage, not in nav) -->
+  <section class="section">
+    <h2>About the club</h2>
+    <div class="grid two">
+      <article class="card">
+        <p class="small">We write concise problem sets, mini guides, and challenge packets (with full solutions), then share them with our middle school and online learners. Members can write items, edit solutions, design layouts in LaTeX, and optionally tutor.</p>
+        <ul class="small" style="margin:0;padding-left:18px">
+          <li>Short, readable PDFs with worked examples</li>
+          <li>Peer review for clarity and correctness</li>
+          <li>Optional mentoring—on campus or virtually</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="feature">
+          <div class="icon i-green" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h10M4 17h7" stroke="#27d3b5" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <strong>Clear, structured learning</strong>
+            <p class="small">Each resource introduces an idea, shows a model solution, and gives scaffolded practice to build confidence.</p>
+          </div>
+        </div>
+        <div class="feature" style="margin-top:10px">
+          <div class="icon i-blue" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#4ea2ff" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <strong>Aligned & flexible</strong>
+            <p class="small">Covers grades 6–10 topics and contest-style reasoning. Easy to remix for class or clubs.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FEATURE CARDS (like your screenshot) -->
+  <section class="section">
+    <div class="grid cards">
+      <article class="card">
+        <div class="feature">
+          <div class="icon i-blue" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="7" height="6" stroke="#4ea2ff" stroke-width="2"/><rect x="14" y="4" width="7" height="6" stroke="#4ea2ff" stroke-width="2"/><rect x="3" y="14" width="18" height="6" stroke="#4ea2ff" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <h3 class="r-title">Comprehensive Resources</h3>
+            <p class="small">Problem sets and guides packed with examples and fully worked solutions.</p>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="feature">
+          <div class="icon i-amber" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#ffa63e" stroke-width="2"/><path d="M8 12h8M12 8v8" stroke="#ffa63e" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3 class="r-title">Targeted Preparation</h3>
+            <p class="small">Aligned with core standards and problem-solving skills for contests.</p>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="feature">
+          <div class="icon i-green" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 10l4 4 8-8" stroke="#27d3b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3 class="r-title">Accessible Learning</h3>
+            <p class="small">Complex ideas broken into approachable, understandable steps.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section">
+    <h2>By the numbers</h2>
+    <div class="grid stats">
+      <div class="stat card"><div class="kicker">Monthly active users</div><div class="num" data-target="120">0</div></div>
+      <div class="stat card"><div class="kicker">Files downloaded</div><div class="num" data-target="430">0</div></div>
+      <div class="stat card"><div class="kicker">Resources published</div><div class="num" data-target="18">0</div></div>
+    </div>
+  </section>
+
+  <!-- FEATURED RESOURCES PREVIEW -->
+  <section class="section">
+    <h2>Featured resources</h2>
+    <div id="feat" class="grid cards"></div>
+    <div class="cta" style="margin-top:10px"><a class="btn" href="resources.html">See all resources →</a></div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <h2>Success stories from students</h2>
+    <p class="small" style="margin-bottom:10px">Real feedback about clarity, problem quality, and confidence gains.</p>
+    <div class="grid t-grid">
+      <article class="card t-card">
+        <div class="t-top"></div>
+        <div class="quote">“</div>
+        <div class="stars">★★★★★</div>
+        <p class="small">“The factoring packet finally made it click. The examples were short and the checks helped me avoid mistakes.”</p>
+        <p class="small" style="opacity:.7">— 9th grade student</p>
+      </article>
+      <article class="card t-card orange">
+        <div class="t-top"></div>
+        <div class="quote">“</div>
+        <div class="stars">★★★★★</div>
+        <p class="small">“Our mentor explained probability with coins and dice—simple but powerful. I felt ready for the quiz.”</p>
+        <p class="small" style="opacity:.7">— 7th grade student</p>
+      </article>
+      <article class="card t-card teal">
+        <div class="t-top"></div>
+        <div class="quote">“</div>
+        <div class="stars">★★★★☆</div>
+        <p class="small">“Clean layout, friendly tone, and great practice. I use these guides to review before tests.”</p>
+        <p class="small" style="opacity:.7">— 8th grade student</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <h2>How it works</h2>
+    <div class="grid cards">
+      <div class="card"><div class="kicker">1 · Plan</div><p class="small">Pick a topic (fractions, factoring, probability…). Outline examples and problems.</p></div>
+      <div class="card"><div class="kicker">2 · Draft</div><p class="small">Write in LaTeX, keep it short, include checks and common mistakes.</p></div>
+      <div class="card"><div class="kicker">3 · Review</div><p class="small">Peer-edit for clarity and correctness; test with a small group.</p></div>
+      <div class="card"><div class="kicker">4 · Publish</div><p class="small">Add to the Resources page; share with classes and clubs.</p></div>
+      <div class="card"><div class="kicker">5 · Mentor</div><p class="small">Offer optional help sessions; collect feedback and iterate.</p></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="card" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>
+        <div class="kicker">Ready to jump in?</div>
+        <strong>Write a resource or help mentor students this semester.</strong>
+        <p class="small" style="margin:6px 0 0">Short commitment. Real impact.</p>
+      </div>
+      <div style="display:flex;gap:10px">
+        <a class="btn" href="resources.html">Explore resources</a>
+        <a class="btn" href="join.html">Join the club</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap small">© <span id="year"></span> Math Mentors Club · CC BY 4.0</div></footer>
 
 <script>
-// Flash message (from redirects)
-const flash=document.getElementById('flash');
-const qs=new URLSearchParams(location.search); const msg=qs.get('msg');
-if(msg){ flash.textContent=decodeURIComponent(msg); flash.classList.remove('hidden'); history.replaceState({},'',location.pathname); }
+  // Year
+  document.getElementById('year').textContent=new Date().getFullYear();
 
+  // Featured resources (static preview)
+  const preview=[
+    {t:'Fractions Basics Pack', b:'Middle School', d:'10 scaffolded problems with solutions.'},
+    {t:'Intro to Probability', b:'Middle–High', d:'Short guide + 8 practice problems.'},
+    {t:'Factoring Quadratics', b:'High School', d:'Examples, checks, one-page reference.'}
+  ];
+  const f=document.getElementById('feat');
+  preview.forEach(x=>{
+    const el=document.createElement('article'); el.className='card';
+    el.innerHTML=`<div class="kicker">${x.b}</div><h3 class="r-title">${x.t}</h3><p class="small">${x.d}</p><a class="btn" href="resources.html">Open</a>`;
+    f.appendChild(el);
+  });
 
-// Account dropdown + Admin gating
-const accountBtn=document.getElementById('accountBtn');
-const accountMenu=document.getElementById('accountMenu');
-const adminLink=document.getElementById('admin-link');
-function closeMenu(){ accountMenu.style.display='none'; }
-function toggleMenu(){ accountMenu.style.display=(accountMenu.style.display==='block'?'none':'block'); }
-document.addEventListener('click',e=>{ if(!e.target.closest('.acct')) closeMenu(); });
-accountBtn.addEventListener('click',e=>{ e.preventDefault(); toggleMenu(); });
-async function usernameOf(user){ const {data}=await supabase.from('profiles').select('username').eq('id',user.id).maybeSingle(); return (data&&data.username)?data.username:(user.email||'Account'); }
-async function isAdmin(uid){ try{ const {data}=await supabase.from('admins').select('user_id').eq('user_id',uid).maybeSingle(); return !!data; }catch{ return false; } }
-async function setMenu(){
-const { data:{ user } } = await supabase.auth.getUser();
-if(user){
-const uname=await usernameOf(user);
-accountBtn.textContent=uname+" ▾"; accountBtn.style.fontSize='14px';
-accountMenu.innerHTML=`<div class="head">Signed in as ${uname}</div>
-<a href="settings.html">Settings</a>
-<button id="logoutBtn" type="button">Log out</button>`;
-document.getElementById('logoutBtn').onclick=async()=>{ await supabase.auth.signOut(); location.href='index.html?msg='+encodeURIComponent('Logged out.'); };
-adminLink.classList.add('hidden'); if(await isAdmin(user.id)) adminLink.classList.remove('hidden');
-} else {
-accountBtn.textContent='Account ▾';
-accountMenu.innerHTML=`<a href="login.html">Log in</a><a href="signup.html">Sign up</a>`;
-adminLink.classList.add('hidden');
-}
-}
-supabase.auth.onAuthStateChange(setMenu); setMenu();
-
-
-// Featured resources (static samples → link to resources page)
-const sample=[
-{t:'Fractions Basics Pack', b:'Middle School', d:'10 scaffolded problems with solutions.'},
-{t:'Intro to Probability', b:'Middle–High', d:'8 practice problems with full solutions.'},
-{t:'Factoring Quadratics', b:'High School', d:'Examples, checks, and a one‑page reference.'}
-];
-const feat=document.getElementById('feat-grid');
-sample.forEach(x=>{ const c=document.createElement('article'); c.className='card'; c.innerHTML=`<div class="kicker">${x.b}</div><h3 style="margin:6px 0 6px">${x.t}</h3><p class="small">${x.d}</p><a class="btn" href="resources.html">Open</a>`; feat.appendChild(c); });
-
-
-document.getElementById('year').textContent = new Date().getFullYear();
+  // Counter animation
+  function animateNums(){
+    document.querySelectorAll('.num').forEach(el=>{
+      const target = +el.dataset.target;
+      let cur = 0;
+      const step = Math.max(1, Math.round(target/60)); // ~1s
+      const tick = ()=>{ cur += step; if(cur>=target){ el.textContent=target.toLocaleString(); } else { el.textContent=cur.toLocaleString(); requestAnimationFrame(tick); } };
+      tick();
+    });
+  }
+  // Trigger when visible
+  const io=new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting){ animateNums(); io.disconnect(); } }),{threshold:.3});
+  io.observe(document.querySelector('.stats'));
 </script>
 </body>
 </html>
