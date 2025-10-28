@@ -80,8 +80,9 @@
     .quote{opacity:.55;font-size:30px;line-height:0;margin:0 0 6px}
 
     /* Animations */
-    .fade-up{opacity:0;transform:translateY(16px) scale(.98);transition:opacity .6s ease,transform .6s ease}
-    .fade-up.show{opacity:1;transform:translateY(0) scale(1)}
+    .fade-up{opacity:1;transform:none}
+    .js .fade-up{opacity:0;transform:translateY(16px) scale(.98);transition:opacity .6s ease,transform .6s ease}
+    .js .fade-up.show{opacity:1;transform:translateY(0) scale(1)}
 
     /* Accordion (FAQ) */
     .accordion .item{border:1px solid var(--edge);border-radius:12px;background:var(--card)}
@@ -263,6 +264,7 @@
 <footer><div class="wrap small">  Math Mentors · CC BY 4.0</div></footer>
 
 <script>
+  document.documentElement.classList.add('js');
   const y=document.getElementById('year'); if(y){ y.textContent=new Date().getFullYear(); }
 
   const preview=[
@@ -271,11 +273,13 @@
     {t:'Factoring Quadratics', g:'8–10', d:'Examples, checks, and a one‑page reference.'}
   ];
   const f=document.getElementById('feat');
-  preview.forEach(x=>{
-    const el=document.createElement('article'); el.className='card';
-    el.innerHTML=`<div class="kicker">${x.g}</div><h3 style="margin:6px 0">${x.t}</h3><p class="small">${x.d}</p><a class="btn" href="resources.html">Open</a>`;
-    f.appendChild(el);
-  });
+  if(f){
+    preview.forEach(x=>{
+      const el=document.createElement('article'); el.className='card';
+      el.innerHTML=`<div class="kicker">${x.g}</div><h3 style="margin:6px 0">${x.t}</h3><p class="small">${x.d}</p><a class="btn" href="resources.html">Open</a>`;
+      f.appendChild(el);
+    });
+  }
 
   function animateNums(){
     document.querySelectorAll('.num').forEach(el=>{
