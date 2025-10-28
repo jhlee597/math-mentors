@@ -3,146 +3,163 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Resources · Math Mentors Club</title>
+  <title>Resources · Math Mentors</title>
+  <meta name="description" content="Search math resources for grades 6–12 by title, grade, and topic." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#0b0c10; --card:#121318; --text:#e8e8f0; --muted:#a8adbd; --accent:#6ee7ff; --edge:#232636; }
-    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
-    a{color:var(--accent)} a:hover{text-decoration:underline}
-    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(11,12,16,.75);border-bottom:1px solid var(--edge);z-index:10}
-    .wrap{max-width:980px;margin:0 auto;padding:16px}
+    :root{
+      --bg:#0b0c10; --card:#121318; --muted:#a8adbd; --text:#e8e8f0; --edge:#232636;
+      --accent:#6ee7ff; --blue:#4ea2ff; --orange:#ffa63e; --teal:#27d3b5; --pink:#ff5fa3; --lime:#8be38b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:radial-gradient(1200px 600px at 20% -10%, #122 0%, transparent 60%),linear-gradient(180deg,#0b0c10,#0a0b10);color:var(--text)}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+
+    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(12px);background:rgba(11,12,16,.65);border-bottom:1px solid var(--edge);z-index:20}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{font-weight:800}
-    .pill{display:inline-block;padding:6px 12px;border:1px solid var(--edge);border-radius:999px;color:var(--text)}
-    .pill:hover{background:#1a1f2b}
+    .brand{font-weight:800;letter-spacing:.2px}
+    .nav-links{display:flex;gap:10px}
+    .pill{display:inline-block;padding:8px 12px;border:1px solid var(--edge);border-radius:999px;color:var(--text);transition:all .2s ease}
+    .pill:hover{background:#171a23;border-color:#2d3347}
+
     .section{padding:28px 0}
-    .hero{padding:32px 0 10px}
-    .hero h1{margin:0 0 6px;font-size:clamp(26px,6vw,40px)}
+    h1{font-size:clamp(26px,5vw,40px);margin:18px 0 6px}
     .small{color:var(--muted)}
-    .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-    .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
-    .badge{font-size:12px;color:var(--muted)}
-    /* search controls */
-    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;position:relative}
-    .input,.select{padding:10px;border:1px solid var(--edge);background:#0f1117;color:var(--text);border-radius:10px}
-    .input{flex:1;min-width:220px}
-    .dropdown{display:none;margin-top:8px;border:1px solid var(--edge);background:#0f1117;border-radius:12px}
-    .dropdown.open{display:block}
-    .dropdown-inner{padding:8px}
-    .dropdown-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px}
-    .dropdown-item{padding:8px 10px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--text);cursor:pointer;text-align:left}
-    .dropdown-item:hover{border-color:#2d3347}
-    footer{border-top:1px solid var(--edge);padding:22px 0 40px;color:var(--muted)}
+
+    /* Filters */
+    .filters{display:grid;grid-template-columns:1.2fr .6fr .6fr auto;gap:10px;align-items:center;margin:12px 0}
+    .input,.select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--edge);background:#0f1117;color:var(--text)}
+    .btn{display:inline-block;padding:10px 14px;background:linear-gradient(180deg,#1a1f2b,#10131a);border:1px solid var(--edge);border-radius:12px;color:var(--text);font-weight:600;transition:transform .12s ease,border-color .2s ease}
+    .btn:hover{border-color:#2d3347;transform:translateY(-1px)}
+
+    .grid{display:grid;gap:14px}
+    .cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+    .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px;transition:box-shadow .25s ease, transform .18s ease}
+    .card:hover{box-shadow:0 6px 24px -8px rgba(78,162,255,.18);transform:translateY(-2px)}
+    .title{margin:6px 0}
+
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--edge);border-radius:999px;font-size:12px;color:var(--muted)}
+    .row{display:flex;flex-wrap:wrap;gap:8px}
+
+    .meta{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+
+    .fade-up{opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease}
+    .fade-up.show{opacity:1;transform:translateY(0)}
+
+    footer{border-top:1px solid var(--edge);padding:22px 0 40px;color:var(--muted);margin-top:24px}
+
+    @media (max-width:720px){
+      .filters{grid-template-columns:1fr 1fr;}
+      .filters .span-2{grid-column:1/-1}
+    }
   </style>
-  <script>
-    window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'global'}};
-  </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.min.js"></script>
 </head>
 <body>
 <header>
   <div class="wrap nav">
-    <div class="brand"><a href="index.html" style="color:inherit">Math Mentors Club</a></div>
-    <nav style="display:flex;gap:12px">
+    <div class="brand"><a href="index.html" style="color:inherit">Math Mentors</a></div>
+    <nav class="nav-links">
+      <a class="pill" href="index.html">Home</a>
       <a class="pill" href="resources.html">Resources</a>
-      <a class="pill" href="join.html">Join</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="hero">
+  <section class="section fade-up">
     <h1>Resources</h1>
-    <p class="small">PDF problem sets and study guides. Everything here is free to use.</p>
-  </section>
+    <p class="small">Search and filter by title, grade, or topic. All resources include worked solutions.</p>
 
-  <section class="section">
-    <div class="controls" role="search">
-      <input id="search" class="input" type="search" placeholder="Search resources… (title)" aria-label="Search resources" />
-      <select id="filter" class="select" aria-label="Search filter">
-        <option value="title" selected>Title</option>
-        <option value="level">Difficulty</option>
-        <option value="tag">Topic (hashtag)</option>
+    <div class="filters">
+      <input id="q" class="input span-2" type="search" placeholder="Search by title…" />
+      <select id="grade" class="select">
+        <option value="">All grades</option>
+        <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option>
       </select>
+      <select id="topic" class="select">
+        <option value="">All topics</option>
+      </select>
+      <button id="clear" class="btn" style="grid-column:1/-1;justify-self:start">Clear filters</button>
     </div>
-    <div id="suggestions" class="dropdown" aria-label="Suggestions" role="listbox" aria-expanded="false"></div>
-    <div id="resource-grid" class="grid" aria-live="polite"></div>
+
+    <div class="small" id="count" style="margin:6px 0 10px">Loading…</div>
+
+    <div id="list" class="grid cards"></div>
   </section>
 </main>
 
-<footer><div class="wrap small">© <span id="year"></span> Math Mentors Club · CC BY 4.0</div></footer>
+<footer><div class="wrap small">© <span id="year"></span> Math Mentors · CC BY 4.0</div></footer>
 
 <script>
-  // Sample data (edit these + drop PDFs into /resources)
-  const resources = [
-    { title: "Fractions Basics Pack", level: "Middle School", file: "/resources/fractions-pack.pdf", summary: "10 scaffolded problems with step-by-step solutions.", tags: ["arithmetic","fractions"] },
-    { title: "Intro to Probability (with dice & coins)", level: "Middle–High", file: "/resources/intro-probability.pdf", summary: "Short guide + 8 practice problems and full solutions.", tags: ["probability"] },
-    { title: "Factoring Quadratics Quick Guide", level: "High School", file: "/resources/factoring-quadratics.pdf", summary: "Examples, checks, and a one-page reference.", tags: ["algebra"] }
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  const resources=[
+    { id:'fractions-basics', title:'Fractions Basics Pack', grade:['6','7'], topics:['Number Theory','Arithmetic'], desc:'10 scaffolded problems with solutions.', file:'resources/fractions-basics.pdf' },
+    { id:'intro-prob', title:'Intro to Probability', grade:['7','8','9'], topics:['Probability','Statistics'], desc:'Short guide + 8 practice problems.', file:'resources/intro-to-probability.pdf' },
+    { id:'factoring-quadratics', title:'Factoring Quadratics', grade:['8','9','10'], topics:['Algebra'], desc:'Examples, checks, and a one-page reference.', file:'resources/factoring-quadratics.pdf' },
+    { id:'geometry-basics', title:'Geometry Essentials', grade:['7','8','9'], topics:['Geometry'], desc:'Angles, triangles, similarity, with worked solutions.', file:'resources/geometry-essentials.pdf' },
+    { id:'calculus-intro', title:'Limits & Derivatives (Intro)', grade:['11','12'], topics:['Calculus'], desc:'Conceptual intro with step-by-step examples.', file:'resources/intro-calculus-limits-derivatives.pdf' },
+    { id:'amc-practice', title:'AMC Problem Pack A', grade:['8','9','10'], topics:['Contest','Algebra','Number Theory','Geometry'], desc:'25 problems with hints and full solutions.', file:'resources/amc-pack-a.pdf' }
   ];
 
-  const grid=document.getElementById('resource-grid');
-  const searchInput=document.getElementById('search');
-  const filterSelect=document.getElementById('filter');
-  const dropdown=document.getElementById('suggestions');
+  const list=document.getElementById('list');
+  const q=document.getElementById('q');
+  const grade=document.getElementById('grade');
+  const topic=document.getElementById('topic');
+  const count=document.getElementById('count');
+  const clear=document.getElementById('clear');
 
-  const uniqueLevels=[...new Set(resources.map(r=>r.level).filter(Boolean))].sort();
-  const uniqueTags=[...new Set(resources.flatMap(r=>r.tags||[]).filter(Boolean))].sort();
+  const allTopics=[...new Set(resources.flatMap(r=>r.topics))].sort();
+  allTopics.forEach(t=>{ const o=document.createElement('option'); o.value=t; o.textContent=t; topic.appendChild(o); });
 
-  function card(r){
-    const d=document.createElement('article'); d.className='card';
-    d.innerHTML=`<h3>${r.title}</h3><div class="badge">${r.level||''}</div>
-      <p class="small">${r.summary||''}</p>
-      <div class="small">${(r.tags||[]).map(t=>`#${t}`).join(' ')}</div>
-      <div><a class="btn" href="${r.file}" target="_blank" rel="noopener">Open PDF</a></div>`;
-    return d;
+  function matches(r){
+    const term=q.value.trim().toLowerCase();
+    const byTitle=!term || r.title.toLowerCase().includes(term);
+    const byGrade=!grade.value || r.grade.includes(grade.value);
+    const byTopic=!topic.value || r.topics.includes(topic.value);
+    return byTitle && byGrade && byTopic;
   }
-  function matches(r,q,t){
-    if(!q) return true; q=q.toLowerCase();
-    if(t==='title') return (r.title||'').toLowerCase().includes(q);
-    if(t==='level') return (r.level||'').toLowerCase().includes(q);
-    if(t==='tag')   return (r.tags||[]).some(x=>(x||'').toLowerCase().includes(q));
-    return true;
+
+  function badge(label, color){
+    return `<span class="badge" style="border-color:${color}">${label}</span>`;
   }
+
   function render(){
-    grid.innerHTML='';
-    const q=(searchInput.value||'').trim(), t=(filterSelect.value||'title');
-    const list=resources.filter(r=>matches(r,q,t));
-    if(!list.length){ const p=document.createElement('p'); p.className='small'; p.textContent='No resources match your search yet.'; grid.appendChild(p); }
-    list.forEach(r=>grid.appendChild(card(r)));
+    list.innerHTML='';
+    const items=resources.filter(matches);
+    count.textContent=`${items.length} resource${items.length!==1?'s':''} shown`;
+    items.forEach(r=>{
+      const el=document.createElement('article'); el.className='card fade-up';
+      el.innerHTML=`
+        <div class="row" style="margin-bottom:8px">
+          ${badge('Grades '+r.grade.join('–'), '#2d3347')}
+          ${r.topics.slice(0,3).map(t=>badge(t, '#2d3347')).join(' ')}
+        </div>
+        <h3 class="title">${r.title}</h3>
+        <p class="small">${r.desc}</p>
+        <div class="meta">
+          <a class="btn" href="${r.file}" target="_blank" rel="noopener">Open</a>
+          <a class="small" href="${r.file}" download>Download</a>
+        </div>`;
+      list.appendChild(el);
+      requestAnimationFrame(()=>el.classList.add('show'));
+    });
+    if(items.length===0){
+      const empty=document.createElement('div'); empty.className='small'; empty.textContent='No resources match your filters.'; list.appendChild(empty);
+    }
   }
 
-  // Suggestions dropdown that doesn’t overlap cards
-  function suggestionTemplate(items){
-    const wrap=document.createElement('div'); wrap.className='dropdown-inner';
-    const ul=document.createElement('ul'); ul.className='dropdown-list';
-    items.forEach(v=>{ const li=document.createElement('li'); const b=document.createElement('button'); b.type='button'; b.className='dropdown-item'; b.textContent=v;
-      b.onclick=(e)=>{ e.stopPropagation(); searchInput.value=v; closeDropdown(); render(); searchInput.focus(); };
-      li.appendChild(b); ul.appendChild(li); });
-    wrap.appendChild(ul); return wrap;
-  }
-  function openDropdown(type,query=''){
-    if(type==='title'){ closeDropdown(); return; }
-    const base=(type==='level'?uniqueLevels:uniqueTags);
-    const items=base.filter(v=>v.toLowerCase().includes((query||'').toLowerCase()));
-    dropdown.innerHTML=''; dropdown.appendChild(suggestionTemplate(items));
-    dropdown.classList.add('open'); dropdown.setAttribute('aria-expanded','true');
-  }
-  function closeDropdown(){ dropdown.classList.remove('open'); dropdown.setAttribute('aria-expanded','false'); dropdown.innerHTML=''; }
-
-  filterSelect.onchange=()=>{
-    const map={title:'Search resources… (title)',level:'Search… (difficulty)',tag:'Search… (topic)'};
-    searchInput.placeholder=map[filterSelect.value]||'Search resources…';
-    if(filterSelect.value!=='title') openDropdown(filterSelect.value, searchInput.value); else closeDropdown();
-    render();
-  };
-  searchInput.onfocus=()=>{ if(filterSelect.value!=='title') openDropdown(filterSelect.value, searchInput.value); };
-  searchInput.onclick=searchInput.onfocus;
-  searchInput.oninput=()=>{ if(filterSelect.value!=='title') openDropdown(filterSelect.value, searchInput.value); render(); };
-  document.addEventListener('click',(e)=>{ if(!e.target.closest('.controls') && !e.target.closest('#suggestions')) closeDropdown(); });
+  q.addEventListener('input', render);
+  grade.addEventListener('change', render);
+  topic.addEventListener('change', render);
+  clear.addEventListener('click', ()=>{ q.value=''; grade.value=''; topic.value=''; render(); });
 
   render();
-  document.getElementById('year').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
-
