@@ -263,7 +263,7 @@
 <footer><div class="wrap small">  Math Mentors · CC BY 4.0</div></footer>
 
 <script>
-  document.getElementById('year').textContent=new Date().getFullYear();
+  const y=document.getElementById('year'); if(y){ y.textContent=new Date().getFullYear(); }
 
   const preview=[
     {t:'Fractions Basics Pack', g:'6–7', d:'10 scaffolded problems with solutions.'},
