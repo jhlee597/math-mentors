@@ -80,8 +80,22 @@
     .quote{opacity:.55;font-size:30px;line-height:0;margin:0 0 6px}
 
     /* Animations */
-    .fade-up{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
-    .fade-up.show{opacity:1;transform:translateY(0)}
+    .fade-up{opacity:0;transform:translateY(16px) scale(.98);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.show{opacity:1;transform:translateY(0) scale(1)}
+
+    /* Accordion (FAQ) */
+    .accordion .item{border:1px solid var(--edge);border-radius:12px;background:var(--card)}
+    .accordion .q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer}
+    .accordion .q strong{font-size:15px}
+    .accordion .a{max-height:0;overflow:hidden;transition:max-height .35s ease;padding:0 16px}
+    .accordion .a.open{padding:12px 16px}
+    .accordion .chev{transition:transform .25s ease}
+    .accordion .item.open .chev{transform:rotate(180deg)}
+
+    /* Big callout */
+    .callout{position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--edge);background:linear-gradient(180deg,#121622,#0e1220);padding:28px}
+    .callout .title{font-size:clamp(22px,4.5vw,34px);margin:0 0 6px}
+    .btn.lg{padding:14px 18px;font-size:16px}
 
     footer{border-top:1px solid var(--edge);padding:22px 0 40px;color:var(--muted)}
   </style>
@@ -169,6 +183,20 @@
     </div>
   </section>
 
+  <!-- LARGE CENTER CALL-OUT -->
+  <section class="section fade-up">
+    <div class="callout card" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div>
+        <div class="kicker">Find your next study guide</div>
+        <h3 class="title">Explore curated resources across grades 6–12</h3>
+        <p class="small" style="margin:6px 0 0">Concise explanations. Model examples. Worked solutions. Built by students.</p>
+      </div>
+      <div style="display:flex;gap:10px">
+        <a class="btn lg accent" href="resources.html">Explore resources</a>
+      </div>
+    </div>
+  </section>
+
   <section class="section fade-up" id="featured">
     <h2>Featured resources</h2>
     <div id="feat" class="grid cards"></div>
@@ -228,7 +256,7 @@
 
   <section class="section fade-up" id="faq">
     <h2>FAQ</h2>
-    <div class="grid two" id="faqList"></div>
+    <div id="faqList" class="accordion"></div>
   </section>
 </main>
 
@@ -260,6 +288,25 @@
 
   const fadeObserver=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show')}}),{threshold:.15});
   document.querySelectorAll('.fade-up').forEach(el=>fadeObserver.observe(el));
+
+  // FAQ data on home
+  const faqData=[
+    {q:'Who are the resources for?', a:'Students in grades 6–12, spanning foundations to intro calculus and contest-style problem solving.'},
+    {q:'Do they include solutions?', a:'Yes. Every resource includes fully worked solutions and checks for understanding.'},
+    {q:'Can teachers use them?', a:'Yes. Free to share and remix for classes and clubs (CC BY 4.0).'},
+    {q:'Where do I start?', a:'Use the Resources page and filter by title, grade, or topic to find the right match.'}
+  ];
+  const faqList=document.getElementById('faqList');
+  if(faqList){
+    faqList.classList.add('accordion');
+    faqData.forEach(item=>{
+      const wrap=document.createElement('div'); wrap.className='item';
+      wrap.innerHTML=`<div class="q"><strong>${item.q}</strong><span class="chev">▾</span></div><div class="a"><p class="small">${item.a}</p></div>`;
+      const q=wrap.querySelector('.q'); const a=wrap.querySelector('.a');
+      q.addEventListener('click',()=>{const open=wrap.classList.toggle('open'); a.style.maxHeight=open? a.scrollHeight+"px" : 0; a.classList.toggle('open', open)});
+      faqList.appendChild(wrap);
+    });
+  }
 </script>
 </body>
 </html>
