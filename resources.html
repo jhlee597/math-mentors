@@ -62,13 +62,6 @@
 
     .fade-up{opacity:0;transform:translateY(16px) scale(.98);transition:opacity .6s ease,transform .6s ease}
     .fade-up.show{opacity:1;transform:translateY(0) scale(1)}
-    .accordion .item{border:1px solid var(--edge);border-radius:12px;background:var(--card)}
-    .accordion .q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer}
-    .accordion .q strong{font-size:15px}
-    .accordion .a{max-height:0;overflow:hidden;transition:max-height .35s ease;padding:0 16px}
-    .accordion .a.open{padding:12px 16px}
-    .accordion .chev{transition:transform .25s ease}
-    .accordion .item.open .chev{transform:rotate(180deg)}
 
     footer{border-top:1px solid var(--edge);padding:22px 0 40px;color:var(--muted);margin-top:24px}
 
@@ -116,11 +109,6 @@
       <article class="card"><p class="small">Math Mentors builds concise, student-made resources for grades 6–12. We turn tricky ideas into clear steps with model solutions and scaffolded practice.</p></article>
       <article class="card"><p class="small">Our mission is clarity, confidence, and independence—helping every learner enjoy math and master the essentials faster.</p></article>
     </div>
-  </section>
-
-  <section class="section fade-up" id="faq">
-    <h2>FAQ</h2>
-    <div class="grid two" id="faq2"></div>
   </section>
 </main>
 
@@ -193,25 +181,6 @@
   // Reveal animations
   const fadeObserver=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show')}}),{threshold:.15});
   document.querySelectorAll('.fade-up').forEach(el=>fadeObserver.observe(el));
-
-  // FAQ data
-  const faqData=[
-    {q:'How do I find the right resource?', a:'Use the filters above—search by title, choose a grade, and pick a topic.'},
-    {q:'Are there solutions?', a:'Yes. Every resource includes fully worked solutions and checks for understanding.'},
-    {q:'Can teachers use these?', a:'Yes. Free to share and remix for classes and clubs (CC BY 4.0).'},
-    {q:'What grades are supported?', a:'Grades 6–12, from foundations through intro calculus and contest-style sets.'}
-  ];
-  const faq2=document.getElementById('faq2');
-  if(faq2){
-    faq2.classList.add('accordion');
-    faqData.forEach(item=>{
-      const w=document.createElement('div'); w.className='item';
-      w.innerHTML=`<div class="q"><strong>${item.q}</strong><span class="chev">▾</span></div><div class="a"><p class="small">${item.a}</p></div>`;
-      const qEl=w.querySelector('.q'); const aEl=w.querySelector('.a');
-      qEl.addEventListener('click',()=>{const open=w.classList.toggle('open'); aEl.style.maxHeight=open? aEl.scrollHeight+"px" : 0; aEl.classList.toggle('open', open)});
-      faq2.appendChild(w);
-    });
-  }
 
   render();
 </script>
