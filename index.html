@@ -15,7 +15,19 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:radial-gradient(1200px 600px at 20% -10%, #122 0%, transparent 60%),linear-gradient(180deg,#0b0c10,#0a0b10);color:var(--text)}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:#0b1020;}
+    body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+      radial-gradient(800px 400px at 10% -10%, rgba(40,80,180,.35), transparent 60%),
+      radial-gradient(700px 500px at 90% 10%, rgba(120,40,200,.28), transparent 60%),
+      radial-gradient(900px 600px at 50% 120%, rgba(20,150,120,.25), transparent 60%),
+      linear-gradient(180deg,#0b1020,#0a0f1a);
+      animation:bgShift 18s ease-in-out infinite alternate;
+    }
+    body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.15;background:
+      linear-gradient(transparent 23px, #1b2337 24px),
+      linear-gradient(90deg, transparent 23px, #1b2337 24px);
+      background-size:24px 24px;mix-blend-mode:overlay;}
+    @keyframes bgShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(25deg)}}
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
     .wrap{max-width:1100px;margin:0 auto;padding:16px}
@@ -44,7 +56,7 @@
     .two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
     .cards{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
     .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:16px;box-shadow:0 0 0 0 rgba(78,162,255,0);transition:box-shadow .25s ease, transform .18s ease}
-    .card:hover{box-shadow:0 6px 24px -8px rgba(78,162,255,.18);transform:translateY(-2px)}
+    .card:hover{box-shadow:0 14px 40px -10px rgba(78,162,255,.30);transform:translateY(-4px) scale(1.01)}
     .kicker{font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
 
     /* Feature tiles */
@@ -77,7 +89,7 @@
 <body>
 <header>
   <div class="wrap nav">
-    <div class="brand"><a href="index.html" style="color:inherit">Math Mentors</a></div>
+    <div class="brand"><a href="./" style="color:inherit">Math Mentors</a></div>
     <nav class="nav-links">
       <a class="pill" href="resources.html">Resources</a>
     </nav>
@@ -92,6 +104,18 @@
     <div class="cta">
       <a class="btn accent" href="resources.html">Browse resources</a>
       <a class="btn" href="resources.html#featured">See featured</a>
+    </div>
+  </section>
+
+  <section class="section fade-up" id="story">
+    <h2>Our story & mission</h2>
+    <div class="grid two">
+      <article class="card">
+        <p class="small">Math Mentors creates concise, student-written resources that make grades 6–12 math clear and approachable. We focus on model solutions, checks for understanding, and step-by-step practice to build confidence.</p>
+      </article>
+      <article class="card">
+        <p class="small">Our mission is to help every learner enjoy math through clarity and structure—so they can master ideas faster and solve problems independently.</p>
+      </article>
     </div>
   </section>
 
@@ -201,9 +225,14 @@
       </div>
     </div>
   </section>
+
+  <section class="section fade-up" id="faq">
+    <h2>FAQ</h2>
+    <div class="grid two" id="faqList"></div>
+  </section>
 </main>
 
-<footer><div class="wrap small">© <span id="year"></span> Math Mentors · CC BY 4.0</div></footer>
+<footer><div class="wrap small">  Math Mentors · CC BY 4.0</div></footer>
 
 <script>
   document.getElementById('year').textContent=new Date().getFullYear();
