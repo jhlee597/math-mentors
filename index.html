@@ -116,11 +116,8 @@
     }
 
     button.learn-more {
-      min-width: 12rem;
+      width: 12rem;
       height: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     button.learn-more .circle {
@@ -165,9 +162,13 @@
 
     button.learn-more .button-text {
       transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-      position: relative;
-      padding: 0.75rem 1rem;
-      margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0.75rem 0;
+      margin: 0 0 0 1.85rem;
       color: var(--text);
       font-weight: 700;
       line-height: 1.6;
@@ -194,8 +195,11 @@
   <div class="wrap nav">
     <div class="brand"><a href="./" style="color:inherit">Math Mentors</a></div>
     <nav class="nav-links">
-      <button class="btn" onclick="location.href='resources.html'" aria-label="Resources">
-        Resources
+      <button class="learn-more" onclick="location.href='resources.html'" aria-label="Resources">
+        <span class="circle" aria-hidden="true">
+          <span class="lm-icon arrow"></span>
+        </span>
+        <span class="button-text">Resources</span>
       </button>
     </nav>
   </div>
