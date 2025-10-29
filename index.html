@@ -170,10 +170,9 @@
       margin: 0;
       color: var(--text);
       font-weight: 700;
-      line-height: 1.4;
+      line-height: 1.6;
       text-align: center;
       text-transform: uppercase;
-      font-size: 0.9rem;
     }
 
     button:hover .circle {
@@ -211,17 +210,11 @@
     <h1>Clear, student-made math resources</h1>
     <p>Concise guides and problem sets with full solutions. Build confidence, mastery, and independent problem‑solving.</p>
     <div class="cta">
-      <button class="learn-more" onclick="location.href='resources.html'" aria-label="Browse resources">
-        <span class="circle" aria-hidden="true">
-          <span class="lm-icon arrow"></span>
-        </span>
-        <span class="button-text">Browse resources</span>
+      <button class="btn" onclick="location.href='resources.html'" aria-label="Browse resources">
+        Browse resources
       </button>
-      <button class="learn-more" onclick="location.href='resources.html#featured'" aria-label="See featured">
-        <span class="circle" aria-hidden="true">
-          <span class="lm-icon arrow"></span>
-        </span>
-        <span class="button-text">See featured</span>
+      <button class="btn" onclick="location.href='resources.html#featured'" aria-label="See featured">
+        See featured
       </button>
     </div>
   </section>
@@ -297,11 +290,8 @@
         <p class="small" style="margin:6px 0 0">Concise explanations. Model examples. Worked solutions. Built by students.</p>
       </div>
       <div style="display:flex;gap:10px">
-        <button class="learn-more" onclick="location.href='resources.html'" aria-label="Explore resources">
-          <span class="circle" aria-hidden="true">
-            <span class="lm-icon arrow"></span>
-          </span>
-          <span class="button-text">Explore resources</span>
+        <button class="btn" onclick="location.href='resources.html'" aria-label="Explore resources">
+          Explore resources
         </button>
       </div>
     </div>
@@ -311,11 +301,8 @@
     <h2>Featured resources</h2>
     <div id="feat" class="grid cards"></div>
     <div class="cta" style="margin-top:10px">
-      <button class="learn-more" onclick="location.href='resources.html'" aria-label="Explore all resources">
-        <span class="circle" aria-hidden="true">
-          <span class="lm-icon arrow"></span>
-        </span>
-        <span class="button-text">Explore all resources</span>
+      <button class="btn" onclick="location.href='resources.html'" aria-label="Explore all resources">
+        Explore all resources
       </button>
     </div>
   </section>
@@ -364,11 +351,8 @@
         <p class="small" style="margin:6px 0 0">Clear steps. Worked solutions. Confidence built in.</p>
       </div>
       <div style="display:flex;gap:10px">
-        <button class="learn-more" onclick="location.href='resources.html'" aria-label="Browse resources">
-          <span class="circle" aria-hidden="true">
-            <span class="lm-icon arrow"></span>
-          </span>
-          <span class="button-text">Browse resources</span>
+        <button class="btn" onclick="location.href='resources.html'" aria-label="Browse resources">
+          Browse resources
         </button>
       </div>
     </div>
@@ -395,7 +379,9 @@
   if(f){
     preview.forEach(x=>{
       const el=document.createElement('article'); el.className='card';
-      el.innerHTML=`<div class="kicker">${x.g}</div><h3 style="margin:6px 0">${x.t}</h3><p class="small">${x.d}</p><button class="learn-more" onclick="location.href='resources.html'" aria-label="Open"><span class="circle" aria-hidden="true"><span class="lm-icon arrow"></span></span><span class="button-text">Open</span></button>`;
+      el.innerHTML=`<div class="kicker">${x.g}</div><h3 style="margin:6px 0">${x.t}</h3><p class="small">${x.d}</p><button class="btn" onclick="location.href='resources.html'" aria-label="Open">
+        Open
+      </button>`;
       f.appendChild(el);
     });
   }
