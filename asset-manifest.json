@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/math-mentors/static/css/main.6b4cef5b.css",
-    "main.js": "/math-mentors/static/js/main.2ee45474.js",
+    "main.js": "/math-mentors/static/js/main.d296a256.js",
     "index.html": "/math-mentors/index.html",
     "main.6b4cef5b.css.map": "/math-mentors/static/css/main.6b4cef5b.css.map",
-    "main.2ee45474.js.map": "/math-mentors/static/js/main.2ee45474.js.map"
+    "main.d296a256.js.map": "/math-mentors/static/js/main.d296a256.js.map"
   },
   "entrypoints": [
     "static/css/main.6b4cef5b.css",
-    "static/js/main.2ee45474.js"
+    "static/js/main.d296a256.js"
   ]
 }
