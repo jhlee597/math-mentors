@@ -3,11 +3,11 @@
 export const site = {
   name: "Math Mentors",
   shortName: "MM",
-  tagline: "Free, comprehensive study guides for AP courses and competition math",
+  tagline: "Free, comprehensive study guides for every kind of math learner",
   hook:
-    "We're a student-run volunteering club that writes LaTeX-typeset problem sheets, packets, equation sheets, and full guides — then gives them away for free.",
+    "We're a student-run volunteering club that writes LaTeX-typeset problem sheets, packets, equation sheets, and full guides — then gives them away for free, for any math course or level.",
   description:
-    "Math Mentors is a volunteer club where students write and typeset study materials in LaTeX so anyone can study for free. Every guide is written by students, reviewed by students, and released to the whole school (and beyond).",
+    "Math Mentors is a volunteer club where students write and typeset study materials in LaTeX so anyone can study math for free. Every guide is written by students, reviewed by students, and released to the whole school (and beyond) — whatever math you're learning.",
   founded: 2025,
 
   // Shown in the header, in the order they should appear.
