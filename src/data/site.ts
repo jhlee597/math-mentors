@@ -1,5 +1,7 @@
 // Site-wide copy and config. Edit this file to change text without touching components.
 
+import { resources } from "@/data/resources";
+
 export const site = {
   name: "Math Mentors",
   shortName: "MM",
@@ -58,9 +60,10 @@ export const site = {
   ],
 
   stats: [
-    { value: "10+", label: "Study Guides" },
+    { value: String(resources.length), label: "Study Guides" },
     { value: "1000+", label: "Practice Problems" },
-    { value: "500+", label: "Active Students" },
+    // Update this manually from your Vercel/analytics dashboard as traffic changes.
+    { value: "500+", label: "Visitors per Month" },
     { value: String(2025), label: "Founded" },
   ],
 };
