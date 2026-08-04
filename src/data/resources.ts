@@ -16,7 +16,6 @@ export const SUBJECTS = [
 export const RESOURCE_TYPES = [
   "Problem Packet",
   "Cheat Sheet",
-  "Equation Sheet",
   "Full Guide",
   "Textbook",
 ] as const;

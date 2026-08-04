@@ -9,7 +9,7 @@ export const site = {
   hook:
     "We're a student-run volunteer organization that writes LaTeX-typeset problem sheets, packets, equation sheets, and full guides — then gives them away for free, for any math course or level.",
   description:
-    "Math Mentors is a volunteer organization where students write and typeset study materials in LaTeX so anyone can study math for free. Every guide is written by students, reviewed by students, and released to the whole school (and beyond) — whatever math you're learning.",
+    "Math Mentors is a volunteer organization where students write and typeset study materials in LaTeX so anyone can study math for free. Every guide is written by students, reviewed by students, and released for free to anyone who wants them — whatever math you're learning.",
   founded: 2025,
 
   // Shown in the header, in the order they should appear.
@@ -21,11 +21,11 @@ export const site = {
     { label: "Join", href: "/join" },
   ],
 
-  // Join page / CTA form. Point this at a real Google Form, Discord invite, etc.
-  joinFormUrl: "https://forms.gle/replace-with-your-form",
+  // Join page / CTA form.
+  joinFormUrl: "https://forms.gle/Dtjab1f5zGi8mrN5A",
   discordUrl: "https://discord.gg/replace-with-your-invite",
-  // All "contact us" links point at this Google Form — swap for your own.
-  contactFormUrl: "https://forms.gle/replace-with-your-contact-form",
+  // All "contact us" links use this email.
+  contactEmail: "legorjuho@gmail.com",
   // Testimonial submissions POST here (a Formspree form endpoint). Sign up at
   // formspree.io, create a form, and replace this with your form's URL
   // (https://formspree.io/f/xxxxxxxx). Submissions land in your email + the

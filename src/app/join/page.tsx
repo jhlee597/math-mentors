@@ -64,7 +64,7 @@ export default function JoinPage() {
 
       <p className="mt-16 text-sm text-slate-400">
         Questions first?{" "}
-        <a href={site.contactFormUrl} className="text-slate-600 underline hover:text-slate-900">
+        <a href={`mailto:${site.contactEmail}`} className="text-slate-600 underline hover:text-slate-900">
           Contact us
         </a>
         .
