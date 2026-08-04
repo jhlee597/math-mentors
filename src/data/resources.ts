@@ -51,16 +51,16 @@ export interface Resource {
 export const resources: Resource[] = [
   {
     slug: "sample-resource",
-    title: "Sample Resource",
-    subject: "Competition Math",
+    title: "A Guide to Complex Numbers",
+    subject: "Precalculus",
     type: "Full Guide",
-    summary: "A complete walkthrough of AMC 10/12 topics, strategies, and practice sets.",
+    summary: "A complete walkthrough of complex numbers, from the basics to polar form and Euler's formula.",
     description:
-      "This guide covers every major AMC 10/12 topic area — number theory, combinatorics, algebra, and geometry — with worked examples and full solutions. Built from the problems our own mentors missed on their first pass, with notes on the traps to watch for.",
+      "This guide builds up complex numbers from scratch: real and imaginary parts, the four basic operations, and the complex plane, before moving into the modulus, argument, polar form, De Moivre's Theorem, and Euler's formula. Every section includes worked examples, full derivations of the key formulas, and a problem set with solutions.",
     authors: ["Juho Lee"],
-    intendedFor: "Students preparing for the AMC 10 or AMC 12 who want a single reference that ties topics together.",
+    intendedFor: "Students who know algebra, basic trigonometry, and the unit circle, and want a single reference that ties complex numbers together from first principles through polar/exponential form.",
     pdfUrl: "/pdfs/sample-resource.pdf",
-    coverLabel: "AMC",
+    coverLabel: "ℂ",
     accent: "blue",
     featured: true,
     dateAdded: "2026-07-21",

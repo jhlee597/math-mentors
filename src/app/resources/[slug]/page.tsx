@@ -113,6 +113,16 @@ export default async function ResourcePage({
           <h2 className="font-semibold text-slate-900">Intended For</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.intendedFor}</p>
         </div>
+        <div>
+          <h2 className="font-semibold text-slate-900">
+            {resource.authors.length > 1 ? "Authors" : "Author"}
+          </h2>
+          <ul className="mt-2 space-y-1 text-sm leading-relaxed text-slate-600">
+            {resource.authors.map((author) => (
+              <li key={author}>{author}</li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {related.length > 0 && (

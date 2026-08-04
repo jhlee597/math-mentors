@@ -7,9 +7,9 @@ export const site = {
   shortName: "MM",
   tagline: "Free, comprehensive study guides for every kind of math learner",
   hook:
-    "We're a student-run volunteering club that writes LaTeX-typeset problem sheets, packets, equation sheets, and full guides — then gives them away for free, for any math course or level.",
+    "We're a student-run volunteer organization that writes LaTeX-typeset problem sheets, packets, equation sheets, and full guides — then gives them away for free, for any math course or level.",
   description:
-    "Math Mentors is a volunteer club where students write and typeset study materials in LaTeX so anyone can study math for free. Every guide is written by students, reviewed by students, and released to the whole school (and beyond) — whatever math you're learning.",
+    "Math Mentors is a volunteer organization where students write and typeset study materials in LaTeX so anyone can study math for free. Every guide is written by students, reviewed by students, and released to the whole school (and beyond) — whatever math you're learning.",
   founded: 2025,
 
   // Shown in the header, in the order they should appear.
@@ -36,7 +36,7 @@ export const site = {
     {
       title: "Written by students, for students",
       description:
-        "Every guide is drafted, reviewed, and typeset by club members who just took the class themselves.",
+        "Every guide is drafted, reviewed, and typeset by members who just took the class themselves.",
       icon: "PencilRuler",
     },
     {
