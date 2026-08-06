@@ -14,7 +14,7 @@ export default function Features() {
           {site.features.map((feature) => (
             <div
               key={feature.title}
-              className="rounded-2xl border border-slate-200 bg-surface p-6 transition-all duration-200 hover:-translate-y-1 hover:border-slate-300"
+              className="rounded-2xl border border-slate-200 bg-surface p-6"
             >
               <h3 className="font-semibold text-slate-900">{feature.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">

@@ -16,7 +16,7 @@ const roles = [
   },
   {
     title: "LaTeX Typesetter",
-    description: "Turn drafts into clean, consistent PDFs using our templates. No experience needed — we'll teach you.",
+    description: "Turn drafts into clean, consistent PDFs using our templates. No experience needed. We'll teach you.",
   },
   {
     title: "Reviewer",
@@ -33,7 +33,7 @@ export default function JoinPage() {
     <div className="mx-auto max-w-4xl px-6 py-16 text-center">
       <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">Join {site.name}</h1>
       <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-        We&rsquo;re a volunteer organization — no experience required, just an interest in math and in
+        We&rsquo;re a volunteer organization. No experience required, just an interest in math and in
         helping other students learn it.
       </p>
 

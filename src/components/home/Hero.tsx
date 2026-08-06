@@ -3,12 +3,7 @@ import { site } from "@/data/site";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden px-6 pt-20 pb-16 sm:pt-28 sm:pb-24">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-blue-600/10 blur-[120px]"
-      />
-
+    <section className="px-6 pt-20 pb-16 sm:pt-28 sm:pb-24">
       <div className="mx-auto max-w-3xl text-center">
         <h1 className="text-balance text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
           {site.name}

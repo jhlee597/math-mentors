@@ -14,7 +14,8 @@
       "Bash(curl -s \"http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__04kpziu._.css\" -o /tmp/mm.css -w \"%{http_code} %{size_download}\\\\n\")",
       "Bash(ls -la /Users/juholee/Documents/Latex/ 2>&1)",
       "Read(//Users/juholee/Documents/**)",
-      "Bash(npm --prefix /Users/juholee/Documents/math_mentors run build)"
+      "Bash(npm --prefix /Users/juholee/Documents/math_mentors run build)",
+      "Bash(npx next *)"
     ]
   }
 }

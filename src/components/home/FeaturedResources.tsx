@@ -13,7 +13,7 @@ export default function FeaturedResources() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           title="Featured Resources"
-          subtitle="A few of our most popular study guides — browse the full library for more."
+          subtitle="A few of our most popular study guides. Browse the full library for more."
         />
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

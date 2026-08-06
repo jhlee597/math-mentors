@@ -16,8 +16,7 @@ const base =
   "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 ease-out hover:scale-105 active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
-  primary:
-    "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30",
+  primary: "bg-blue-600 text-white hover:bg-blue-700",
   secondary:
     "border border-slate-300 bg-white text-slate-900 hover:border-slate-400 hover:bg-slate-50",
   ghost: "text-slate-600 hover:text-slate-900 hover:bg-slate-100",

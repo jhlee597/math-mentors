@@ -12,7 +12,7 @@ const steps = [
   {
     title: "We pick a topic",
     description:
-      "Members propose guides based on what their classes or competitions need — from a single cheat sheet to a full unit guide.",
+      "Members propose guides based on what their classes or competitions need, from a single cheat sheet to a full unit guide.",
   },
   {
     title: "We write it in LaTeX",
@@ -27,7 +27,7 @@ const steps = [
   {
     title: "It goes live, for free",
     description:
-      "The finished PDF is added to the resource library — no account or payment required, ever.",
+      "The finished PDF is added to the resource library. No account or payment required, ever.",
   },
 ];
 
