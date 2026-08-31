@@ -7,7 +7,11 @@ import { resources, SUBJECTS, RESOURCE_TYPES } from "@/data/resources";
 const ALL_SUBJECTS = "All Subjects";
 const ALL_TYPES = "All Types";
 
-export default function ResourcesClient() {
+export default function ResourcesClient({
+  thumbnails,
+}: {
+  thumbnails: Record<string, string | null>;
+}) {
   const [query, setQuery] = useState("");
   const [subject, setSubject] = useState<string>(ALL_SUBJECTS);
   const [type, setType] = useState<string>(ALL_TYPES);
@@ -82,7 +86,11 @@ export default function ResourcesClient() {
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {filtered.map((resource) => (
-          <ResourceCard key={resource.slug} resource={resource} />
+          <ResourceCard
+            key={resource.slug}
+            resource={resource}
+            thumbnailSrc={thumbnails[resource.slug]}
+          />
         ))}
       </div>
 

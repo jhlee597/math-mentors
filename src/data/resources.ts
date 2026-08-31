@@ -49,7 +49,7 @@ export interface Resource {
 
 export const resources: Resource[] = [
   {
-    slug: "sample-resource",
+    slug: "complex",
     title: "A Guide to Complex Numbers",
     subject: "Precalculus",
     type: "Full Guide",
@@ -58,7 +58,7 @@ export const resources: Resource[] = [
       "This guide builds up complex numbers from scratch: real and imaginary parts, the four basic operations, and the complex plane, before moving into the modulus, argument, polar form, De Moivre's Theorem, and Euler's formula. Every section includes worked examples, full derivations of the key formulas, and a problem set with solutions.",
     authors: ["Juho Lee"],
     intendedFor: "Students who know algebra, basic trigonometry, and the unit circle, and want a single reference that ties complex numbers together from first principles through polar/exponential form.",
-    pdfUrl: "/pdfs/sample-resource.pdf",
+    pdfUrl: "/pdfs/complex.pdf",
     coverLabel: "ℂ",
     accent: "blue",
     featured: true,

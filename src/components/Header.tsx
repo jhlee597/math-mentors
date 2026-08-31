@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -16,9 +17,7 @@ export default function Header() {
           href="/"
           className="flex items-center gap-2 text-lg font-bold tracking-tight text-slate-900 transition-transform duration-200 hover:scale-105"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 text-sm text-white">
-            {site.shortName}
-          </span>
+          <Image src="/logo.png" alt={`${site.name} logo`} width={32} height={32} className="h-8 w-8" preload />
           {site.name}
         </Link>
 

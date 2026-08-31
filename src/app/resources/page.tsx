@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ResourcesClient from "@/components/resources/ResourcesClient";
+import { resources } from "@/data/resources";
+import { getThumbnailSrc } from "@/lib/thumbnails";
 
 export const metadata: Metadata = {
   title: "Resources | Math Mentors",
@@ -7,6 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function ResourcesPage() {
+  const thumbnails = Object.fromEntries(
+    resources.map((r) => [r.slug, getThumbnailSrc(r.pdfUrl)])
+  );
+
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">Resources</h1>
@@ -15,7 +21,7 @@ export default function ResourcesPage() {
       </p>
 
       <div className="mt-10">
-        <ResourcesClient />
+        <ResourcesClient thumbnails={thumbnails} />
       </div>
     </div>
   );

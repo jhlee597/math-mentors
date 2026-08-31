@@ -2,7 +2,13 @@ import Link from "next/link";
 import ResourceCover from "@/components/ResourceCover";
 import type { Resource } from "@/data/resources";
 
-export default function ResourceCard({ resource }: { resource: Resource }) {
+export default function ResourceCard({
+  resource,
+  thumbnailSrc,
+}: {
+  resource: Resource;
+  thumbnailSrc?: string | null;
+}) {
   return (
     <Link
       href={`/resources/${resource.slug}`}
@@ -11,6 +17,7 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
       <ResourceCover
         label={resource.coverLabel}
         accent={resource.accent}
+        thumbnailSrc={thumbnailSrc}
         className="h-20 w-16 shrink-0"
       />
 

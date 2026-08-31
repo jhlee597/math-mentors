@@ -4,6 +4,7 @@ import ResourceCover from "@/components/ResourceCover";
 import Button from "@/components/Button";
 import { getFeaturedResources } from "@/data/resources";
 import { accentBorderTop } from "@/lib/accent";
+import { getThumbnailSrc } from "@/lib/thumbnails";
 
 export default function FeaturedResources() {
   const featured = getFeaturedResources();
@@ -30,7 +31,12 @@ export default function FeaturedResources() {
                 </svg>
               </span>
 
-              <ResourceCover label={resource.coverLabel} accent={resource.accent} className="h-20 w-16" />
+              <ResourceCover
+                label={resource.coverLabel}
+                accent={resource.accent}
+                thumbnailSrc={getThumbnailSrc(resource.pdfUrl)}
+                className="h-40 w-32"
+              />
 
               <h3 className="mt-5 pr-8 text-lg font-bold text-slate-900">{resource.title}</h3>
               <p className="mt-1 text-sm text-slate-500">{resource.subject}</p>

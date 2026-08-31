@@ -8,6 +8,7 @@ import ShareButton from "@/components/resources/ShareButton";
 import ResourceCard from "@/components/ResourceCard";
 import { resources, getResourceBySlug } from "@/data/resources";
 import { accentBorderTop, accentBgSoft, accentText } from "@/lib/accent";
+import { getThumbnailSrc } from "@/lib/thumbnails";
 
 export function generateStaticParams() {
   return resources.map((r) => ({ slug: r.slug }));
@@ -51,7 +52,8 @@ export default async function ResourcePage({
         <ResourceCover
           label={resource.coverLabel}
           accent={resource.accent}
-          className="h-28 w-24 shrink-0"
+          thumbnailSrc={getThumbnailSrc(resource.pdfUrl)}
+          className="h-52 w-44 shrink-0"
         />
 
         <div className="min-w-0">
@@ -130,7 +132,7 @@ export default async function ResourcePage({
           <h2 className="text-xl font-bold text-slate-900">More in {resource.subject}</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {related.map((r) => (
-              <ResourceCard key={r.slug} resource={r} />
+              <ResourceCard key={r.slug} resource={r} thumbnailSrc={getThumbnailSrc(r.pdfUrl)} />
             ))}
           </div>
         </div>
