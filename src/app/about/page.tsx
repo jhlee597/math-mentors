@@ -63,8 +63,7 @@ export default function AboutPage() {
         </div>
         <div>
         <p className="text-sm leading-relaxed text-neutral-500">
-          What started as a handful of students sharing notes has grown into a library
-          used by hundreds of students. Want to help write the next guide?
+          Math mentors began as a small club in the founder's school, aiming to teach peers LaTeX, but now it has grown into a huge, online library. Want to contribute?
         </p>
         <div className="mt-6">
           <Button href="/join">Join the Team</Button>

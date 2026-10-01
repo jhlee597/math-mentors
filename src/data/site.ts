@@ -34,22 +34,16 @@ export const site = {
 
   features: [
     {
-      title: "Written by students, for students",
+      title: "Created by students",
       description:
-        "Every guide is drafted, reviewed, and typeset by members who just took the class themselves.",
+        "Every guide is created by students who recently went through the process of learning the materials themselves.",
       icon: "PencilRuler",
     },
     {
       title: "Always free to access",
       description:
-        "No accounts, no paywalls. Every PDF on this site is free to view, download, and share.",
+        "Every guide on this site is free to use for anyone.",
       icon: "Gift",
-    },
-    {
-      title: "Built with LaTeX",
-      description:
-        "Clean, consistent typesetting across problem sets, cheat sheets, and full-length guides.",
-      icon: "FileText",
     },
     {
       title: "Searchable resource library",
@@ -61,9 +55,9 @@ export const site = {
 
   stats: [
     { value: String(resources.length), label: "Study Guides" },
-    { value: "1000+", label: "Practice Problems" },
+    { value: "50+", label: "Practice Problems" },
     // Update this manually from your Vercel/analytics dashboard as traffic changes.
-    { value: "500+", label: "Visitors per Month" },
+    { value: "100+", label: "Visitors per Month" },
     { value: String(2025), label: "Founded" },
   ],
 };

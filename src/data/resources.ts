@@ -3,12 +3,10 @@
 // (/resources/<slug>) and the filename readers land on.
 
 export const SUBJECTS = [
-  "Algebra 1",
-  "Algebra 2",
+  "Algebra",
   "Geometry",
   "Precalculus",
-  "Calculus AB",
-  "Calculus BC",
+  "Calculus",
   "Statistics",
   "Competition Math",
 ] as const;
@@ -53,11 +51,11 @@ export const resources: Resource[] = [
     title: "A Guide to Complex Numbers",
     subject: "Precalculus",
     type: "Full Guide",
-    summary: "A complete walkthrough of complex numbers, from the basics to polar form and Euler's formula.",
+    summary: "A complete walkthrough of complex numbers until precalculus-level, including practice problems.",
     description:
-      "This guide builds up complex numbers from scratch: real and imaginary parts, the four basic operations, and the complex plane, before moving into the modulus, argument, polar form, De Moivre's Theorem, and Euler's formula. Every section includes worked examples, full derivations of the key formulas, and a problem set with solutions.",
+      "This guide covers:\n• Basic introduction to complex numbers\n• Four operations with complex numbers\n• The Complex Plane\n• The modulus and the argument of a complex number\n• Problem solving techniques with complex numbers\n• Polar coordinates\n• Operations in polar form\n• De Moivre's Theorem\n• Euler's Formula\n• Finding complex roots using De Moivre's Theorem for Roots\n• Comprehensive examples and practice problems for all topics",
     authors: ["Juho Lee"],
-    intendedFor: "Students who know algebra, basic trigonometry, and the unit circle, and want a single reference that ties complex numbers together from first principles through polar/exponential form.",
+    intendedFor: "Students who know basic algebra/trigonometry/geometry who want an organized packet solely on complex numbers.",
     pdfUrl: "/pdfs/complex.pdf",
     coverLabel: "ℂ",
     accent: "blue",

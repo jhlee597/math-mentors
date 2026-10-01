@@ -10,9 +10,9 @@ export interface Testimonial {
 
 export const testimonials: Testimonial[] = [
   {
-    quote: "Sample Response",
+    quote: "The complex numbers guide really helped me in my precalculus class! I didn't really understand them but this helped so much!",
     name: "Anonymous",
-    role: "Calculus Student",
+    role: "Precalculus Student",
     accent: "blue",
   },
 ];

@@ -102,11 +102,11 @@ export default async function ResourcePage({
       <div className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-3">
         <div className="border-t border-neutral-200 pt-5">
           <h2 className="eyebrow">Description</h2>
-          <p className="mt-4 text-[13px] leading-relaxed text-neutral-600">{resource.description}</p>
+          <p className="mt-4 whitespace-pre-line text-[13px] leading-relaxed text-neutral-600">{resource.description}</p>
         </div>
         <div className="border-t border-neutral-200 pt-5">
           <h2 className="eyebrow">Intended For</h2>
-          <p className="mt-4 text-[13px] leading-relaxed text-neutral-600">{resource.intendedFor}</p>
+          <p className="mt-4 whitespace-pre-line text-[13px] leading-relaxed text-neutral-600">{resource.intendedFor}</p>
         </div>
         <div className="border-t border-neutral-200 pt-5">
           <h2 className="eyebrow">
