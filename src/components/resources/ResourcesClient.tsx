@@ -37,7 +37,7 @@ export default function ResourcesClient({
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <svg
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"
             width="16"
             height="16"
             viewBox="0 0 24 24"
@@ -53,14 +53,14 @@ export default function ResourcesClient({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search resources..."
-            className="w-full border border-neutral-200 bg-surface py-3 pl-11 pr-4 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
+            className="w-full rounded-md border border-stone-200 bg-surface py-3 pl-11 pr-4 text-sm text-stone-900 placeholder:text-stone-400 focus:border-stone-900 focus:outline-none"
           />
         </div>
 
         <select
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
-          className="border border-neutral-200 bg-surface px-4 py-3 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
+          className="rounded-md border border-stone-200 bg-surface px-4 py-3 text-sm text-stone-900 focus:border-stone-900 focus:outline-none"
         >
           <option>{ALL_SUBJECTS}</option>
           {SUBJECTS.map((s) => (
@@ -71,7 +71,7 @@ export default function ResourcesClient({
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
-          className="border border-neutral-200 bg-surface px-4 py-3 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
+          className="rounded-md border border-stone-200 bg-surface px-4 py-3 text-sm text-stone-900 focus:border-stone-900 focus:outline-none"
         >
           <option>{ALL_TYPES}</option>
           {RESOURCE_TYPES.map((t) => (
@@ -95,7 +95,7 @@ export default function ResourcesClient({
       </div>
 
       {filtered.length === 0 && (
-        <div className="mt-16 text-sm text-neutral-400">
+        <div className="mt-16 text-sm text-stone-400">
           No resources match your search. Try a different keyword or filter.
         </div>
       )}

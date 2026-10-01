@@ -35,8 +35,8 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <p className="eyebrow">About</p>
-      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">About {site.name}</h1>
-      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-neutral-500">{site.description}</p>
+      <h1 className="mt-5 font-display text-5xl tracking-tight text-stone-950">About {site.name}</h1>
+      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-stone-500">{site.description}</p>
 
       <div className="mt-24">
         <SectionHeading eyebrow="Process" title="How a guide gets made." />
@@ -44,13 +44,13 @@ export default function AboutPage() {
           {steps.map((step, i) => (
             <div
               key={step.title}
-              className="border-t border-neutral-200 pt-5"
+              className="border-t border-stone-200 pt-5"
             >
-              <span className="font-mono text-[11px] text-neutral-400">
+              <span className="font-mono text-[11px] text-stone-400">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-3 text-[13px] text-neutral-900">{step.title}</h3>
-              <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-500">{step.description}</p>
+              <h3 className="mt-3 text-[13px] text-stone-900">{step.title}</h3>
+              <p className="mt-1.5 text-[12px] leading-relaxed text-stone-500">{step.description}</p>
             </div>
           ))}
         </div>
@@ -59,10 +59,10 @@ export default function AboutPage() {
       <div className="mt-24 grid gap-6 sm:grid-cols-[2fr_3fr] sm:gap-16">
         <div>
           <p className="eyebrow">Our story</p>
-          <h2 className="mt-4 text-2xl tracking-tight text-neutral-900">Founded in {site.founded}.</h2>
+          <h2 className="mt-4 font-display text-4xl tracking-tight text-stone-900">Founded in {site.founded}.</h2>
         </div>
         <div>
-        <p className="text-sm leading-relaxed text-neutral-500">
+        <p className="text-sm leading-relaxed text-stone-500">
           What started as a handful of students sharing notes has grown into a library
           used by hundreds of students. Want to help write the next guide?
         </p>

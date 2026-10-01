@@ -1,33 +1,37 @@
 import Button from "@/components/Button";
-import TextLink from "@/components/TextLink";
 import { site } from "@/data/site";
 
 export default function JoinCta() {
   return (
     <section className="py-20">
       <div className="mx-auto max-w-5xl px-6">
-        <p className="eyebrow">Get involved</p>
-        <h2 className="mt-4 text-2xl tracking-tight text-neutral-900">
-          Want to join the team?
-          <span className="block text-neutral-400">No LaTeX experience required.</span>
-        </h2>
+        <div className="grid gap-10 rounded-xl bg-stone-900 px-8 py-14 text-stone-100 sm:px-12 lg:grid-cols-2 lg:items-end">
+          <div>
+            <p className="eyebrow !text-stone-400">
+              <span className="text-orange-300">04 / </span>Get involved
+            </p>
+            <h2 className="mt-4 font-display text-4xl leading-tight tracking-tight sm:text-5xl">
+              Want to join the team?
+              <span className="block italic text-stone-400">No LaTeX experience required.</span>
+            </h2>
+          </div>
 
-        <div className="mt-8 border border-neutral-200 bg-surface px-6 py-6 text-sm leading-relaxed text-neutral-600">
-          We&rsquo;re always looking for students who want to write, typeset, or review study
-          materials. We&rsquo;ll teach you everything you need.
-        </div>
-
-        <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <Button href="/join" className="self-start">
-            Join Math Mentors
-          </Button>
-          <div className="flex gap-6">
-            <TextLink href={site.joinFormUrl} underline>
-              Interest form
-            </TextLink>
-            <TextLink href={site.discordUrl} underline>
-              Discord
-            </TextLink>
+          <div>
+            <p className="text-sm leading-relaxed text-stone-300">
+              We&rsquo;re always looking for students who want to write, typeset, or review study
+              materials. We&rsquo;ll teach you everything you need.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-6">
+              <Button href="/join" variant="inverse">
+                Join Math Mentors
+              </Button>
+              <a href={site.joinFormUrl} className="text-[12px] text-stone-300 transition-colors hover:text-white">
+                Interest form &#8599;
+              </a>
+              <a href={site.discordUrl} className="text-[12px] text-stone-300 transition-colors hover:text-white">
+                Discord &#8599;
+              </a>
+            </div>
           </div>
         </div>
       </div>

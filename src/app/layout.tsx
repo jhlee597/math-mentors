@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
-import { Archivo, Noto_Sans, Geist_Mono } from "next/font/google";
+import { Instrument_Serif, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { site } from "@/data/site";
 import { Analytics } from "@vercel/analytics/next";
 
-const display = Archivo({
-  variable: "--font-archivo",
+const display = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
 });
 
-const body = Noto_Sans({
-  variable: "--font-noto-sans",
+const body = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const mono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  weight: ["400", "500"],
   subsets: ["latin"],
 });
 
@@ -34,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <Header />

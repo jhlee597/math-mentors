@@ -12,7 +12,7 @@ export default function ResourceCard({
   return (
     <Link
       href={`/resources/${resource.slug}`}
-      className="group flex items-start gap-5 border-t border-neutral-200 pt-5"
+      className="group flex items-start gap-5 border-t border-stone-200 pt-5"
     >
       <ResourceCover
         label={resource.coverLabel}
@@ -21,20 +21,20 @@ export default function ResourceCard({
       />
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[11px] text-neutral-400">
+        <p className="truncate text-[11px] text-stone-400">
           {resource.subject} &middot; {resource.type}
         </p>
-        <h3 className="mt-1 truncate text-[15px] text-neutral-900 group-hover:underline group-hover:underline-offset-4">
+        <h3 className="mt-1 truncate text-[15px] text-stone-900 group-hover:underline group-hover:underline-offset-4">
           {resource.title}
         </h3>
-        <p className="mt-1.5 line-clamp-2 text-[12px] leading-relaxed text-neutral-500">
+        <p className="mt-1.5 line-clamp-2 text-[12px] leading-relaxed text-stone-500">
           {resource.summary}
         </p>
       </div>
 
       <span
         aria-hidden
-        className="shrink-0 pt-5 text-sm text-neutral-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-neutral-900"
+        className="shrink-0 pt-5 text-sm text-stone-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-stone-900"
       >
         &rarr;
       </span>

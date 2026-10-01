@@ -5,7 +5,7 @@ type ButtonProps = {
   children: ReactNode;
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "inverse";
   size?: "md" | "lg";
   type?: "button" | "submit";
   className?: string;
@@ -13,18 +13,19 @@ type ButtonProps = {
 };
 
 const base =
-  "group inline-flex items-center justify-between gap-10 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 disabled:pointer-events-none disabled:opacity-60";
+  "group inline-flex items-center gap-3 rounded-md transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900 disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
-  primary: "bg-neutral-950 text-white hover:bg-neutral-800",
+  primary: "bg-stone-900 text-stone-50 hover:bg-accent",
   secondary:
-    "border border-neutral-300 bg-transparent text-neutral-900 hover:border-neutral-900",
-  ghost: "text-neutral-600 hover:text-neutral-900",
+    "border border-stone-300 bg-transparent text-stone-900 hover:border-stone-900",
+  inverse: "bg-background text-stone-900 hover:bg-white",
+  ghost: "text-stone-600 hover:text-stone-900",
 };
 
 const sizes: Record<NonNullable<ButtonProps["size"]>, string> = {
-  md: "px-5 py-2.5 text-[13px]",
-  lg: "px-6 py-3.5 text-sm",
+  md: "px-4 py-2.5 text-[13px]",
+  lg: "px-5 py-3 text-sm",
 };
 
 export default function Button({
