@@ -1,16 +1,19 @@
 export default function SectionHeading({
+  eyebrow,
   title,
   subtitle,
 }: {
+  eyebrow?: string;
   title: string;
   subtitle?: string;
 }) {
   return (
-    <div className="mx-auto max-w-2xl text-center">
-      <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+    <div className="max-w-2xl">
+      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+      <h2 className={`text-2xl tracking-tight text-neutral-900 ${eyebrow ? "mt-4" : ""}`}>
         {title}
       </h2>
-      {subtitle && <p className="mt-4 text-lg text-slate-600">{subtitle}</p>}
+      {subtitle && <p className="mt-3 text-sm leading-relaxed text-neutral-500">{subtitle}</p>}
     </div>
   );
 }

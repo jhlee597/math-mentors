@@ -7,7 +7,6 @@ import ResourceCover from "@/components/ResourceCover";
 import ShareButton from "@/components/resources/ShareButton";
 import ResourceCard from "@/components/ResourceCard";
 import { resources, getResourceBySlug } from "@/data/resources";
-import { accentBorderTop, accentBgSoft, accentText } from "@/lib/accent";
 import { getThumbnailSrc } from "@/lib/thumbnails";
 
 export function generateStaticParams() {
@@ -43,52 +42,46 @@ export default async function ResourcePage({
     .slice(0, 2);
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
-      <Link href="/resources" className="text-sm text-slate-500 transition-colors hover:text-slate-900">
+    <div className="mx-auto max-w-5xl px-6 py-16">
+      <Link href="/resources" className="text-[12px] text-neutral-500 transition-colors hover:text-neutral-950">
         &larr; Back to Resources
       </Link>
 
-      <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
+      <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-start">
         <ResourceCover
           label={resource.coverLabel}
-          accent={resource.accent}
           thumbnailSrc={getThumbnailSrc(resource.pdfUrl)}
           className="h-52 w-44 shrink-0"
         />
 
         <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${accentBgSoft[resource.accent]} ${accentText[resource.accent]}`}>
-              {resource.subject}
-            </span>
-            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-              {resource.type}
-            </span>
-          </div>
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          <p className="eyebrow">
+            {resource.subject} &middot; {resource.type}
+          </p>
+          <h1 className="mt-5 font-display text-3xl font-light tracking-[-0.03em] text-neutral-950 sm:text-4xl">
             {resource.title}
           </h1>
-          <p className="mt-2 text-slate-600">
+          <p className="mt-3 text-sm text-neutral-500">
             by {resource.authors.join(", ")}
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-6">
             <a
               href={resource.pdfUrl}
               download
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-all duration-200 hover:scale-105 hover:shadow-blue-600/30"
+              className="group inline-flex min-w-48 items-center justify-between gap-10 bg-neutral-950 px-6 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-neutral-800"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
               Download PDF
+              <span aria-hidden className="transition-transform duration-200 group-hover:translate-y-0.5">
+                &darr;
+              </span>
             </a>
             <ShareButton title={resource.title} />
           </div>
         </div>
       </div>
 
-      <div className={`mt-10 overflow-hidden rounded-2xl border-t-4 border border-slate-200 bg-surface ${accentBorderTop[resource.accent]}`}>
+      <div className="mt-14 overflow-hidden border border-neutral-200 bg-surface">
         {pdfExists ? (
           <iframe
             src={resource.pdfUrl}
@@ -96,30 +89,30 @@ export default async function ResourcePage({
             className="h-[70vh] w-full"
           />
         ) : (
-          <div className="flex h-72 flex-col items-center justify-center gap-2 px-6 text-center text-slate-400">
-            <p className="font-medium text-slate-600">PDF preview not available yet.</p>
-            <p className="text-sm">
-              Add the file at <code className="text-slate-600">public{resource.pdfUrl}</code> to enable
+          <div className="flex h-72 flex-col items-center justify-center gap-2 px-6 text-center text-neutral-400">
+            <p className="text-sm text-neutral-600">PDF preview not available yet.</p>
+            <p className="text-[12px]">
+              Add the file at <code className="font-mono text-neutral-600">public{resource.pdfUrl}</code> to enable
               the embedded preview and download.
             </p>
           </div>
         )}
       </div>
 
-      <div className="mt-10 grid gap-8 sm:grid-cols-2">
-        <div>
-          <h2 className="font-semibold text-slate-900">Description</h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.description}</p>
+      <div className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-3">
+        <div className="border-t border-neutral-200 pt-5">
+          <h2 className="eyebrow">Description</h2>
+          <p className="mt-4 text-[13px] leading-relaxed text-neutral-600">{resource.description}</p>
         </div>
-        <div>
-          <h2 className="font-semibold text-slate-900">Intended For</h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.intendedFor}</p>
+        <div className="border-t border-neutral-200 pt-5">
+          <h2 className="eyebrow">Intended For</h2>
+          <p className="mt-4 text-[13px] leading-relaxed text-neutral-600">{resource.intendedFor}</p>
         </div>
-        <div>
-          <h2 className="font-semibold text-slate-900">
+        <div className="border-t border-neutral-200 pt-5">
+          <h2 className="eyebrow">
             {resource.authors.length > 1 ? "Authors" : "Author"}
           </h2>
-          <ul className="mt-2 space-y-1 text-sm leading-relaxed text-slate-600">
+          <ul className="mt-4 space-y-1 text-[13px] leading-relaxed text-neutral-600">
             {resource.authors.map((author) => (
               <li key={author}>{author}</li>
             ))}
@@ -128,9 +121,9 @@ export default async function ResourcePage({
       </div>
 
       {related.length > 0 && (
-        <div className="mt-14">
-          <h2 className="text-xl font-bold text-slate-900">More in {resource.subject}</h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <div className="mt-20">
+          <p className="eyebrow">More in {resource.subject}</p>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
             {related.map((r) => (
               <ResourceCard key={r.slug} resource={r} thumbnailSrc={getThumbnailSrc(r.pdfUrl)} />
             ))}

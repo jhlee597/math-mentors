@@ -26,9 +26,9 @@ export default function ShareButton({ title }: { title: string }) {
     <button
       type="button"
       onClick={handleShare}
-      className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 hover:scale-105 hover:border-slate-400 hover:bg-slate-50"
+      className="inline-flex items-center gap-2 border-b border-neutral-300 pb-1 text-[12px] text-neutral-900 transition-colors duration-200 hover:border-neutral-900"
     >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <circle cx="18" cy="5" r="3" />
         <circle cx="6" cy="12" r="3" />
         <circle cx="18" cy="19" r="3" />

@@ -1,22 +1,20 @@
 import { site } from "@/data/site";
-import { accentBorderTop, accentText, accentForIndex } from "@/lib/accent";
 
 export default function Stats() {
   return (
-    <section className="px-6 py-20">
-      <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {site.stats.map((stat, i) => {
-          const accent = accentForIndex(i);
-          return (
-            <div
-              key={stat.label}
-              className={`rounded-2xl border border-t-4 border-slate-200 bg-surface px-6 py-8 text-center ${accentBorderTop[accent]}`}
-            >
-              <p className={`text-4xl font-extrabold ${accentText[accent]}`}>{stat.value}</p>
-              <p className="mt-2 text-sm text-slate-600">{stat.label}</p>
+    <section className="py-20">
+      <div className="mx-auto max-w-5xl px-6">
+        <p className="eyebrow">By the numbers</p>
+        <div className="mt-6 grid grid-cols-2 gap-y-10 lg:grid-cols-4">
+          {site.stats.map((stat) => (
+            <div key={stat.label}>
+              <p className="font-display text-4xl font-light tracking-[-0.03em] text-neutral-900">
+                {stat.value}
+              </p>
+              <p className="mt-2 text-[12px] text-neutral-500">{stat.label}</p>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -15,8 +15,9 @@ export default function ResourcesPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">Resources</h1>
-      <p className="mt-3 max-w-2xl text-slate-600">
+      <p className="eyebrow">Library</p>
+      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">Resources</h1>
+      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neutral-500">
         Search or filter by subject and resource type to find what you need.
       </p>
 

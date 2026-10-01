@@ -35,9 +35,10 @@ export default function NewTestimonialPage() {
 
   if (status === "success") {
     return (
-      <div className="mx-auto max-w-2xl px-6 py-24 text-center">
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Thank you!</h1>
-        <p className="mt-4 text-slate-600">
+      <div className="mx-auto max-w-5xl px-6 py-24">
+        <p className="eyebrow">Received</p>
+        <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">Thank you!</h1>
+        <p className="mt-6 text-sm leading-relaxed text-neutral-500">
           Your testimonial has been sent our way. We review every submission before it goes
           live on the site.
         </p>
@@ -49,18 +50,19 @@ export default function NewTestimonialPage() {
   }
 
   return (
-    <div className="mx-auto max-w-xl px-6 py-16">
-      <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+    <div className="mx-auto max-w-5xl px-6 py-16">
+      <p className="eyebrow">Testimonials</p>
+      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">
         Share Your Experience
       </h1>
-      <p className="mt-3 text-slate-600">
+      <p className="mt-6 max-w-xl text-sm leading-relaxed text-neutral-500">
         Tell other students what our resources have done for you. We read every submission and
         pick a handful to feature on the home page.
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+      <form onSubmit={handleSubmit} className="mt-12 max-w-xl space-y-6">
         <div>
-          <label htmlFor="quote" className="block text-sm font-semibold text-slate-900">
+          <label htmlFor="quote" className="block text-[11px] text-neutral-500">
             Your review
           </label>
           <textarea
@@ -69,12 +71,12 @@ export default function NewTestimonialPage() {
             required
             rows={5}
             placeholder="What did our resources help you with?"
-            className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-900 outline-none focus:border-blue-500"
+            className="mt-2 w-full border border-neutral-200 bg-surface p-3 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
           />
         </div>
 
         <div>
-          <label htmlFor="name" className="block text-sm font-semibold text-slate-900">
+          <label htmlFor="name" className="block text-[11px] text-neutral-500">
             Name (optional)
           </label>
           <input
@@ -82,12 +84,12 @@ export default function NewTestimonialPage() {
             name="name"
             type="text"
             placeholder="e.g. Jordan Lee, or leave blank to stay anonymous"
-            className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-900 outline-none focus:border-blue-500"
+            className="mt-2 w-full border border-neutral-200 bg-surface p-3 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
           />
         </div>
 
         <div>
-          <label htmlFor="role" className="block text-sm font-semibold text-slate-900">
+          <label htmlFor="role" className="block text-[11px] text-neutral-500">
             Type
           </label>
           <input
@@ -96,7 +98,7 @@ export default function NewTestimonialPage() {
             type="text"
             required
             placeholder="e.g. AMC 10 Student, Discord Community Member, Peer Tutor"
-            className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-900 outline-none focus:border-blue-500"
+            className="mt-2 w-full border border-neutral-200 bg-surface p-3 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
           />
         </div>
 
@@ -110,7 +112,7 @@ export default function NewTestimonialPage() {
           <Button type="submit" disabled={status === "submitting"}>
             {status === "submitting" ? "Sending..." : "Submit Review"}
           </Button>
-          <Link href="/" className="text-sm text-slate-500 underline hover:text-slate-900">
+          <Link href="/" className="text-[12px] text-neutral-500 transition-colors hover:text-neutral-950">
             Cancel
           </Link>
         </div>

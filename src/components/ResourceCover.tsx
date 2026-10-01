@@ -1,27 +1,22 @@
 import Image from "next/image";
-import { accentGradient, type Accent } from "@/lib/accent";
 
 /**
  * A resource's cover thumbnail. Renders the matching image from
  * /public/thumbnails (resolved server-side via getThumbnailSrc) when one
- * exists, falling back to a gradient placeholder with the coverLabel otherwise.
+ * exists, falling back to a neutral placeholder with the coverLabel otherwise.
  */
 export default function ResourceCover({
   label,
-  accent,
   thumbnailSrc,
   className = "",
 }: {
   label: string;
-  accent: Accent;
   thumbnailSrc?: string | null;
   className?: string;
 }) {
   if (thumbnailSrc) {
     return (
-      <div
-        className={`relative overflow-hidden rounded-lg bg-gradient-to-br ${accentGradient[accent]} shadow-inner ${className}`}
-      >
+      <div className={`relative overflow-hidden bg-neutral-200 ${className}`}>
         <Image
           src={thumbnailSrc}
           alt={label}
@@ -35,9 +30,9 @@ export default function ResourceCover({
 
   return (
     <div
-      className={`flex items-center justify-center rounded-lg bg-gradient-to-br ${accentGradient[accent]} text-white shadow-inner ${className}`}
+      className={`flex items-center justify-center bg-neutral-200 text-neutral-500 ${className}`}
     >
-      <span className="text-sm font-bold tracking-wide opacity-90">{label}</span>
+      <span className="font-display text-lg font-light">{label}</span>
     </div>
   );
 }

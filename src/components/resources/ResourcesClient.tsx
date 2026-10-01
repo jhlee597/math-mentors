@@ -37,13 +37,13 @@ export default function ResourcesClient({
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <svg
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400"
             width="16"
             height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1.5"
           >
             <circle cx="11" cy="11" r="7" />
             <path d="M21 21l-4.3-4.3" strokeLinecap="round" />
@@ -53,14 +53,14 @@ export default function ResourcesClient({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search resources..."
-            className="w-full rounded-xl border border-slate-200 bg-surface py-3 pl-11 pr-4 text-slate-900 placeholder:text-slate-400 focus:border-blue-600/50 focus:outline-none"
+            className="w-full border border-neutral-200 bg-surface py-3 pl-11 pr-4 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
           />
         </div>
 
         <select
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
-          className="rounded-xl border border-slate-200 bg-surface px-4 py-3 text-slate-900 focus:border-blue-600/50 focus:outline-none"
+          className="border border-neutral-200 bg-surface px-4 py-3 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
         >
           <option>{ALL_SUBJECTS}</option>
           {SUBJECTS.map((s) => (
@@ -71,7 +71,7 @@ export default function ResourcesClient({
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
-          className="rounded-xl border border-slate-200 bg-surface px-4 py-3 text-slate-900 focus:border-blue-600/50 focus:outline-none"
+          className="border border-neutral-200 bg-surface px-4 py-3 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
         >
           <option>{ALL_TYPES}</option>
           {RESOURCE_TYPES.map((t) => (
@@ -80,11 +80,11 @@ export default function ResourcesClient({
         </select>
       </div>
 
-      <p className="mt-4 text-sm text-slate-400">
+      <p className="eyebrow mt-6">
         {filtered.length} resource{filtered.length === 1 ? "" : "s"}
       </p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <div className="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-2">
         {filtered.map((resource) => (
           <ResourceCard
             key={resource.slug}
@@ -95,7 +95,7 @@ export default function ResourcesClient({
       </div>
 
       {filtered.length === 0 && (
-        <div className="mt-16 text-center text-slate-400">
+        <div className="mt-16 text-sm text-neutral-400">
           No resources match your search. Try a different keyword or filter.
         </div>
       )}

@@ -33,36 +33,42 @@ const steps = [
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">About {site.name}</h1>
-      <p className="mt-4 max-w-2xl text-lg text-slate-600">{site.description}</p>
+    <div className="mx-auto max-w-5xl px-6 py-16">
+      <p className="eyebrow">About</p>
+      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">About {site.name}</h1>
+      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-neutral-500">{site.description}</p>
 
-      <div className="mt-16">
-        <SectionHeading title="How a Guide Gets Made" />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+      <div className="mt-24">
+        <SectionHeading eyebrow="Process" title="How a guide gets made." />
+        <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
             <div
               key={step.title}
-              className="rounded-2xl border border-slate-200 bg-surface p-6 transition-all duration-200 hover:-translate-y-1 hover:border-slate-300"
+              className="border-t border-neutral-200 pt-5"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-sm font-bold text-white">
-                {i + 1}
+              <span className="font-mono text-[11px] text-neutral-400">
+                {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-4 font-semibold text-slate-900">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.description}</p>
+              <h3 className="mt-3 text-[13px] text-neutral-900">{step.title}</h3>
+              <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-500">{step.description}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-16 rounded-2xl border border-slate-200 bg-surface p-8 text-center">
-        <h2 className="text-2xl font-bold text-slate-900">Founded in {site.founded}</h2>
-        <p className="mx-auto mt-2 max-w-xl text-slate-600">
+      <div className="mt-24 grid gap-6 sm:grid-cols-[2fr_3fr] sm:gap-16">
+        <div>
+          <p className="eyebrow">Our story</p>
+          <h2 className="mt-4 text-2xl tracking-tight text-neutral-900">Founded in {site.founded}.</h2>
+        </div>
+        <div>
+        <p className="text-sm leading-relaxed text-neutral-500">
           What started as a handful of students sharing notes has grown into a library
           used by hundreds of students. Want to help write the next guide?
         </p>
         <div className="mt-6">
           <Button href="/join">Join the Team</Button>
+        </div>
         </div>
       </div>
     </div>
