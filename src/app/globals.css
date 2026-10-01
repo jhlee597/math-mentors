@@ -1,20 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6f4ef;
-  --foreground: #1c1917;
+  --background: #fafafa;
+  --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: #f6f4ef;
-  --color-foreground: #1c1917;
-  --color-surface: #fdfcf9;
-  --color-border: #e7e5e4;
-  /* Single rust accent, used sparingly (section numbers, active nav, emphasis). */
-  --color-accent: #9a3412;
-  --font-sans: var(--font-plex-sans);
-  --font-display: var(--font-instrument-serif);
-  --font-mono: var(--font-plex-mono);
+  --color-background: #fafafa;
+  --color-foreground: #171717;
+  --color-surface: #ffffff;
+  --color-border: #e5e5e5;
+  --font-sans: var(--font-noto-sans);
+  --font-display: var(--font-archivo);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {
@@ -22,14 +20,13 @@ body {
   color: var(--foreground);
 }
 
-/* Small mono section label, e.g. "01 / what we do". */
+/* Small uppercase, widely tracked section label (e.g. "THE NETWORK"). */
 @utility eyebrow {
-  font-family: var(--font-plex-mono);
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  color: var(--color-stone-500);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-neutral-400);
 }
 
 /* Hide scrollbar but keep native scroll behavior (used by the testimonial rail) */

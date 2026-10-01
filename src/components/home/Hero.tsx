@@ -4,34 +4,34 @@ import { site } from "@/data/site";
 
 export default function Hero() {
   return (
-    <section className="pt-16 pb-16 sm:pt-24 sm:pb-24">
+    <section className="pt-20 pb-16 sm:pt-28 sm:pb-24">
       <div className="mx-auto grid max-w-5xl gap-14 px-6 lg:grid-cols-[3fr_2fr] lg:items-end lg:gap-16">
         <div>
-          <p className="eyebrow">
-            {site.name} <span className="text-accent">/ est. {site.founded}</span>
-          </p>
-          <h1 className="mt-6 text-balance font-display text-5xl leading-[1.05] tracking-tight text-stone-950 sm:text-6xl">
+          <p className="eyebrow">{site.name}</p>
+          <h1 className="mt-5 text-balance font-display text-4xl font-light tracking-[-0.03em] text-neutral-950 sm:text-5xl">
             {site.tagline}.
           </h1>
-          <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-stone-600">{site.hook}</p>
+          <p className="mt-6 max-w-lg text-sm leading-relaxed text-neutral-500">{site.hook}</p>
 
           <div className="mt-10 flex flex-wrap items-center gap-6">
-            <Button href="/resources" size="lg">
+            <Button href="/resources" size="lg" className="min-w-52">
               Browse Resources
             </Button>
             <TextLink href="/join">Join the team</TextLink>
           </div>
         </div>
 
-        {/* Stats, set as a small ledger beside the intro */}
-        <dl className="rounded-lg border border-stone-200 bg-surface">
+        {/* Stats, listed beside the intro */}
+        <dl className="border-t border-neutral-200">
           {site.stats.map((stat) => (
             <div
               key={stat.label}
-              className="flex items-baseline justify-between border-b border-stone-200 px-5 py-4 last:border-b-0"
+              className="flex items-baseline justify-between border-b border-neutral-200 py-4"
             >
-              <dt className="text-[13px] text-stone-500">{stat.label}</dt>
-              <dd className="font-mono text-xl text-stone-900">{stat.value}</dd>
+              <dt className="text-[12px] text-neutral-500">{stat.label}</dt>
+              <dd className="font-display text-3xl font-light tracking-[-0.03em] text-neutral-900">
+                {stat.value}
+              </dd>
             </div>
           ))}
         </dl>

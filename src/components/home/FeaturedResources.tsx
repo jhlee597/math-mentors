@@ -12,7 +12,7 @@ export default function FeaturedResources() {
     <section className="py-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading index="01" eyebrow="Featured" title="From the library" />
+          <SectionHeading eyebrow="Featured" title="From the library" />
           <TextLink href="/resources" underline>
             Browse all resources
           </TextLink>
@@ -23,7 +23,7 @@ export default function FeaturedResources() {
             <Link
               key={resource.slug}
               href={`/resources/${resource.slug}`}
-              className="group flex gap-6 rounded-lg border border-stone-200 bg-surface p-5 transition-colors duration-200 hover:border-stone-400"
+              className="group flex gap-6 border-t border-neutral-200 pt-6"
             >
               <ResourceCover
                 label={resource.coverLabel}
@@ -32,16 +32,16 @@ export default function FeaturedResources() {
               />
 
               <div className="flex min-w-0 flex-col">
-                <p className="font-mono text-[11px] text-stone-400">
+                <p className="text-[11px] text-neutral-400">
                   {resource.subject} &middot; {resource.type}
                 </p>
-                <h3 className="mt-2 font-display text-2xl leading-tight text-stone-900">
+                <h3 className="mt-1.5 text-[15px] leading-snug text-neutral-900 group-hover:underline group-hover:underline-offset-4">
                   {resource.title}
                 </h3>
-                <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-stone-500">
+                <p className="mt-1.5 line-clamp-3 text-[12px] leading-relaxed text-neutral-500">
                   {resource.summary}
                 </p>
-                <span className="mt-auto pt-4 text-[12px] text-stone-500 transition-colors group-hover:text-accent">
+                <span className="mt-auto pt-4 text-[12px] text-neutral-500 transition-colors group-hover:text-neutral-950">
                   Open guide &rarr;
                 </span>
               </div>

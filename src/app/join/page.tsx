@@ -31,8 +31,8 @@ export default function JoinPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <p className="eyebrow">Join</p>
-      <h1 className="mt-5 font-display text-5xl tracking-tight text-stone-950">Join {site.name}</h1>
-      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-stone-500">
+      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">Join {site.name}</h1>
+      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-neutral-500">
         We&rsquo;re a volunteer organization. No experience required, just an interest in math and in
         helping other students learn it.
       </p>
@@ -48,17 +48,17 @@ export default function JoinPage() {
         <SectionHeading eyebrow="Roles" title="Ways to get involved." />
         <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {roles.map((role) => (
-            <div key={role.title} className="border-t border-stone-200 pt-5">
-              <h3 className="text-[13px] text-stone-900">{role.title}</h3>
-              <p className="mt-1.5 text-[12px] leading-relaxed text-stone-500">{role.description}</p>
+            <div key={role.title} className="border-t border-neutral-200 pt-5">
+              <h3 className="text-[13px] text-neutral-900">{role.title}</h3>
+              <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-500">{role.description}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <p className="mt-24 text-[12px] text-stone-400">
+      <p className="mt-24 text-[12px] text-neutral-400">
         Questions first?{" "}
-        <a href={`mailto:${site.contactEmail}`} className="text-stone-700 underline underline-offset-4 hover:text-stone-950">
+        <a href={`mailto:${site.contactEmail}`} className="text-neutral-700 underline underline-offset-4 hover:text-neutral-950">
           Contact us
         </a>
         .

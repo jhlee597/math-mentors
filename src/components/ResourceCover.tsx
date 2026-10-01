@@ -16,7 +16,7 @@ export default function ResourceCover({
 }) {
   if (thumbnailSrc) {
     return (
-      <div className={`relative overflow-hidden rounded-sm bg-stone-200 ${className}`}>
+      <div className={`relative overflow-hidden bg-neutral-200 ${className}`}>
         <Image
           src={thumbnailSrc}
           alt={label}
@@ -30,9 +30,9 @@ export default function ResourceCover({
 
   return (
     <div
-      className={`flex items-center justify-center rounded-sm bg-stone-200 text-stone-500 ${className}`}
+      className={`flex items-center justify-center bg-neutral-200 text-neutral-500 ${className}`}
     >
-      <span className="font-display text-2xl">{label}</span>
+      <span className="font-display text-lg font-light">{label}</span>
     </div>
   );
 }

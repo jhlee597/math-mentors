@@ -19,8 +19,8 @@ export default function TextLink({
       href={href}
       className={`group inline-flex items-center gap-2 text-[12px] transition-colors duration-200 ${
         underline
-          ? "border-b border-stone-300 pb-1 text-stone-900 hover:border-stone-900"
-          : "text-stone-500 hover:text-accent"
+          ? "border-b border-neutral-300 pb-1 text-neutral-900 hover:border-neutral-900"
+          : "text-neutral-500 hover:text-neutral-950"
       } ${className}`}
     >
       {children}

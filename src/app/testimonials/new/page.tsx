@@ -37,8 +37,8 @@ export default function NewTestimonialPage() {
     return (
       <div className="mx-auto max-w-5xl px-6 py-24">
         <p className="eyebrow">Received</p>
-        <h1 className="mt-5 font-display text-5xl tracking-tight text-stone-950">Thank you!</h1>
-        <p className="mt-6 text-sm leading-relaxed text-stone-500">
+        <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">Thank you!</h1>
+        <p className="mt-6 text-sm leading-relaxed text-neutral-500">
           Your testimonial has been sent our way. We review every submission before it goes
           live on the site.
         </p>
@@ -52,17 +52,17 @@ export default function NewTestimonialPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <p className="eyebrow">Testimonials</p>
-      <h1 className="mt-5 font-display text-5xl tracking-tight text-stone-950">
+      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">
         Share Your Experience
       </h1>
-      <p className="mt-6 max-w-xl text-sm leading-relaxed text-stone-500">
+      <p className="mt-6 max-w-xl text-sm leading-relaxed text-neutral-500">
         Tell other students what our resources have done for you. We read every submission and
         pick a handful to feature on the home page.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-12 max-w-xl space-y-6">
         <div>
-          <label htmlFor="quote" className="block text-[11px] text-stone-500">
+          <label htmlFor="quote" className="block text-[11px] text-neutral-500">
             Your review
           </label>
           <textarea
@@ -71,12 +71,12 @@ export default function NewTestimonialPage() {
             required
             rows={5}
             placeholder="What did our resources help you with?"
-            className="mt-2 w-full rounded-md border border-stone-200 bg-surface p-3 text-sm text-stone-900 outline-none placeholder:text-stone-400 focus:border-stone-900"
+            className="mt-2 w-full border border-neutral-200 bg-surface p-3 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
           />
         </div>
 
         <div>
-          <label htmlFor="name" className="block text-[11px] text-stone-500">
+          <label htmlFor="name" className="block text-[11px] text-neutral-500">
             Name (optional)
           </label>
           <input
@@ -84,12 +84,12 @@ export default function NewTestimonialPage() {
             name="name"
             type="text"
             placeholder="e.g. Jordan Lee, or leave blank to stay anonymous"
-            className="mt-2 w-full rounded-md border border-stone-200 bg-surface p-3 text-sm text-stone-900 outline-none placeholder:text-stone-400 focus:border-stone-900"
+            className="mt-2 w-full border border-neutral-200 bg-surface p-3 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
           />
         </div>
 
         <div>
-          <label htmlFor="role" className="block text-[11px] text-stone-500">
+          <label htmlFor="role" className="block text-[11px] text-neutral-500">
             Type
           </label>
           <input
@@ -98,7 +98,7 @@ export default function NewTestimonialPage() {
             type="text"
             required
             placeholder="e.g. AMC 10 Student, Discord Community Member, Peer Tutor"
-            className="mt-2 w-full rounded-md border border-stone-200 bg-surface p-3 text-sm text-stone-900 outline-none placeholder:text-stone-400 focus:border-stone-900"
+            className="mt-2 w-full border border-neutral-200 bg-surface p-3 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
           />
         </div>
 
@@ -112,7 +112,7 @@ export default function NewTestimonialPage() {
           <Button type="submit" disabled={status === "submitting"}>
             {status === "submitting" ? "Sending..." : "Submit Review"}
           </Button>
-          <Link href="/" className="text-[12px] text-stone-500 transition-colors hover:text-stone-950">
+          <Link href="/" className="text-[12px] text-neutral-500 transition-colors hover:text-neutral-950">
             Cancel
           </Link>
         </div>

@@ -43,7 +43,7 @@ export default async function ResourcePage({
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <Link href="/resources" className="text-[12px] text-stone-500 transition-colors hover:text-stone-950">
+      <Link href="/resources" className="text-[12px] text-neutral-500 transition-colors hover:text-neutral-950">
         &larr; Back to Resources
       </Link>
 
@@ -58,10 +58,10 @@ export default async function ResourcePage({
           <p className="eyebrow">
             {resource.subject} &middot; {resource.type}
           </p>
-          <h1 className="mt-5 font-display text-4xl tracking-tight text-stone-950 sm:text-5xl">
+          <h1 className="mt-5 font-display text-3xl font-light tracking-[-0.03em] text-neutral-950 sm:text-4xl">
             {resource.title}
           </h1>
-          <p className="mt-3 text-sm text-stone-500">
+          <p className="mt-3 text-sm text-neutral-500">
             by {resource.authors.join(", ")}
           </p>
 
@@ -69,7 +69,7 @@ export default async function ResourcePage({
             <a
               href={resource.pdfUrl}
               download
-              className="group inline-flex items-center gap-3 rounded-md bg-stone-900 px-5 py-3 text-sm text-stone-50 transition-colors duration-200 hover:bg-accent"
+              className="group inline-flex min-w-48 items-center justify-between gap-10 bg-neutral-950 px-6 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-neutral-800"
             >
               Download PDF
               <span aria-hidden className="transition-transform duration-200 group-hover:translate-y-0.5">
@@ -81,7 +81,7 @@ export default async function ResourcePage({
         </div>
       </div>
 
-      <div className="mt-14 overflow-hidden rounded-lg border border-stone-200 bg-surface">
+      <div className="mt-14 overflow-hidden border border-neutral-200 bg-surface">
         {pdfExists ? (
           <iframe
             src={resource.pdfUrl}
@@ -89,10 +89,10 @@ export default async function ResourcePage({
             className="h-[70vh] w-full"
           />
         ) : (
-          <div className="flex h-72 flex-col items-center justify-center gap-2 px-6 text-center text-stone-400">
-            <p className="text-sm text-stone-600">PDF preview not available yet.</p>
+          <div className="flex h-72 flex-col items-center justify-center gap-2 px-6 text-center text-neutral-400">
+            <p className="text-sm text-neutral-600">PDF preview not available yet.</p>
             <p className="text-[12px]">
-              Add the file at <code className="font-mono text-stone-600">public{resource.pdfUrl}</code> to enable
+              Add the file at <code className="font-mono text-neutral-600">public{resource.pdfUrl}</code> to enable
               the embedded preview and download.
             </p>
           </div>
@@ -100,19 +100,19 @@ export default async function ResourcePage({
       </div>
 
       <div className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-3">
-        <div className="border-t border-stone-200 pt-5">
+        <div className="border-t border-neutral-200 pt-5">
           <h2 className="eyebrow">Description</h2>
-          <p className="mt-4 text-[13px] leading-relaxed text-stone-600">{resource.description}</p>
+          <p className="mt-4 text-[13px] leading-relaxed text-neutral-600">{resource.description}</p>
         </div>
-        <div className="border-t border-stone-200 pt-5">
+        <div className="border-t border-neutral-200 pt-5">
           <h2 className="eyebrow">Intended For</h2>
-          <p className="mt-4 text-[13px] leading-relaxed text-stone-600">{resource.intendedFor}</p>
+          <p className="mt-4 text-[13px] leading-relaxed text-neutral-600">{resource.intendedFor}</p>
         </div>
-        <div className="border-t border-stone-200 pt-5">
+        <div className="border-t border-neutral-200 pt-5">
           <h2 className="eyebrow">
             {resource.authors.length > 1 ? "Authors" : "Author"}
           </h2>
-          <ul className="mt-4 space-y-1 text-[13px] leading-relaxed text-stone-600">
+          <ul className="mt-4 space-y-1 text-[13px] leading-relaxed text-neutral-600">
             {resource.authors.map((author) => (
               <li key={author}>{author}</li>
             ))}
