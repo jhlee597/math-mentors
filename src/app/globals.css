@@ -8,50 +8,47 @@
 @theme inline {
   --color-background: #fafafa;
   --color-foreground: #171717;
+  --color-paper: #fafafa;
+  --color-ink: #171717;
   --color-surface: #ffffff;
   --color-border: #e5e5e5;
-  --font-sans: var(--font-noto-sans);
-  --font-display: var(--font-archivo);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-schibsted);
+  --font-display: var(--font-schibsted);
+  /* Easing for the series' one signature motion (spines, arrows). */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scrollbar-color: var(--color-neutral-400) transparent;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  caret-color: var(--color-neutral-900);
+  caret-color: var(--color-ink);
 }
 
 /* Browser surfaces, themed from the palette */
 ::selection {
-  background: var(--color-neutral-900);
-  color: var(--color-neutral-50);
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 :focus-visible {
-  outline: 1.5px solid var(--color-neutral-900);
+  outline: 2px solid var(--color-ink);
   outline-offset: 3px;
 }
 
-html {
-  scrollbar-color: var(--color-neutral-300) transparent;
-  text-underline-offset: 0.25em;
+/* Cover/title setting: the series' heavy, tightly spaced grotesque */
+@utility title-set {
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
 }
 
-/* Figures that line up digit-for-digit (stats, steps) */
-.figures {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-/* Small uppercase, widely tracked label for data fields (Description, Author). */
-@utility field-label {
-  font-size: 10px;
-  line-height: 1;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-neutral-400);
-}
-
-/* Hide scrollbar but keep native scroll behavior (used by the testimonial rail) */
+/* Hide scrollbar but keep native scroll behavior (shelf, review rail) */
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -62,4 +59,13 @@ html {
 
 .text-balance {
   text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

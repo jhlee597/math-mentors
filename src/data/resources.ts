@@ -19,6 +19,26 @@ export const RESOURCE_TYPES = [
 ] as const;
 
 export type Subject = (typeof SUBJECTS)[number];
+
+/** Diagrams the cover can draw; see src/components/series/Figure.tsx. */
+export type CoverFigure =
+  | "complex-plane"
+  | "parabola"
+  | "incircle"
+  | "tangent"
+  | "area"
+  | "bell-curve"
+  | "lattice"
+  | "polynomial";
+
+export const SUBJECT_FIGURES: Record<Subject, CoverFigure> = {
+  Algebra: "parabola",
+  Geometry: "incircle",
+  Precalculus: "complex-plane",
+  Calculus: "tangent",
+  Statistics: "bell-curve",
+  "Competition Math": "lattice",
+};
 export type ResourceType = (typeof RESOURCE_TYPES)[number];
 
 export interface Resource {
@@ -36,10 +56,15 @@ export interface Resource {
   intendedFor: string;
   /** Path to the PDF in /public, e.g. "/pdfs/ace-amc-10-12.pdf". */
   pdfUrl: string;
-  /** Two-ish characters shown on the placeholder cover box (swap for a real cover image later). */
+  /** Short mark for the guide (e.g. "ℂ"); shown on the cover's spine. */
   coverLabel: string;
-  /** Pick from "blue" | "indigo" | "sky" | "cyan" to color the cover + card accent. */
+  /** Legacy field from the old colored theme; no longer displayed. */
   accent: "blue" | "indigo" | "sky" | "cyan";
+  /**
+   * The diagram drawn on the cover. Optional: defaults to a figure for the
+   * guide's subject (see SUBJECT_FIGURES).
+   */
+  figure?: CoverFigure;
   /** Feature this resource on the home page. */
   featured?: boolean;
   dateAdded: string; // ISO date, used for "Newest" sorting
@@ -71,4 +96,37 @@ export function getFeaturedResources(): Resource[] {
 
 export function getResourceBySlug(slug: string): Resource | undefined {
   return resources.find((r) => r.slug === slug);
+}
+
+/** Guides in publication order, oldest first: the order of the series. */
+export function getSeries(): Resource[] {
+  return [...resources].sort((a, b) => (a.dateAdded < b.dateAdded ? -1 : a.dateAdded > b.dateAdded ? 1 : 0));
+}
+
+/** A guide's volume number in the series (1 = first published). */
+export function getVolumeNumber(resource: Resource): number {
+  return getSeries().findIndex((r) => r.slug === resource.slug) + 1;
+}
+
+/** The number the next published guide will get. */
+export function getNextVolumeNumber(): number {
+  return resources.length + 1;
+}
+
+/** "No. 001" */
+export function formatVolume(n: number): string {
+  return `No. ${String(n).padStart(3, "0")}`;
+}
+
+export function getFigure(resource: Resource): CoverFigure {
+  return resource.figure ?? SUBJECT_FIGURES[resource.subject];
+}
+
+/** Topics a guide covers, taken from the "• " lines of its description. */
+export function getTopics(resource: Resource): string[] {
+  return resource.description
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("•"))
+    .map((line) => line.replace(/^•\s*/, ""));
 }

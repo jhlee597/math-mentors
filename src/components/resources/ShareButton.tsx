@@ -28,7 +28,7 @@ export default function ShareButton({ title }: { title: string }) {
       type="button"
       onClick={handleShare}
       aria-live="polite"
-      className="inline-flex min-h-8 items-center gap-2 border-b border-neutral-300 text-[12px] text-neutral-900 transition-colors duration-200 hover:border-neutral-900"
+      className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-ink underline decoration-neutral-400 hover:decoration-current"
     >
       {copied ? <Check className="h-3.5 w-3.5" /> : <Share className="h-3.5 w-3.5" />}
       {copied ? "Link copied!" : "Share"}

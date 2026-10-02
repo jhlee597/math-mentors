@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Noto_Sans, Geist_Mono } from "next/font/google";
+import { Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,18 +7,8 @@ import SourceInspector from "@/components/dev/SourceInspector";
 import { site } from "@/data/site";
 import { Analytics } from "@vercel/analytics/next";
 
-const display = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin"],
-});
-
-const body = Noto_Sans({
-  variable: "--font-noto-sans",
-  subsets: ["latin"],
-});
-
-const mono = Geist_Mono({
-  variable: "--font-geist-mono",
+const grotesk = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
 });
 
@@ -35,11 +25,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
+      className={`${grotesk.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-28">{children}</main>
         <Footer />
         <Analytics />
         {process.env.NODE_ENV === "development" && <SourceInspector />}

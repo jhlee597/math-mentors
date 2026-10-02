@@ -1,8 +1,6 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
-import PageHeader from "@/components/PageHeader";
 import ResourcesClient from "@/components/resources/ResourcesClient";
-import { resources } from "@/data/resources";
-import { getThumbnailSrc } from "@/lib/thumbnails";
 
 export const metadata: Metadata = {
   title: "Resources | Math Mentors",
@@ -10,19 +8,16 @@ export const metadata: Metadata = {
 };
 
 export default function ResourcesPage() {
-  const thumbnails = Object.fromEntries(
-    resources.map((r) => [r.slug, getThumbnailSrc(r.pdfUrl)])
-  );
-
   return (
-    <div className="mx-auto max-w-5xl px-6 py-16">
-      <PageHeader title="Resources">
-        <p>Search or filter by subject and resource type to find what you need.</p>
-      </PageHeader>
-
-      <div className="mt-10">
-        <ResourcesClient thumbnails={thumbnails} />
-      </div>
+    <div className="mx-auto max-w-6xl px-6 pt-12 sm:pt-16">
+      <h1 className="title-set text-[clamp(3rem,7vw,6rem)] text-ink">The library</h1>
+      <p className="mt-5 max-w-[56ch] text-lg leading-relaxed text-neutral-600">
+        Every guide in the series, free to read in your browser or download as a PDF.
+      </p>
+      {/* useSearchParams needs a Suspense boundary on a static page */}
+      <Suspense>
+        <ResourcesClient />
+      </Suspense>
     </div>
   );
 }
