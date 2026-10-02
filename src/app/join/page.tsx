@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Button from "@/components/Button";
+import PageHeader from "@/components/PageHeader";
 import SectionHeading from "@/components/SectionHeading";
 import { site } from "@/data/site";
 
@@ -30,12 +31,12 @@ const roles = [
 export default function JoinPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <p className="eyebrow">Join</p>
-      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">Join {site.name}</h1>
-      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-neutral-500">
-        We&rsquo;re a volunteer organization. No experience required, just an interest in math and in
-        helping other students learn it.
-      </p>
+      <PageHeader title={`Join ${site.name}`}>
+        <p>
+          We&rsquo;re a volunteer organization. No experience required, just an interest in math
+          and in helping other students learn it.
+        </p>
+      </PageHeader>
 
       <div className="mt-10 flex flex-wrap items-center gap-4">
         <Button href={site.joinFormUrl}>Fill Out the Interest Form</Button>
@@ -45,20 +46,20 @@ export default function JoinPage() {
       </div>
 
       <div className="mt-24">
-        <SectionHeading eyebrow="Roles" title="Ways to get involved." />
-        <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionHeading title="Ways to get involved." />
+        <ul className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {roles.map((role) => (
-            <div key={role.title} className="border-t border-neutral-200 pt-5">
-              <h3 className="text-[13px] text-neutral-900">{role.title}</h3>
-              <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-500">{role.description}</p>
-            </div>
+            <li key={role.title} className="border-t border-neutral-200 pt-5">
+              <h3 className="text-sm text-neutral-900">{role.title}</h3>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-neutral-500">{role.description}</p>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
-      <p className="mt-24 text-[12px] text-neutral-400">
+      <p className="mt-24 text-[13px] text-neutral-500">
         Questions first?{" "}
-        <a href={`mailto:${site.contactEmail}`} className="text-neutral-700 underline underline-offset-4 hover:text-neutral-950">
+        <a href={`mailto:${site.contactEmail}`} className="inline-block py-1 text-neutral-900 underline decoration-neutral-300 hover:decoration-neutral-900">
           Contact us
         </a>
         .

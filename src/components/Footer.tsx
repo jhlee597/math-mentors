@@ -1,6 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "@/components/icons";
 import { site } from "@/data/site";
+
+const linkClass =
+  "group inline-flex min-h-7 items-center gap-1.5 text-[12px] text-neutral-600 transition-colors hover:text-neutral-950";
+
+function ExternalLink({ href, children }: { href: string; children: string }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+      {children}
+      <ArrowUpRight className="h-3 w-3 text-neutral-400 transition-colors group-hover:text-neutral-950" />
+    </a>
+  );
+}
 
 export default function Footer() {
   return (
@@ -8,54 +21,50 @@ export default function Footer() {
       <div className="mx-auto max-w-5xl px-6 pt-14 pb-8">
         <div className="grid gap-12 md:grid-cols-[2fr_3fr]">
           <div className="max-w-xs">
-            <Link href="/" className="flex items-center gap-2 font-display text-sm font-semibold tracking-tight text-neutral-950">
-              <Image src="/logo.png" alt={`${site.name} logo`} width={24} height={24} className="h-6 w-6" />
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 font-display text-sm font-semibold tracking-tight text-neutral-950"
+            >
+              <Image src="/logo.png" alt="" width={24} height={24} className="h-6 w-6" />
               {site.name}
             </Link>
             <p className="mt-4 text-[12px] leading-relaxed text-neutral-500">{site.tagline}.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3">
-            <div>
+            <nav aria-label="Footer">
               <p className="text-[11px] text-neutral-400">Site</p>
-              <ul className="mt-3 space-y-2.5">
+              <ul className="mt-2">
                 {site.nav.map((item) => (
                   <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="text-[12px] text-neutral-600 transition-colors hover:text-neutral-950"
-                    >
+                    <Link href={item.href} className={linkClass}>
                       {item.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
             <div>
               <p className="text-[11px] text-neutral-400">Get involved</p>
-              <ul className="mt-3 space-y-2.5 text-[12px] text-neutral-600">
+              <ul className="mt-2">
                 <li>
-                  <a href={site.joinFormUrl} className="transition-colors hover:text-neutral-950">
-                    Interest Form &#8599;
-                  </a>
+                  <ExternalLink href={site.joinFormUrl}>Interest form</ExternalLink>
                 </li>
                 <li>
-                  <a href={site.discordUrl} className="transition-colors hover:text-neutral-950">
-                    Discord &#8599;
-                  </a>
+                  <ExternalLink href={site.discordUrl}>Discord</ExternalLink>
                 </li>
                 <li>
-                  <Link href="/testimonials/new" className="transition-colors hover:text-neutral-950">
-                    Share Your Experience
+                  <Link href="/testimonials/new" className={linkClass}>
+                    Share your experience
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
               <p className="text-[11px] text-neutral-400">Contact</p>
-              <ul className="mt-3 space-y-2.5 text-[12px] text-neutral-600">
+              <ul className="mt-2">
                 <li>
-                  <a href={`mailto:${site.contactEmail}`} className="transition-colors hover:text-neutral-950">
+                  <a href={`mailto:${site.contactEmail}`} className={linkClass}>
                     Email us
                   </a>
                 </li>

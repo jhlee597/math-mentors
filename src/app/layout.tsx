@@ -3,6 +3,7 @@ import { Archivo, Noto_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SourceInspector from "@/components/dev/SourceInspector";
 import { site } from "@/data/site";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -41,6 +42,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <Analytics />
+        {process.env.NODE_ENV === "development" && <SourceInspector />}
       </body>
     </html>
   );

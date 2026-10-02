@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import ResourceCard from "@/components/ResourceCard";
+import { Search } from "@/components/icons";
 import { resources, SUBJECTS, RESOURCE_TYPES } from "@/data/resources";
 
 const ALL_SUBJECTS = "All Subjects";
@@ -36,29 +37,20 @@ export default function ResourcesClient({
     <div>
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <svg
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <path d="M21 21l-4.3-4.3" strokeLinecap="round" />
-          </svg>
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
           <input
-            type="text"
+            type="search"
+            aria-label="Search resources"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search resources..."
+            placeholder="Search by title, subject, or topic"
             className="w-full border border-neutral-200 bg-surface py-3 pl-11 pr-4 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
           />
         </div>
 
         <select
           value={subject}
+          aria-label="Filter by subject"
           onChange={(e) => setSubject(e.target.value)}
           className="border border-neutral-200 bg-surface px-4 py-3 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
         >
@@ -70,6 +62,7 @@ export default function ResourcesClient({
 
         <select
           value={type}
+          aria-label="Filter by type"
           onChange={(e) => setType(e.target.value)}
           className="border border-neutral-200 bg-surface px-4 py-3 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
         >
@@ -80,7 +73,7 @@ export default function ResourcesClient({
         </select>
       </div>
 
-      <p className="eyebrow mt-6">
+      <p className="figures mt-6 text-[12px] text-neutral-500" aria-live="polite">
         {filtered.length} resource{filtered.length === 1 ? "" : "s"}
       </p>
 
@@ -95,8 +88,23 @@ export default function ResourcesClient({
       </div>
 
       {filtered.length === 0 && (
-        <div className="mt-16 text-sm text-neutral-400">
-          No resources match your search. Try a different keyword or filter.
+        <div className="mt-10 border-t border-neutral-200 pt-8">
+          <p className="text-sm text-neutral-900">No resources match your search.</p>
+          <p className="mt-1.5 text-[13px] text-neutral-500">
+            Try a different keyword, or{" "}
+            <button
+              type="button"
+              onClick={() => {
+                setQuery("");
+                setSubject(ALL_SUBJECTS);
+                setType(ALL_TYPES);
+              }}
+              className="text-neutral-900 underline decoration-neutral-300 hover:decoration-neutral-900"
+            >
+              clear all filters
+            </button>
+            .
+          </p>
         </div>
       )}
     </div>

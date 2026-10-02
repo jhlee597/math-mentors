@@ -18,10 +18,32 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  caret-color: var(--color-neutral-900);
 }
 
-/* Small uppercase, widely tracked section label (e.g. "THE NETWORK"). */
-@utility eyebrow {
+/* Browser surfaces, themed from the palette */
+::selection {
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-50);
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--color-neutral-900);
+  outline-offset: 3px;
+}
+
+html {
+  scrollbar-color: var(--color-neutral-300) transparent;
+  text-underline-offset: 0.25em;
+}
+
+/* Figures that line up digit-for-digit (stats, steps) */
+.figures {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Small uppercase, widely tracked label for data fields (Description, Author). */
+@utility field-label {
   font-size: 10px;
   line-height: 1;
   letter-spacing: 0.3em;

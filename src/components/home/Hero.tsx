@@ -7,11 +7,10 @@ export default function Hero() {
     <section className="pt-20 pb-16 sm:pt-28 sm:pb-24">
       <div className="mx-auto grid max-w-5xl gap-14 px-6 lg:grid-cols-[3fr_2fr] lg:items-end lg:gap-16">
         <div>
-          <p className="eyebrow">{site.name}</p>
-          <h1 className="mt-5 text-balance font-display text-4xl font-light tracking-[-0.03em] text-neutral-950 sm:text-5xl">
+          <h1 className="text-balance font-display text-[2.5rem] leading-[1.05] font-light tracking-[-0.035em] text-neutral-950 sm:text-[3.5rem]">
             {site.tagline}.
           </h1>
-          <p className="mt-6 max-w-lg text-sm leading-relaxed text-neutral-500">{site.hook}</p>
+          <p className="mt-7 max-w-[54ch] text-sm leading-relaxed text-neutral-500">{site.hook}</p>
 
           <div className="mt-10 flex flex-wrap items-center gap-6">
             <Button href="/resources" size="lg" className="min-w-52">
@@ -22,7 +21,7 @@ export default function Hero() {
         </div>
 
         {/* Stats, listed beside the intro */}
-        <dl className="border-t border-neutral-200">
+        <dl className="figures border-t border-neutral-200">
           {site.stats.map((stat) => (
             <div
               key={stat.label}

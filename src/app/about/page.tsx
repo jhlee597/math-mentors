@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Button from "@/components/Button";
+import PageHeader from "@/components/PageHeader";
 import SectionHeading from "@/components/SectionHeading";
 import { site } from "@/data/site";
 
@@ -34,40 +35,36 @@ const steps = [
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <p className="eyebrow">About</p>
-      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">About {site.name}</h1>
-      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-neutral-500">{site.description}</p>
+      <PageHeader title={`About ${site.name}`}>
+        <p>{site.description}</p>
+      </PageHeader>
 
       <div className="mt-24">
-        <SectionHeading eyebrow="Process" title="How a guide gets made." />
-        <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionHeading title="How a guide gets made." />
+        <ol className="figures mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
-            <div
-              key={step.title}
-              className="border-t border-neutral-200 pt-5"
-            >
+            <li key={step.title} className="border-t border-neutral-200 pt-5">
+              {/* The order is the process, so the step number carries meaning here. */}
               <span className="font-mono text-[11px] text-neutral-400">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-3 text-[13px] text-neutral-900">{step.title}</h3>
-              <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-500">{step.description}</p>
-            </div>
+              <h3 className="mt-3 text-sm text-neutral-900">{step.title}</h3>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-neutral-500">{step.description}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
 
       <div className="mt-24 grid gap-6 sm:grid-cols-[2fr_3fr] sm:gap-16">
+        <SectionHeading title={`Founded in ${site.founded}.`} />
         <div>
-          <p className="eyebrow">Our story</p>
-          <h2 className="mt-4 text-2xl tracking-tight text-neutral-900">Founded in {site.founded}.</h2>
-        </div>
-        <div>
-        <p className="text-sm leading-relaxed text-neutral-500">
-          Math mentors began as a small club in the founder's school, aiming to teach peers LaTeX, but now it has grown into a huge, online library. Want to contribute?
-        </p>
-        <div className="mt-6">
-          <Button href="/join">Join the Team</Button>
-        </div>
+          <p className="max-w-[60ch] text-sm leading-relaxed text-neutral-500">
+            Math Mentors began as a small club in the founder&rsquo;s school, aiming to teach peers
+            LaTeX, but now it has grown into a huge, online library. Want to contribute?
+          </p>
+          <div className="mt-6">
+            <Button href="/join">Join the Team</Button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ResourceCover from "@/components/ResourceCover";
+import { ArrowRight } from "@/components/icons";
 import type { Resource } from "@/data/resources";
 
 export default function ResourceCard({
@@ -21,23 +22,18 @@ export default function ResourceCard({
       />
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[11px] text-neutral-400">
-          {resource.subject} &middot; {resource.type}
-        </p>
-        <h3 className="mt-1 truncate text-[15px] text-neutral-900 group-hover:underline group-hover:underline-offset-4">
+        <h3 className="text-[15px] leading-snug text-neutral-900 decoration-neutral-400 group-hover:underline">
           {resource.title}
         </h3>
-        <p className="mt-1.5 line-clamp-2 text-[12px] leading-relaxed text-neutral-500">
+        <p className="mt-1 truncate text-[11px] text-neutral-400">
+          {resource.subject} &middot; {resource.type}
+        </p>
+        <p className="mt-2 line-clamp-2 text-[12px] leading-relaxed text-neutral-500">
           {resource.summary}
         </p>
       </div>
 
-      <span
-        aria-hidden
-        className="shrink-0 pt-5 text-sm text-neutral-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-neutral-900"
-      >
-        &rarr;
-      </span>
+      <ArrowRight className="mt-1 h-4 w-4 text-neutral-300 transition-all duration-200 ease-out group-hover:translate-x-1 group-hover:text-neutral-900" />
     </Link>
   );
 }

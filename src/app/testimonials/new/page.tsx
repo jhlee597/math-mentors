@@ -4,6 +4,8 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
+import PageHeader from "@/components/PageHeader";
+import { Check } from "@/components/icons";
 import { site } from "@/data/site";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -36,12 +38,13 @@ export default function NewTestimonialPage() {
   if (status === "success") {
     return (
       <div className="mx-auto max-w-5xl px-6 py-24">
-        <p className="eyebrow">Received</p>
-        <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">Thank you!</h1>
-        <p className="mt-6 text-sm leading-relaxed text-neutral-500">
+        <Check className="mb-6 h-6 w-6 text-neutral-900" />
+        <PageHeader title="Thank you!">
+          <p>
           Your testimonial has been sent our way. We review every submission before it goes
           live on the site.
-        </p>
+          </p>
+        </PageHeader>
         <Button href="/" className="mt-8">
           Back to Home
         </Button>
@@ -51,18 +54,16 @@ export default function NewTestimonialPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <p className="eyebrow">Testimonials</p>
-      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">
-        Share Your Experience
-      </h1>
-      <p className="mt-6 max-w-xl text-sm leading-relaxed text-neutral-500">
+      <PageHeader title="Share Your Experience">
+        <p>
         Tell other students what our resources have done for you. We read every submission and
         pick a handful to feature on the home page.
-      </p>
+        </p>
+      </PageHeader>
 
       <form onSubmit={handleSubmit} className="mt-12 max-w-xl space-y-6">
         <div>
-          <label htmlFor="quote" className="block text-[11px] text-neutral-500">
+          <label htmlFor="quote" className="block text-[12px] text-neutral-700">
             Your review
           </label>
           <textarea
@@ -76,7 +77,7 @@ export default function NewTestimonialPage() {
         </div>
 
         <div>
-          <label htmlFor="name" className="block text-[11px] text-neutral-500">
+          <label htmlFor="name" className="block text-[12px] text-neutral-700">
             Name (optional)
           </label>
           <input
@@ -89,7 +90,7 @@ export default function NewTestimonialPage() {
         </div>
 
         <div>
-          <label htmlFor="role" className="block text-[11px] text-neutral-500">
+          <label htmlFor="role" className="block text-[12px] text-neutral-700">
             Type
           </label>
           <input
@@ -103,7 +104,7 @@ export default function NewTestimonialPage() {
         </div>
 
         {status === "error" && (
-          <p className="text-sm text-red-600">
+          <p role="alert" className="text-sm text-red-700">
             Something went wrong sending your review. Please try again in a moment.
           </p>
         )}
@@ -112,7 +113,7 @@ export default function NewTestimonialPage() {
           <Button type="submit" disabled={status === "submitting"}>
             {status === "submitting" ? "Sending..." : "Submit Review"}
           </Button>
-          <Link href="/" className="text-[12px] text-neutral-500 transition-colors hover:text-neutral-950">
+          <Link href="/" className="inline-flex min-h-11 items-center text-[12px] text-neutral-500 transition-colors hover:text-neutral-950">
             Cancel
           </Link>
         </div>

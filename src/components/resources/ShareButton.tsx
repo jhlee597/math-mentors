@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check, Share } from "@/components/icons";
 
 export default function ShareButton({ title }: { title: string }) {
   const [copied, setCopied] = useState(false);
@@ -26,14 +27,10 @@ export default function ShareButton({ title }: { title: string }) {
     <button
       type="button"
       onClick={handleShare}
-      className="inline-flex items-center gap-2 border-b border-neutral-300 pb-1 text-[12px] text-neutral-900 transition-colors duration-200 hover:border-neutral-900"
+      aria-live="polite"
+      className="inline-flex min-h-8 items-center gap-2 border-b border-neutral-300 text-[12px] text-neutral-900 transition-colors duration-200 hover:border-neutral-900"
     >
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="18" cy="5" r="3" />
-        <circle cx="6" cy="12" r="3" />
-        <circle cx="18" cy="19" r="3" />
-        <path d="M8.6 13.5l6.8 3.9M15.4 6.6L8.6 10.5" strokeLinecap="round" />
-      </svg>
+      {copied ? <Check className="h-3.5 w-3.5" /> : <Share className="h-3.5 w-3.5" />}
       {copied ? "Link copied!" : "Share"}
     </button>
   );

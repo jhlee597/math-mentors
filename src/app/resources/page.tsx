@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageHeader from "@/components/PageHeader";
 import ResourcesClient from "@/components/resources/ResourcesClient";
 import { resources } from "@/data/resources";
 import { getThumbnailSrc } from "@/lib/thumbnails";
@@ -15,11 +16,9 @@ export default function ResourcesPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <p className="eyebrow">Library</p>
-      <h1 className="mt-5 font-display text-4xl font-light tracking-[-0.03em] text-neutral-950">Resources</h1>
-      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neutral-500">
-        Search or filter by subject and resource type to find what you need.
-      </p>
+      <PageHeader title="Resources">
+        <p>Search or filter by subject and resource type to find what you need.</p>
+      </PageHeader>
 
       <div className="mt-10">
         <ResourcesClient thumbnails={thumbnails} />

@@ -7,8 +7,7 @@ export default function JoinCta() {
     <section className="py-20">
       <div className="mx-auto grid max-w-5xl gap-10 px-6 lg:grid-cols-2 lg:items-end">
         <div>
-          <p className="eyebrow">Get involved</p>
-          <h2 className="mt-4 text-2xl tracking-tight text-neutral-900">
+          <h2 className="text-balance font-display text-3xl font-light tracking-[-0.025em] text-neutral-950">
             Want to join the team?
             <span className="block text-neutral-400">No LaTeX experience required.</span>
           </h2>
