@@ -114,7 +114,7 @@ components:
 
 **Creative North Star: "The Numbered Paperback Series"**
 
-Math Mentors presents its library as a mid-century mathematics paperback series. Every guide is a volume with a number (No. 001), a black-and-white cover carrying a real diagram from its topic, and a spine that stands on a shelf. Pages are built from book parts rather than web parts: covers, spines, a shelf, a back-of-book index, a colophon, a credits page, and an ink back cover. The series continues past its last printed volume into a dashed, blank next volume that is always the door to joining.
+Math Mentors presents its library as a mid-century mathematics paperback series. Every guide is a volume with a number (No. 001), a black-and-white cover carrying a real diagram from its topic, and a spine that stands on a shelf. Pages are built from book parts rather than web parts: covers, spines, a shelf, a colophon, a credits page, and an ink back cover. The series continues past its last printed volume into a dashed, blank next volume that is always the door to joining.
 
 The palette is strictly achromatic: paper ground, solid ink fields, and a short neutral ramp for secondary text and rules. One typeface, Schibsted Grotesk, does everything; titles are set at 900, tight and heavy like cover lettering, and running text sits at 400-500. Corners are square everywhere. Structure comes from 2px ink rules and whole-cover modules, not from cards, tints, or shadows. Density is relaxed: wide 80px section rhythm, big titles, short measures.
 
@@ -160,7 +160,7 @@ Neutral-400 (#a3a3a3) is used for secondary text on ink (cover subject lines, ba
 
 ### Hierarchy
 - **Display** (900, clamp 3rem to 6.25rem, 0.92): The page's single masthead line (home, Join, guide title at clamp 2.75rem to 5.5rem). Back cover "Write No. 002." scales to 7rem.
-- **Headline** (900, clamp 2.5rem to 4rem, 0.92): Home and Join section titles ("The series so far", "Index", "Credits for No. 002").
+- **Headline** (900, clamp 2.5rem to 4rem, 0.92): Home and Join section titles ("The series so far", "Credits for No. 002").
 - **Title** (900, clamp 2.25rem to 3.25rem, 0.92): Guide-page section titles (Contents, Read it here). Colophon claims and credit roles use the same setting at clamp 1.6-3rem.
 - **Lead** (400, 18px, 1.625): The paragraph under a display line; capped at 52ch.
 - **Body** (400, 15px, 1.625): Running text, descriptions, index entries; capped at 44-56ch.
@@ -227,8 +227,8 @@ A spine is 56px by 320px on the shelf: series mark at the head, title running bo
 ### Blank Volume
 The unwritten next volume: a 5:7 dashed cover in pencil reading "Your volume here." with the next number. Hover turns border and text to ink and nudges the arrow. It links to Join (or the interest form) and appears wherever the series ends: hero, shelf, library grid, empty results, Join.
 
-### Index
-Back-of-book index: topics grouped under 24px 900 letters in two balanced columns, each entry joined to its volume number by a dotted neutral-400 leader. The hero's subject list uses the same leader pattern with counts.
+### Leader list
+Rows joined to a count or number by a dotted neutral-400 leader on the last line's baseline, like a book's index or contents. Used for the hero's subject list with guide counts.
 
 ## Do's and Don'ts
 

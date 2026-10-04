@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Button from "@/components/Button";
@@ -17,7 +16,6 @@ import {
   getVolumeNumber,
   resources,
 } from "@/data/resources";
-import { getThumbnailSrc } from "@/lib/thumbnails";
 
 export function generateStaticParams() {
   return resources.map((r) => ({ slug: r.slug }));
@@ -49,7 +47,6 @@ export default async function ResourcePage({
   const volume = getVolumeNumber(resource);
   const topics = getTopics(resource);
   const pdfExists = fs.existsSync(path.join(process.cwd(), "public", resource.pdfUrl));
-  const firstPage = getThumbnailSrc(resource.pdfUrl);
   const related = getSeries().filter((r) => r.slug !== resource.slug && r.subject === resource.subject);
 
   return (
@@ -133,20 +130,14 @@ export default async function ResourcePage({
         <section className="mt-20">
           <h2 className="title-set text-[clamp(2.25rem,4vw,3.25rem)] text-ink">Read it here</h2>
 
-          {/* Phones can't scroll an embedded PDF well; they get the first page as a link instead. */}
+          {/* Phones can't scroll an embedded PDF well; they get a link to it instead. */}
           <a
             href={resource.pdfUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="group mt-6 grid grid-cols-[6rem_1fr] items-center gap-5 border-2 border-ink p-3 sm:hidden"
           >
-            {firstPage ? (
-              <span className="relative block aspect-[8.5/11] overflow-hidden bg-white outline outline-1 -outline-offset-1 outline-ink/15">
-                <Image src={firstPage} alt="" fill sizes="96px" loading="eager" className="object-cover object-top grayscale" />
-              </span>
-            ) : (
-              <span className="block aspect-[8.5/11] bg-neutral-200" />
-            )}
+            <Cover resource={resource} />
             <span>
               <span className="block text-lg font-bold leading-tight text-ink">Open the full guide</span>
               <span className="mt-1 inline-flex items-center gap-1.5 text-sm text-neutral-600">

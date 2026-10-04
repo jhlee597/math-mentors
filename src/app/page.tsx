@@ -1,6 +1,5 @@
 import Hero from "@/components/home/Hero";
 import SeriesShelf from "@/components/home/SeriesShelf";
-import TopicIndex from "@/components/home/TopicIndex";
 import Colophon from "@/components/home/Colophon";
 import BackCover from "@/components/home/BackCover";
 
@@ -10,7 +9,6 @@ export default function Home() {
     <div className="-mb-28">
       <Hero />
       <SeriesShelf />
-      <TopicIndex />
       <Colophon />
       <BackCover />
     </div>
