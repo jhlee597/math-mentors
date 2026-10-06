@@ -16,9 +16,12 @@ export function coverTone(volume: number): "ink" | "paper" {
 export default function Cover({
   resource,
   className = "",
+  fill = false,
 }: {
   resource: Resource;
   className?: string;
+  /** Fill the parent box instead of keeping the 5:7 shape (used for the PDF cover page). */
+  fill?: boolean;
 }) {
   const volume = getVolumeNumber(resource);
   const ink = coverTone(volume) === "ink";
@@ -26,7 +29,7 @@ export default function Cover({
 
   return (
     <div
-      className={`@container relative aspect-[5/7] overflow-hidden ${
+      className={`@container relative overflow-hidden ${fill ? "h-full w-full" : "aspect-[5/7]"} ${
         ink ? "bg-ink text-paper" : "bg-white text-ink outline outline-1 -outline-offset-1 outline-ink/15"
       } ${className}`}
     >
