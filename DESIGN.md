@@ -219,7 +219,9 @@ There are no cards. The container unit is the whole cover (see Cover), and lists
 - **Footer (colophon):** 2px ink top rule, wordmark at 30px 900, three link columns with 600 heads, 12px imprint line under a 1px rule.
 
 ### Cover
-The series' one cover design, sized in container units so a single component serves a 120px thumbnail and a 440px hero. Imprint "Math Mentors" and the volume number across the top over a rule, the topic figure set off-center (left inset 16cqw, width 74cqw), the title heavy at the foot, subject and type beneath. Tone follows the Parity Rule.
+The series' one cover design, sized in container units so a single component serves a 120px thumbnail and a 440px hero. Imprint "Math Mentors" and the volume number across the top over a rule, the guide's figure set off-center (left inset 16cqw, width 70cqw), the title heavy at the foot, subject and type beneath. Tone follows the Parity Rule.
+
+Figures are drawn by hand for one specific guide, never assigned by subject; a guide without one prints a title-only cover until its figure is made. Figures are inline SVG in currentColor with non-scaling strokes, and carry math labels in STIX Two Text italic (`font-math`) that hide below a 220px cover.
 
 ### Spine and Shelf (signature)
 A spine is 56px by 320px on the shelf: series mark at the head, title running bottom-to-top in the title setting, number at the foot. On the shelf, spines stand on a 2px ink baseline with 6px gaps. Hover or focus pulls the book up 16px and slides its 192px cover out beside it, both over 500ms on the expo-out curve. The shelf always ends with the blank next volume's dashed spine. Face-out, the spine attaches to the cover's left edge at 12cqw wide.

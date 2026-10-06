@@ -22,6 +22,7 @@ export default function Cover({
 }) {
   const volume = getVolumeNumber(resource);
   const ink = coverTone(volume) === "ink";
+  const figure = getFigure(resource);
 
   return (
     <div
@@ -36,7 +37,7 @@ export default function Cover({
         </div>
         <div className={`mt-[3cqw] h-[0.8cqw] min-h-px ${ink ? "bg-paper" : "bg-ink"}`} />
 
-        <Figure kind={getFigure(resource)} className="mt-[7cqw] ml-[16cqw] w-[74cqw]" />
+        {figure && <Figure kind={figure} className="mt-[6cqw] ml-[16cqw] w-[70cqw] overflow-visible" />}
 
         <div className="mt-auto">
           <p className="title-set text-balance text-[12.5cqw]">{resource.title}</p>

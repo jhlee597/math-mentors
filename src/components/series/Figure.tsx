@@ -1,10 +1,14 @@
 import type { CoverFigure } from "@/data/resources";
 
 /**
- * The diagram printed on a volume's cover: a real figure from the guide's
- * topic, drawn in currentColor on a 100x100 field and set off-center so the
- * rest of the cover stays empty. Strokes don't scale, so the line weight is
- * the same on a 64px spine thumbnail and a 400px cover.
+ * The diagram printed on a volume's cover, drawn by hand for that one guide
+ * (there are no subject defaults). Each figure sits on a 100x100 field in
+ * currentColor; strokes don't scale, so line weight holds from a spine-sized
+ * thumbnail to the hero cover. Labels drop out on small covers, where they
+ * would only be specks.
+ *
+ * To add one: add its key to CoverFigure in src/data/resources.ts, draw it
+ * below, and set `figure` on the guide.
  */
 export default function Figure({
   kind,
@@ -15,16 +19,16 @@ export default function Figure({
   stroke?: number;
   className?: string;
 }) {
-  const line = {
+  const line: Stroke = {
     fill: "none",
     stroke: "currentColor",
     strokeWidth: stroke,
-    vectorEffect: "non-scaling-stroke" as const,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
+    vectorEffect: "non-scaling-stroke",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
   };
-  const thin = { ...line, strokeWidth: Math.max(stroke * 0.5, 0.75) };
-  const dashed = { ...thin, strokeDasharray: "2 3" };
+  const thin: Stroke = { ...line, strokeWidth: Math.max(stroke * 0.5, 0.75) };
+  const dashed: Stroke = { ...thin, strokeDasharray: "2 3" };
 
   return (
     <svg viewBox="0 0 100 100" aria-hidden className={className}>
@@ -44,97 +48,73 @@ type Stroke = {
 };
 type Strokes = Record<"line" | "thin" | "dashed", Stroke>;
 
-const axes = (s: Strokes, x = 50, y = 50) => (
-  <>
-    <path d={`M4 ${y}H96`} {...s.thin} />
-    <path d={`M${x} 96V4`} {...s.thin} />
-  </>
-);
+/** Math labels: STIX italic, like LaTeX's math mode. Hidden on small covers. */
+function Label({
+  x,
+  y,
+  children,
+  anchor = "start",
+  roman = false,
+}: {
+  x: number;
+  y: number;
+  children: React.ReactNode;
+  anchor?: "start" | "middle" | "end";
+  roman?: boolean;
+}) {
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor={anchor}
+      fill="currentColor"
+      stroke="none"
+      fontSize={roman ? 5.5 : 7}
+      className={roman ? "font-sans" : "font-math italic"}
+    >
+      {children}
+    </text>
+  );
+}
 
 const FIGURES: Record<CoverFigure, (s: Strokes) => React.ReactNode> = {
-  // z = e^{iθ} on the unit circle
-  "complex-plane": (s) => {
-    const cx = 44, cy = 56, r = 32, t = (38 * Math.PI) / 180;
-    const zx = cx + r * Math.cos(t), zy = cy - r * Math.sin(t);
-    return (
-      <>
-        {axes(s, cx, cy)}
-        <circle cx={cx} cy={cy} r={r} {...s.line} />
-        <path d={`M${cx} ${cy}L${zx} ${zy}`} {...s.line} />
-        <path d={`M${zx} ${zy}V${cy}M${zx} ${zy}H${cx}`} {...s.dashed} />
-        <path d={`M${cx + 9} ${cy}A9 9 0 0 0 ${cx + 9 * Math.cos(t)} ${cy - 9 * Math.sin(t)}`} {...s.thin} />
-        <circle cx={zx} cy={zy} r={2.4} fill="currentColor" />
-      </>
-    );
-  },
-  // y = x² − 2 with its vertex
-  parabola: (s) => (
+  /**
+   * The complex plane: z = a + bi as a point and a vector of length r at
+   * angle θ, its projections a and b, and its conjugate z̄ = a − bi mirrored
+   * below the real axis. Origin (16, 60); z = (56, 28), so a = 40, b = 32,
+   * r = √(40² + 32²) ≈ 51.22, θ = atan(32/40) ≈ 38.66°.
+   */
+  "complex-numbers": (s) => (
     <>
-      {axes(s, 46, 70)}
-      <path d="M18 8Q46 132 74 8" {...s.line} />
-      <path d="M32 46H60" {...s.dashed} />
-      <circle cx={46} cy={70} r={2.4} fill="currentColor" />
-    </>
-  ),
-  // a cubic crossing the axis at three roots
-  polynomial: (s) => (
-    <>
-      {axes(s, 50, 54)}
-      <path d="M8 92C22 4 38 6 50 54S78 104 92 14" {...s.line} />
-      {[15.5, 50, 84.3].map((x) => (
-        <circle key={x} cx={x} cy={54} r={2.2} fill="currentColor" />
-      ))}
-    </>
-  ),
-  // a triangle, its incircle and the bisectors meeting at the incenter
-  incircle: (s) => (
-    <>
-      <path d="M10 86L92 86L58 14Z" {...s.line} />
-      <circle cx={54.45} cy={62.21} r={23.79} {...s.thin} />
-      <path d="M10 86L54.45 62.21M92 86L54.45 62.21M58 14L54.45 62.21" {...s.dashed} />
-      <circle cx={54.45} cy={62.21} r={2.2} fill="currentColor" />
-    </>
-  ),
-  // a curve and its tangent at a point
-  tangent: (s) => (
-    <>
-      {axes(s, 14, 86)}
-      <path d="M14 78C34 74 44 20 62 22S86 60 96 40" {...s.line} />
-      <path d="M22 77.3L64 2.3" {...s.thin} />
-      <circle cx={43.1} cy={39.7} r={2.4} fill="currentColor" />
-    </>
-  ),
-  // a definite integral approximated by rectangles
-  area: (s) => (
-    <>
-      {axes(s, 12, 86)}
-      {/* left-endpoint rectangles: heights are the curve's value at each x */}
-      {[30, 42, 54, 66].map((x, i) => {
-        const h = [32.5, 44.6, 52.4, 50.9][i];
-        return <rect key={x} x={x} y={86 - h} width={12} height={h} {...s.thin} fill="currentColor" fillOpacity={0.12} />;
-      })}
-      <path d="M12 70C30 58 48 26 64 34S86 62 96 54" {...s.line} />
-      <path d="M30 86V30M78 86V40" {...s.dashed} />
-    </>
-  ),
-  // the normal curve with ±1σ marked
-  "bell-curve": (s) => (
-    <>
-      <path d="M4 84H96" {...s.thin} />
-      <path d="M4 83C26 83 34 18 50 18S74 83 96 83" {...s.line} />
-      <path d="M36 84V48M64 84V48" {...s.dashed} />
-      <path d="M50 84V18" {...s.thin} />
-    </>
-  ),
-  // a lattice path through a grid of points
-  lattice: (s) => (
-    <>
-      {Array.from({ length: 6 }, (_, i) =>
-        Array.from({ length: 6 }, (_, j) => (
-          <circle key={`${i}-${j}`} cx={16 + i * 14} cy={16 + j * 14} r={1.6} fill="currentColor" />
-        ))
-      )}
-      <path d="M16 86V72H44V44H58V30H86V16" {...s.line} />
+      {/* axes with arrowheads */}
+      <path d="M4 60H97M94 57.5L97 60L94 62.5" {...s.thin} />
+      <path d="M16 96V5M13.5 8L16 5L18.5 8" {...s.thin} />
+
+      {/* |z| = r, traced as an arc through z */}
+      <path d="M66.44 68.89A51.22 51.22 0 0 0 29.26 10.53" {...s.dashed} />
+
+      {/* z and its projections onto each axis */}
+      <path d="M16 60L56 28" {...s.line} />
+      <path d="M56 28V60M56 28H16" {...s.dashed} />
+      <path d="M25 60A9 9 0 0 0 23.03 54.38" {...s.thin} />
+
+      {/* the conjugate, mirrored across the real axis */}
+      <path d="M16 60L56 92" {...s.thin} />
+      <path d="M56 60V92" {...s.dashed} />
+
+      <circle cx={56} cy={28} r={2.4} fill="currentColor" />
+      <circle cx={56} cy={92} r={2.2} fill="none" stroke="currentColor" strokeWidth={1.2} vectorEffect="non-scaling-stroke" />
+
+      <g className="@max-[220px]:hidden">
+        <Label x={59.5} y={25}>z = a + bi</Label>
+        <Label x={60.5} y={95.5}>z̄ = a − bi</Label>
+        <Label x={32} y={41}>r</Label>
+        <Label x={28.4} y={57.6}>θ</Label>
+        <Label x={58.5} y={67.5}>a</Label>
+        <Label x={11.5} y={30.5} anchor="end">b</Label>
+        <Label x={97} y={55.5} anchor="end" roman>Re</Label>
+        <Label x={19.5} y={8.5} roman>Im</Label>
+      </g>
     </>
   ),
 };

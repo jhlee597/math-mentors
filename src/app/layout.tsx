@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk } from "next/font/google";
+import { Schibsted_Grotesk, STIX_Two_Text } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,6 +9,14 @@ import { Analytics } from "@vercel/analytics/next";
 
 const grotesk = Schibsted_Grotesk({
   variable: "--font-schibsted",
+  subsets: ["latin"],
+});
+
+// Math notation on the covers (variables, labels), set the way LaTeX sets it.
+const math = STIX_Two_Text({
+  variable: "--font-stix",
+  style: "italic",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -25,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${grotesk.variable} h-full antialiased`}
+      className={`${grotesk.variable} ${math.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <Header />

@@ -20,25 +20,12 @@ export const RESOURCE_TYPES = [
 
 export type Subject = (typeof SUBJECTS)[number];
 
-/** Diagrams the cover can draw; see src/components/series/Figure.tsx. */
-export type CoverFigure =
-  | "complex-plane"
-  | "parabola"
-  | "incircle"
-  | "tangent"
-  | "area"
-  | "bell-curve"
-  | "lattice"
-  | "polynomial";
-
-export const SUBJECT_FIGURES: Record<Subject, CoverFigure> = {
-  Algebra: "parabola",
-  Geometry: "incircle",
-  Precalculus: "complex-plane",
-  Calculus: "tangent",
-  Statistics: "bell-curve",
-  "Competition Math": "lattice",
-};
+/**
+ * Cover diagrams, each drawn by hand for one specific guide (see
+ * src/components/series/Figure.tsx). There are no subject defaults: a guide
+ * without a figure gets a plain cover until one is drawn for it.
+ */
+export type CoverFigure = "complex-numbers";
 export type ResourceType = (typeof RESOURCE_TYPES)[number];
 
 export interface Resource {
@@ -61,8 +48,8 @@ export interface Resource {
   /** Legacy field from the old colored theme; no longer displayed. */
   accent: "blue" | "indigo" | "sky" | "cyan";
   /**
-   * The diagram drawn on the cover. Optional: defaults to a figure for the
-   * guide's subject (see SUBJECT_FIGURES).
+   * The diagram drawn on this guide's cover. Optional: leave it out and the
+   * cover prints title only. Figures are made per guide, never per subject.
    */
   figure?: CoverFigure;
   /** Feature this resource on the home page. */
@@ -83,6 +70,7 @@ export const resources: Resource[] = [
     intendedFor: "Students who know basic algebra/trigonometry/geometry who want an organized packet solely on complex numbers.",
     pdfUrl: "/pdfs/complex.pdf",
     coverLabel: "ℂ",
+    figure: "complex-numbers",
     accent: "blue",
     featured: true,
     dateAdded: "2026-07-21",
@@ -118,8 +106,8 @@ export function formatVolume(n: number): string {
   return `No. ${String(n).padStart(3, "0")}`;
 }
 
-export function getFigure(resource: Resource): CoverFigure {
-  return resource.figure ?? SUBJECT_FIGURES[resource.subject];
+export function getFigure(resource: Resource): CoverFigure | undefined {
+  return resource.figure;
 }
 
 /** Topics a guide covers, taken from the "• " lines of its description. */
