@@ -39,8 +39,7 @@ export default function BackCover() {
           </h2>
           <div>
             <p className="max-w-[46ch] text-[15px] leading-relaxed text-neutral-300">
-              We need writers, LaTeX typesetters, reviewers, and people to spread the word. No LaTeX
-              experience required. We&rsquo;ll teach you.
+              Join us to use your passion for mathematics to create real impact. {site.noLatexNeeded}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Button href="/join" variant="inverse">

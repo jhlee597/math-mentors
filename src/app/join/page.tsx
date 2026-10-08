@@ -10,30 +10,6 @@ export const metadata: Metadata = {
   description: "Join Math Mentors and help write free study guides for your school.",
 };
 
-// Each role is a line on the next volume's credits page.
-const roles = [
-  {
-    credit: "Written by",
-    title: "Content Writer",
-    description: "Draft problems, explanations, and worked examples for a subject you know well.",
-  },
-  {
-    credit: "Typeset by",
-    title: "LaTeX Typesetter",
-    description: "Turn drafts into clean, consistent PDFs using our templates. No experience needed. We'll teach you.",
-  },
-  {
-    credit: "Reviewed by",
-    title: "Reviewer",
-    description: "Check drafts for accuracy and clarity before they're published to the library.",
-  },
-  {
-    credit: "Shared by",
-    title: "Outreach",
-    description: "Help spread the word about our resources to more students and clubs.",
-  },
-];
-
 export default function JoinPage() {
   const next = <VolumeNumber n={getNextVolumeNumber()} />;
 
@@ -45,8 +21,8 @@ export default function JoinPage() {
             Write {next}.
           </h1>
           <p className="mt-7 max-w-[52ch] text-lg leading-relaxed text-neutral-600">
-            We&rsquo;re a volunteer organization. No experience required, just an interest in math
-            and in helping other students learn it.
+            We&rsquo;re a volunteer organization. {site.noLatexNeeded} All you need is an interest in
+            math and in helping other students learn it.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href={site.joinFormUrl} size="lg">
@@ -65,10 +41,11 @@ export default function JoinPage() {
           Credits for {next}
         </h2>
         <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-neutral-600">
-          Every volume needs four kinds of people. Your name could go on any of these lines.
+          Every volume needs all three. Your name could go on any of these lines.
         </p>
         <dl className="mt-8 border-t-2 border-ink">
-          {roles.map((role) => (
+          {/* Each role is a line on the next volume's credits page. */}
+          {site.roles.map((role) => (
             <div key={role.title} className="grid gap-2 border-b border-border py-6 sm:grid-cols-[12rem_1fr_1.3fr] sm:items-baseline sm:gap-8">
               <dt className="text-sm text-neutral-500">{role.credit}</dt>
               <dd className="title-set text-[clamp(1.6rem,2.6vw,2.25rem)] text-ink">{role.title}</dd>

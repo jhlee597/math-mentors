@@ -96,6 +96,11 @@ export function getVolumeNumber(resource: Resource): number {
   return getSeries().findIndex((r) => r.slug === resource.slug) + 1;
 }
 
+/** Guides a person wrote, in series order. */
+export function getVolumesBy(name: string): Resource[] {
+  return getSeries().filter((r) => r.authors.includes(name));
+}
+
 /** The number the next published guide will get. */
 export function getNextVolumeNumber(): number {
   return resources.length + 1;

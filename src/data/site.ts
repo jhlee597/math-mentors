@@ -2,9 +2,13 @@
 
 import { resources } from "@/data/resources";
 
+// Said wherever we ask people to join (home back cover, About, Join).
+const noLatexNeeded = "No LaTeX experience required. We'll teach you.";
+
 export const site = {
   name: "Math Mentors",
   shortName: "MM",
+  noLatexNeeded,
   tagline: "Free, comprehensive study guides for every kind of math learner",
   hook:
     "We're a student-run volunteer organization that writes LaTeX-typeset problem sheets, packets, equation sheets, and full guides, then gives them away for free, for any math course or level.",
@@ -31,6 +35,33 @@ export const site = {
   // (https://formspree.io/f/xxxxxxxx). Submissions land in your email + the
   // Formspree dashboard for you to review before adding them to testimonials.ts.
   testimonialFormEndpoint: "https://formspree.io/f/mdaqdgjp",
+
+  // The three jobs on every volume. Shown on About and on Join's credits page.
+  roles: [
+    {
+      title: "Writer",
+      credit: "Written by",
+      description:
+        `Pick a topic from a class or competition you've just been through, then draft and typeset the guide in LaTeX: explanations, worked examples, and practice problems. ${noLatexNeeded}`,
+    },
+    {
+      title: "Reviewer",
+      credit: "Reviewed by",
+      description: "Work through every draft for accuracy and clarity before it's published to the library.",
+    },
+    {
+      title: "Outreach",
+      credit: "Shared by",
+      description: "Get finished guides to the students who need them: classmates, teachers, and clubs.",
+    },
+  ],
+
+  // The people on the About page. `roles` must match a title above; `bio` is
+  // one or two sentences and can be left empty until the person writes one.
+  // The volumes each person wrote are picked up from resources.ts by name.
+  team: [
+    { name: "Juho Lee", roles: ["Writer"], bio: "" },
+  ],
 
   features: [
     {

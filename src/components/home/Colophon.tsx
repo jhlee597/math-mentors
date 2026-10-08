@@ -3,15 +3,11 @@ import { site } from "@/data/site";
 const lines = [
   {
     claim: "Written by students who just took the course.",
-    detail: "So every guide explains things the way a classmate would.",
-  },
-  {
-    claim: "Typeset in LaTeX, like a real textbook.",
-    detail: "Every volume uses the same templates, so every guide reads cleanly, whoever wrote it.",
+    detail: "We believe that students who have taken the course can reflect their experiences of learning the materials on their work, since they know exactly what they struggled on. We bring these ideas to reality using LaTeX, an important software that will be used in their future academic career as well.",
   },
   {
     claim: "Complete, and free.",
-    detail: "Full derivations, worked examples, and practice problems. No accounts, no paywalls.",
+    detail: "We publish our work here on the internet for free without any paywalls or any need to create an account.",
   },
 ];
 
@@ -29,9 +25,10 @@ export default function Colophon() {
       <h2 className="sr-only">Why Math Mentors</h2>
       <ol className="border-t-2 border-ink">
         {lines.map((line) => (
-          <li key={line.claim} className="grid gap-3 border-b border-border py-8 md:grid-cols-[1.6fr_1fr] md:items-baseline md:gap-12">
-            <p className="title-set text-balance text-[clamp(1.9rem,3.6vw,3rem)] text-ink">{line.claim}</p>
-            <p className="max-w-[44ch] text-[15px] leading-relaxed text-neutral-600">{line.detail}</p>
+          // Same column split as the hero; both texts trimmed to cap height so their tops line up.
+          <li key={line.claim} className="grid gap-6 border-b border-border py-10 md:grid-cols-[1.35fr_1fr] md:gap-16">
+            <p className="title-set text-balance text-[clamp(1.9rem,3.6vw,3rem)] text-ink [text-box:trim-both_cap_alphabetic]">{line.claim}</p>
+            <p className="max-w-[44ch] text-[15px] leading-relaxed text-neutral-600 [text-box:trim-both_cap_alphabetic]">{line.detail}</p>
           </li>
         ))}
       </ol>
