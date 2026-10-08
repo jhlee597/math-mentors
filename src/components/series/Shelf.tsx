@@ -32,8 +32,8 @@ export default function Shelf() {
                     ink ? "bg-ink text-paper" : "bg-white text-ink outline outline-1 -outline-offset-1 outline-ink/15"
                   }`}
                 />
-                <span className="block w-0 overflow-hidden transition-[width,transform] duration-500 ease-out-expo group-hover:w-48 group-hover:-translate-y-4 group-focus-visible:w-48 group-focus-visible:-translate-y-4">
-                  <Cover resource={resource} className="w-48" />
+                <span className="block w-0 overflow-hidden transition-[width,transform] duration-500 ease-out-expo group-hover:w-56 group-hover:-translate-y-4 group-focus-visible:w-56 group-focus-visible:-translate-y-4">
+                  <Cover resource={resource} className="w-56" />
                 </span>
               </Link>
             </li>

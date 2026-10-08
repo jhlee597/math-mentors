@@ -105,7 +105,7 @@ const FIGURES: Record<CoverFigure, (s: Strokes) => React.ReactNode> = {
       <circle cx={56} cy={28} r={2.4} fill="currentColor" />
       <circle cx={56} cy={92} r={2.2} fill="none" stroke="currentColor" strokeWidth={1.2} vectorEffect="non-scaling-stroke" />
 
-      <g className="@max-[220px]:hidden">
+      <g className="@max-[150px]:hidden">
         <Label x={59.5} y={25}>z = a + bi</Label>
         <Label x={60.5} y={95.5}>z̄ = a − bi</Label>
         <Label x={32} y={41}>r</Label>
