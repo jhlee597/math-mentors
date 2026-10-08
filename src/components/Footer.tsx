@@ -42,11 +42,6 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href={site.discordUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                Discord <ArrowUpRight className="h-3 w-3" />
-              </a>
-            </li>
-            <li>
               <Link href="/testimonials/new" className={linkClass}>
                 Write a review
               </Link>

@@ -28,9 +28,6 @@ export default function JoinPage() {
             <Button href={site.joinFormUrl} size="lg">
               Fill Out the Interest Form
             </Button>
-            <Button href={site.discordUrl} variant="secondary" size="lg">
-              Join our Discord
-            </Button>
           </div>
         </div>
         <BlankVolume className="w-full max-w-64 justify-self-start lg:max-w-72 lg:justify-self-end" href={site.joinFormUrl} />

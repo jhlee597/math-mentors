@@ -27,9 +27,8 @@ export const site = {
 
   // Join page / CTA form.
   joinFormUrl: "https://forms.gle/Dtjab1f5zGi8mrN5A",
-  discordUrl: "https://discord.gg/replace-with-your-invite",
   // All "contact us" links use this email.
-  contactEmail: "legorjuho@gmail.com",
+  contactEmail: "contact@math-mentors.org",
   // Testimonial submissions POST here (a Formspree form endpoint). Sign up at
   // formspree.io, create a form, and replace this with your form's URL
   // (https://formspree.io/f/xxxxxxxx). Submissions land in your email + the

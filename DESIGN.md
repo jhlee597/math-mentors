@@ -146,7 +146,7 @@ A printer's palette: paper, ink, and the grays between them. Nothing else.
 Neutral-400 (#a3a3a3) is used for secondary text on ink (cover subject lines, back-cover captions) and for dotted index leaders and link underlines on paper. On paper it is a rule color, not a text color.
 
 ### Named Rules
-**The No-Hue Rule.** The system is black, white, and neutral gray only. The temporary blue logo image in the header is outside the system; nothing may pick up its color or depend on it.
+**The No-Hue Rule.** The system is black, white, and neutral gray only. The logo is ink too: a radical sign whose stroke forms an M, with a small m under its bar (`public/mark.png` in the header; white-ground versions for the browser and home-screen icons).
 
 **The Parity Rule.** Odd volumes print on ink board with paper type; even volumes print on white board with ink type. Tone is derived from the volume number, never chosen per guide.
 
@@ -243,7 +243,7 @@ Rows joined to a count or number by a dotted neutral-400 leader on the last line
 - **Do** give container-unit type a px floor.
 
 ### Don't:
-- **Don't** introduce any hue, including the logo's blue.
+- **Don't** introduce any hue.
 - **Don't** round corners or wrap content in cards.
 - **Don't** put a shadow on anything that is not a large face-out volume.
 - **Don't** add small uppercase tracked labels or kickers above titles; section heads are the title alone.

@@ -240,7 +240,7 @@
       "kind": "button",
       "refersTo": "button-secondary",
       "description": "Ink outline that inverts to an ink slab on hover.",
-      "html": "<button class=\"ds-btn-secondary\"><span>Join our Discord</span><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h16M14 6l6 6-6 6\"/></svg></button>",
+      "html": "<button class=\"ds-btn-secondary\"><span>See every guide</span><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h16M14 6l6 6-6 6\"/></svg></button>",
       "css": ".ds-btn-secondary{font-family:'Schibsted Grotesk',ui-sans-serif,system-ui,sans-serif;display:inline-flex;align-items:center;justify-content:space-between;gap:32px;min-height:44px;padding:0 16px;font-size:14px;font-weight:600;background:transparent;color:#171717;border:2px solid #171717;border-radius:0;cursor:pointer;transition:background-color .2s,color .2s}.ds-btn-secondary svg{transition:transform .3s cubic-bezier(0.16,1,0.3,1)}.ds-btn-secondary:hover{background:#171717;color:#fafafa}.ds-btn-secondary:hover svg{transform:translateX(4px)}.ds-btn-secondary:focus-visible{outline:2px solid #171717;outline-offset:3px}"
     },
     {

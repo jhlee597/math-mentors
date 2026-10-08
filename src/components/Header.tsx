@@ -19,7 +19,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6">
         <Link href="/" className="flex min-h-14 items-center gap-2.5 text-lg font-black tracking-[-0.04em] text-ink">
-          <Image src="/logo.png" alt="" width={26} height={26} className="h-[26px] w-[26px]" preload />
+          <Image src="/mark.png" alt="" width={26} height={26} className="h-[26px] w-[26px]" preload />
           {site.name}
         </Link>
 
